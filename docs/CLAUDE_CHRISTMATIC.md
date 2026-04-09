@@ -155,6 +155,7 @@ Fallback  : -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
 - ✅ Continent africain = identité visuelle forte
 
 ### Style général
+- Hero title officiel : **"Le cinéma noir Africain au service de l'Évangile"**
 - Fond très sombre (noir #0A0A0A) — expérience cinéma
 - Accents dorés — royauté, foi, Afrique
 - Minimal, épuré, pas de kitsch religieux

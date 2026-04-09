@@ -1,6 +1,6 @@
-# CLAUDE.md — Christmatic
+# CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : avril 2026
+> Dernière mise à jour : avril 2026 — Sprint 2 terminé ✅
 
 ---
 
@@ -10,6 +10,7 @@
 **Tagline :** "Servir le Seigneur Jésus-Christ à travers le cinéma"
 **Concept :** Netflix dédié aux films chrétiens d'Afrique noire (Afrique subsaharienne uniquement — pas de films arabes, pas de films occidentaux)
 **Mission :** Évangéliser et édifier le Corps de Christ via le cinéma africain chrétien
+**Hero title officiel :** "Le cinéma noir Africain au service de l'Évangile"
 
 ### Géographie des contenus acceptés
 - Afrique de l'Ouest : Nigeria (Nollywood), Ghana, Côte d'Ivoire, Sénégal, Cameroun, Bénin, Togo, Burkina Faso...
@@ -19,7 +20,7 @@
 - ❌ Exclus : films arabes (Maroc, Algérie, Tunisie, Égypte), films occidentaux (USA, Europe)
 
 ### Deux sections principales
-- 🇫🇷 **Films en Français** (Côte d'Ivoire, Cameroun, RDC, Sénégal, Bénin...)
+- 🇫🇷 **Films en Français** (Côte d'Ivoire, Cameroun, RDC, Sénégal, Bénin, Gabon...)
 - 🇬🇧 **Films en Anglais** (Nigeria/Nollywood, Ghana, Kenya, Afrique du Sud...)
 
 ---
@@ -28,7 +29,7 @@
 
 | Rôle | Personne | Compétences |
 |---|---|---|
-| Founder / CEO | [Prénom à compléter] | Data analyst, SQL, Python, FastAPI, HTML/CSS/JS Vanilla, Vercel, Netlify, Railway. Bootcamps Emlyon France + Simplon. |
+| Founder / CEO | Raymond Gadji | Data analyst, SQL, Python, FastAPI, HTML/CSS/JS Vanilla, Vercel, Netlify, Railway. Bootcamps Emlyon France + Simplon. |
 | CTO | Claude (Anthropic) | Architecture, code, conseils techniques |
 
 ---
@@ -38,7 +39,7 @@
 ### Concurrents identifiés
 | Plateforme | Type | Prix | Différence avec Christmatic |
 |---|---|---|---|
-| FaithStream (thefaithstream.com) | ONG africaine, lancée fév. 2026 | Gratuit (dons) | Généraliste (Kenya+Nigeria+Hollywood), non-profit, pas de niche Afrique noire uniquement |
+| FaithStream (thefaithstream.com) | ONG africaine, lancée fév. 2026 | Gratuit (dons) | Généraliste, non-profit, pas de niche Afrique noire |
 | HCENTV | App nigériane | Inconnu | Peu visible, peu quali |
 | Lewabo (africanchristianmovies.com) | Américain | Inconnu | Généraliste, UX dépassée |
 | Pure Flix / Angel Studios | Américain | ~$6-13/mois | 100% américain, pas africain |
@@ -80,46 +81,43 @@
 
 ### Frontend
 ```
-Framework : Next.js 14+ (App Router)
+Framework : Next.js 14.2.35 (App Router)
 Déploiement : Vercel (gratuit pour démarrer)
-Style : CSS Modules + variables CSS (pas de Tailwind pour MVP)
+Style : CSS variables globales (globals.css) — pas de Tailwind
 Langue par défaut : Français (toggle FR/EN)
+Node.js : v22.22.2 (LTS)
+npm : 10.9.7
 ```
 
 ### Backend & Base de données
 ```
 BDD : Supabase (PostgreSQL managé)
-Auth : Supabase Auth (email/password + Google OAuth)
-API : Next.js API Routes (pas besoin de FastAPI séparé pour MVP)
-Storage : Supabase Storage (thumbnails, assets)
+URL Supabase : https://hrdtcpksdqoispbvzftg.supabase.co
+Region : West EU (Ireland)
+Package : @supabase/supabase-js
+Auth : Supabase Auth — Sprint 3
 ```
 
 ### Vidéos
 ```
-MVP : YouTube embed (iframes sur vidéos unlisted/public)
-→ Coût 0, migration possible plus tard
-Futur : Cloudflare Stream (~$5/1000 min stockées)
-```
-
-### Paiement
-```
-Stripe (diaspora Europe/Canada)
-→ Intégrer en Phase 2 uniquement
+MVP : YouTube embed (iframes sur vidéos publiques)
+Thumbnails : https://img.youtube.com/vi/[youtube_id]/hqdefault.jpg
+Futur : Cloudflare Stream
 ```
 
 ### Domaines
 ```
-Principal : christmatic.tv (~40-50€/an)
-Redirect : christmatic.com (~12€/an)
+Principal : christmatic.tv (~40-50€/an) ← À ACHETER
+Redirect : christmatic.com (~12€/an) ← À ACHETER
 ```
 
-### Coûts MVP estimés
+### Coûts MVP
 | Poste | Coût/mois |
 |---|---|
 | Domaines (.tv + .com) | ~5€ |
-| Vercel (frontend) | 0€ |
-| Supabase (DB + auth) | 0€ |
-| Vidéos (YouTube embed) | 0€ |
+| Vercel | 0€ |
+| Supabase | 0€ |
+| Vidéos YouTube | 0€ |
 | **Total MVP** | **~5€/mois** |
 
 ---
@@ -128,89 +126,76 @@ Redirect : christmatic.com (~12€/an)
 
 ### Palette de couleurs
 ```css
---color-bg-primary:    #0A0A0A;  /* Fond principal — noir profond */
---color-bg-secondary:  #141414;  /* Fond cartes */
---color-bg-tertiary:   #1E1E1E;  /* Fond hover */
---color-gold:          #D4A843;  /* Or — couleur principale */
---color-gold-light:    #e0b84e;  /* Or hover */
---color-gold-muted:    rgba(212,168,67,0.15); /* Or fond badge */
---color-text-primary:  #F5F5F0;  /* Blanc cassé */
---color-text-muted:    rgba(245,245,240,0.55); /* Texte secondaire */
---color-text-hint:     rgba(245,245,240,0.35); /* Texte tertiaire */
---color-border:        rgba(255,255,255,0.06); /* Bordures subtiles */
---color-border-gold:   rgba(212,168,67,0.2);  /* Bordures dorées */
-```
-
-### Typographie
-```
-Titres    : Playfair Display (Google Fonts) — élégance, cinématographique
-Corps     : Inter (Google Fonts) — lisibilité mobile-first
-Fallback  : -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
+--color-bg-primary:    #0A0A0A;
+--color-bg-secondary:  #141414;
+--color-bg-tertiary:   #1E1E1E;
+--color-gold:          #D4A843;
+--color-gold-light:    #e0b84e;
+--color-gold-muted:    rgba(212,168,67,0.15);
+--color-text-primary:  #F5F5F0;
+--color-text-muted:    rgba(245,245,240,0.55);
+--color-text-hint:     rgba(245,245,240,0.35);
+--color-border:        rgba(255,255,255,0.06);
+--color-border-gold:   rgba(212,168,67,0.2);
+--font-titre:          'Playfair Display', Georgia, serif;
+--font-corps:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 ```
 
 ### Logo
 - Silhouette Afrique noire (SVG) dans un carré doré (#D4A843), border-radius 6px
 - Texte : "CHRIS" blanc + "TMATIC" doré, letterspacing 2px, font-weight 600
-- ❌ Pas de croix (pour ne pas réduire l'identité africaine)
-- ✅ Continent africain = identité visuelle forte
 
 ### Style général
-- Hero title officiel : **"Le cinéma noir Africain au service de l'Évangile"**
 - Fond très sombre (noir #0A0A0A) — expérience cinéma
 - Accents dorés — royauté, foi, Afrique
-- Minimal, épuré, pas de kitsch religieux
-- Cartes films : coins arrondis 8px, overlay gradient bottom
-- Badges : "NOUVEAU", "POPULAIRE", "TOP" — fond or, texte noir
+- Cartes films : 140px x 200px, coins arrondis 8px, overlay gradient bottom
 
 ---
 
-## 7. Structure des Pages (MVP)
+## 7. Structure des Pages
 
 ```
-/                     → Homepage (hero + sections FR + EN)
-/films                → Catalogue complet avec filtres
-/films/[slug]         → Page détail film (player + infos)
-/francais             → Section Films en Français
-/anglais              → Section Films en Anglais
-/recherche            → Recherche par titre, pays, année
-/compte               → Profil utilisateur (Phase 2)
-/soutenir             → Page don / soutien ministère
+/                     → Homepage ✅ FAIT
+/films/[slug]         → Détail film + player ← SPRINT 3
+/francais             → Catalogue FR ← SPRINT 3
+/anglais              → Catalogue EN ← SPRINT 3
+/soutenir             → Don / ministère ← SPRINT 4
+/compte               → Profil (Phase 2)
 ```
 
 ---
 
-## 8. Schéma Base de Données (Supabase / PostgreSQL)
+## 8. Base de Données
 
+### Table films ✅ créée et peuplée
 ```sql
--- Films
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   titre        TEXT NOT NULL,
-  titre_en     TEXT,
   slug         TEXT UNIQUE NOT NULL,
   description  TEXT,
-  description_en TEXT,
   annee        INTEGER,
-  pays         TEXT,               -- 'Nigeria', 'Côte d\'Ivoire', etc.
-  langue       TEXT,               -- 'fr' ou 'en'
-  youtube_id   TEXT,               -- ID YouTube pour embed
+  pays         TEXT,
+  langue       TEXT CHECK (langue IN ('fr', 'en')),
+  youtube_id   TEXT,
   thumbnail_url TEXT,
-  duree_min    INTEGER,            -- durée en minutes
-  tags         TEXT[],             -- ['drame', 'famille', 'évangile']
+  duree_min    INTEGER,
+  tags         TEXT[],
   is_featured  BOOLEAN DEFAULT false,
-  is_published BOOLEAN DEFAULT false,
+  is_published BOOLEAN DEFAULT true,
   created_at   TIMESTAMPTZ DEFAULT now()
 );
+```
 
--- Utilisateurs (géré par Supabase Auth + table profil)
+### Tables Sprint 3
+```sql
 CREATE TABLE profils (
   id           UUID PRIMARY KEY REFERENCES auth.users(id),
   pseudo       TEXT,
-  langue_pref  TEXT DEFAULT 'fr',  -- 'fr' ou 'en'
+  langue_pref  TEXT DEFAULT 'fr',
   created_at   TIMESTAMPTZ DEFAULT now()
 );
 
--- Favoris
 CREATE TABLE favoris (
   id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id   UUID REFERENCES profils(id) ON DELETE CASCADE,
@@ -218,120 +203,137 @@ CREATE TABLE favoris (
   created_at TIMESTAMPTZ DEFAULT now(),
   UNIQUE(user_id, film_id)
 );
-
--- Historique de visionnage
-CREATE TABLE historique (
-  id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id      UUID REFERENCES profils(id) ON DELETE CASCADE,
-  film_id      UUID REFERENCES films(id) ON DELETE CASCADE,
-  progress_pct INTEGER DEFAULT 0,  -- % visionné (0-100)
-  watched_at   TIMESTAMPTZ DEFAULT now()
-);
 ```
 
 ---
 
-## 9. Structure du Projet Next.js
+## 9. Films en base (24 films) ✅
+
+### 🇫🇷 Films en Français (18 films)
+| # | Titre | Pays | YouTube ID |
+|---|---|---|---|
+| 1 | Elle refuse de coucher avec son Patron | Cameroun | sUVfzeEaI2Q |
+| 2 | Un Coeur pour Pardonner | Gabon/Cameroun | evM4mH5EyWI |
+| 3 | Chambre Haute | Gabon/Cameroun | _TCrgCrYaSo |
+| 4 | Ennemi Invisible | Côte d'Ivoire | TlF77UIpiwQ |
+| 5 | Il fait toute chose en son Temps | Cameroun | TQAanLqtw7U |
+| 6 | Sous l'Emprise de l'esprit de l'amertume | Cameroun | 41wR9JHMnrY |
+| 7 | Pourquoi Moi ? La Foi de Madame Yevedo | Gabon | 8LB-kB7Rieg |
+| 8 | Sacrilège | Côte d'Ivoire | 4Qgml4diAV0 |
+| 9 | Le Temps de la Fin | RDC | urddeaWJsQ0 |
+| 10 | Deborah — Réfère toi à tes racines | Côte d'Ivoire | SBITkDa2oMU |
+| 11 | Captifs de l'Homme Fort | Côte d'Ivoire | tSSBrwK_fGw |
+| 12 | Malédiction Héréditaire | Côte d'Ivoire | pTk0kCA687U |
+| 13 | Jacob M'Mayami | Côte d'Ivoire | p6k6SoG0pL0 |
+| 14 | La Repentance 2 | Côte d'Ivoire | mPKFSruDgSs |
+| 15 | La Repentance 1 | Côte d'Ivoire | pRDxLDVrhno |
+| 16 | Les Rescapés de l'Enfer | Côte d'Ivoire | 6OzVDV9Q14M |
+| 17 | Jésus Christ, la Solution | Côte d'Ivoire | LK9VqUFeTT0 |
+| 18 | Et si Demain était Aujourd'hui | Côte d'Ivoire | lXL2Zq55neI |
+
+### 🇬🇧 Films en Anglais (6 films)
+| # | Titre | Pays | YouTube ID |
+|---|---|---|---|
+| 1 | When God is Silent | Nigeria | E4HdiMNLh0w |
+| 2 | The Space Between Us | Nigeria | THeU4f2V9gY |
+| 3 | Spirituals 4 | Nigeria | y41jI31M-3Y |
+| 4 | Prophet Suddenly 3 | Nigeria | m2BNiZWbV50 |
+| 5 | Prophet Suddenly 2 | Nigeria | lb9YjxjWOyU |
+| 6 | Prophet Suddenly 1 | Nigeria | QIoUmnSkOXE |
+
+---
+
+## 10. Structure du Projet
 
 ```
 christmatic/
-├── CLAUDE.md                  ← CE FICHIER
-├── christmatic_preview.html   ← Preview HTML de référence
-├── .env.local                 ← Variables d'environnement (jamais committé)
-├── next.config.js
+├── docs/
+│   ├── CLAUDE_CHRISTMATIC.md  ← CE FICHIER
+│   └── christmatic_preview.html
+├── .env.local                 ← jamais committé
+├── next.config.mjs
 ├── package.json
+├── tsconfig.json
 │
-├── app/                       ← App Router Next.js
-│   ├── layout.tsx             ← Layout global (nav + footer)
-│   ├── page.tsx               ← Homepage
-│   ├── films/
-│   │   ├── page.tsx           ← Catalogue
-│   │   └── [slug]/page.tsx    ← Détail film
-│   ├── francais/page.tsx
-│   ├── anglais/page.tsx
-│   └── soutenir/page.tsx
+├── app/
+│   ├── layout.tsx             ✅ Nav + Footer
+│   ├── page.tsx               ✅ Homepage Supabase
+│   ├── globals.css            ✅ Charte graphique
+│   └── films/[slug]/page.tsx  ← Sprint 3
 │
 ├── components/
-│   ├── Nav.tsx
-│   ├── FilmCard.tsx
-│   ├── FilmRow.tsx            ← Scroll horizontal de cards
-│   ├── HeroBanner.tsx
-│   └── YoutubePlayer.tsx
+│   ├── Nav.tsx                ✅
+│   ├── HeroBanner.tsx         ✅
+│   ├── FilmCard.tsx           ✅
+│   ├── FilmRow.tsx            ✅
+│   └── YoutubePlayer.tsx      ← Sprint 3
 │
-├── lib/
-│   ├── supabase.ts            ← Client Supabase
-│   └── types.ts               ← Types TypeScript (Film, Profil, etc.)
-│
-└── styles/
-    └── globals.css            ← Variables CSS + reset
+└── lib/
+    ├── supabase.ts            ✅
+    └── types.ts               ✅
 ```
 
 ---
 
-## 10. Variables d'Environnement (.env.local)
+## 11. Variables d'Environnement (.env.local)
 
 ```bash
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://xxxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=xxxx
-
-# Stripe (Phase 2 uniquement)
-# STRIPE_SECRET_KEY=sk_live_xxxx
-# NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_xxxx
+NEXT_PUBLIC_SUPABASE_URL=https://hrdtcpksdqoispbvzftg.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 ```
 
 ---
 
-## 11. Roadmap MVP
+## 12. Roadmap MVP
 
-### Sprint 1 — Fondations (semaine 1-2)
-- [ ] Créer repo GitHub `christmatic`
-- [ ] Init projet Next.js 14
-- [ ] Configurer Supabase (DB + Auth)
-- [ ] Mettre en place charte graphique (globals.css)
-- [ ] Composer la Nav + Footer
-- [ ] Acheter christmatic.tv
+### Sprint 1 ✅ TERMINÉ
+- [x] Repo GitHub `raymondgadji/christmatic`
+- [x] Next.js 14.2.35 initialisé
+- [x] Charte graphique globals.css
+- [x] Nav + Footer + HeroBanner + FilmCard + FilmRow
+- [x] Homepage assemblée
+- [ ] Acheter christmatic.tv ← À FAIRE
 
-### Sprint 2 — Catalogue (semaine 3-4)
-- [ ] Créer table `films` dans Supabase
-- [ ] Ajouter les 20 premiers films (YouTube IDs depuis playlist Christmatic)
-- [ ] Homepage : hero + sections FR + EN
-- [ ] Page `/films` avec filtres langue/pays
-- [ ] Page détail `/films/[slug]` avec player YouTube
+### Sprint 2 ✅ TERMINÉ
+- [x] Supabase créé (West EU Ireland)
+- [x] Table `films` PostgreSQL
+- [x] 24 vrais films insérés avec thumbnails YouTube automatiques
+- [x] Homepage connectée à Supabase (films FR + EN)
 
-### Sprint 3 — Auth & UX (semaine 5-6)
+### Sprint 3 ← PROCHAIN
+- [ ] Page `/films/[slug]` avec player YouTube
+- [ ] Composant YoutubePlayer.tsx
+- [ ] Page `/francais` catalogue complet
+- [ ] Page `/anglais` catalogue complet
+- [ ] Vérifier HeroBanner sur homepage
 - [ ] Auth Supabase (inscription/connexion)
 - [ ] Favoris
-- [ ] Historique de visionnage
-- [ ] Toggle FR/EN fonctionnel
-- [ ] SEO de base (meta tags, og:image)
 
-### Sprint 4 — Lancement (semaine 7-8)
-- [ ] Déploiement sur Vercel + domaine christmatic.tv
+### Sprint 4 — Lancement
+- [ ] Déploiement Vercel + christmatic.tv
 - [ ] Page "Soutenir le ministère"
-- [ ] Test mobile + TV (navigateur Chrome sur TV)
-- [ ] Partage sur réseaux (diaspora africaine France/Belgique)
+- [ ] SEO (meta tags, og:image)
+- [ ] Test mobile + TV
+- [ ] Lancement diaspora France/Belgique
 
 ---
 
-## 12. Règles de Travail avec Claude (CTO)
+## 13. Règles de Travail avec Claude (CTO)
 
-- Toujours fournir ce CLAUDE.md en début de session
-- Préciser la tâche : "On travaille sur Sprint X, tâche Y"
-- Si tu copies du code, coller l'erreur exacte pour debug rapide
-- On code **composant par composant**, pas tout d'un coup
-- Le Founder apprend en construisant — le CTO explique chaque décision
-- Langue de travail : **français** pour les discussions, **anglais** pour le code (noms de variables, commentaires)
+- Toujours fournir ce `CLAUDE_CHRISTMATIC.md` en début de session
+- Préciser : "On travaille sur Sprint X, tâche Y"
+- Coller l'erreur exacte pour debug rapide
+- Un composant à la fois
+- Langue : **français** discussions, **anglais** code
 
 ---
 
-## 13. Ressources & Références
+## 14. Ressources
 
-- Preview HTML de référence : `christmatic_preview.html`
-- Playlist YouTube source : `@Christmatic_movies`
-- FaithStream (concurrent) : thefaithstream.com
-- Supabase docs : supabase.com/docs
-- Next.js docs : nextjs.org/docs
+- Repo GitHub : github.com/raymondgadji/christmatic
+- Supabase : supabase.com/dashboard/project/hrdtcpksdqoispbvzftg
+- Playlist YouTube : @Christmatic_movies
+- Concurrent : thefaithstream.com
 - Google Fonts : Playfair Display + Inter
 
 ---

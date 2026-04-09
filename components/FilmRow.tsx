@@ -8,6 +8,7 @@ interface Film {
   tags: string[]
   badge?: string
   thumbnail_url?: string
+  slug: string
 }
 
 interface FilmRowProps {
@@ -61,6 +62,7 @@ export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
             annee={film.annee}
             tags={film.tags?.[0] || ''}
             thumbnailUrl={film.thumbnail_url || ''}
+            slug={film.slug}
           />
         ))}
       </div>

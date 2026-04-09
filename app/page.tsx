@@ -25,6 +25,7 @@ export default async function Home() {
       annee: f.annee,
       tags: f.tags || [],
       thumbnail_url: f.thumbnail_url || '',
+      slug: f.slug,
     }))
 
   return (

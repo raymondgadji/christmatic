@@ -16,12 +16,8 @@ export default function FilmCard({
   thumbnailUrl,
 }: FilmCardProps) {
   return (
-    <div style={{
-      flex: '0 0 140px',
-      cursor: 'pointer',
-    }}>
+    <div style={{ flex: '0 0 140px', cursor: 'pointer' }}>
 
-      {/* THUMBNAIL */}
       <div style={{
         width: '140px',
         height: '200px',
@@ -29,12 +25,12 @@ export default function FilmCard({
         position: 'relative',
         overflow: 'hidden',
         marginBottom: '8px',
-        background: thumbnailUrl ? `url(${thumbnailUrl})` : 'var(--color-bg-tertiary)',
+        backgroundImage: thumbnailUrl ? `url(${thumbnailUrl})` : 'none',
+        backgroundColor: 'var(--color-bg-tertiary)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}>
 
-        {/* BADGE */}
         {badge && (
           <div style={{
             position: 'absolute',
@@ -52,7 +48,6 @@ export default function FilmCard({
           </div>
         )}
 
-        {/* OVERLAY BAS */}
         <div style={{
           position: 'absolute',
           bottom: 0,
@@ -77,7 +72,6 @@ export default function FilmCard({
 
       </div>
 
-      {/* INFOS */}
       <div style={{
         fontSize: '12px',
         color: 'var(--color-text-primary)',

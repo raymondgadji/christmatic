@@ -5,9 +5,9 @@ interface Film {
   titre: string
   pays: string
   annee: number
-  tags: string
+  tags: string[]
   badge?: string
-  thumbnailUrl?: string
+  thumbnail_url?: string
 }
 
 interface FilmRowProps {
@@ -20,7 +20,6 @@ export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
   return (
     <section style={{ padding: '32px 24px 8px' }}>
 
-      {/* HEADER */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -47,7 +46,6 @@ export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
         </span>
       </div>
 
-      {/* SCROLL HORIZONTAL */}
       <div style={{
         display: 'flex',
         gap: '12px',
@@ -56,7 +54,14 @@ export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
         scrollbarWidth: 'none',
       }}>
         {films.map((film) => (
-          <FilmCard key={film.id} {...film} />
+          <FilmCard
+            key={film.id}
+            titre={film.titre}
+            pays={film.pays}
+            annee={film.annee}
+            tags={film.tags?.[0] || ''}
+            thumbnailUrl={film.thumbnail_url || ''}
+          />
         ))}
       </div>
 

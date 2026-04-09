@@ -17,16 +17,23 @@ export default async function Home() {
     .eq('is_published', true)
     .order('created_at', { ascending: false })
 
-  const formatFilms = (films: any[]) =>
-    films.map((f) => ({
-      id: f.id,
-      titre: f.titre,
-      pays: f.pays,
-      annee: f.annee,
-      tags: f.tags || [],
-      thumbnail_url: f.thumbnail_url || '',
-      slug: f.slug,
-    }))
+  const formatFilms = (films: {
+    id: string
+    titre: string
+    pays: string
+    annee: number
+    tags: string[]
+    thumbnail_url: string
+    slug: string
+  }[]) => films.map((f) => ({
+    id: f.id,
+    titre: f.titre,
+    pays: f.pays,
+    annee: f.annee,
+    tags: f.tags || [],
+    thumbnail_url: f.thumbnail_url || '',
+    slug: f.slug,
+  }))
 
   return (
     <>

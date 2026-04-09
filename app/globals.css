@@ -1,33 +1,34 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
 
 * {
   box-sizing: border-box;
-  padding: 0;
   margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg-primary:    #0A0A0A;
+  --color-bg-secondary:  #141414;
+  --color-bg-tertiary:   #1E1E1E;
+  --color-gold:          #D4A843;
+  --color-gold-light:    #e0b84e;
+  --color-gold-muted:    rgba(212,168,67,0.15);
+  --color-text-primary:  #F5F5F0;
+  --color-text-muted:    rgba(245,245,240,0.55);
+  --color-text-hint:     rgba(245,245,240,0.35);
+  --color-border:        rgba(255,255,255,0.06);
+  --color-border-gold:   rgba(212,168,67,0.2);
+  --font-titre:          'Playfair Display', Georgia, serif;
+  --font-corps:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+html, body {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-corps);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -35,8 +36,12 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  cursor: pointer;
+  font-family: var(--font-corps);
+}
+
+img {
+  max-width: 100%;
+  display: block;
 }

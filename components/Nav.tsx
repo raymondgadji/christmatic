@@ -48,8 +48,8 @@ export default function Nav() {
         <Link href="/francais" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
           🇫🇷 Français
         </Link>
-        <Link href="/anglais" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
-          🇬🇧 Anglais
+        <Link href="/english" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
+          🇬🇧 English
         </Link>
       </div>
 

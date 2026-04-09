@@ -38,7 +38,7 @@ export default async function Home() {
       />
       <div style={{ height: '0.5px', background: 'var(--color-border)', margin: '0 24px' }} />
       <FilmRow
-        titre="Films en Anglais"
+        titre="Films in English"
         emoji="🇬🇧"
         films={formatFilms(filmsEn || [])}
       />

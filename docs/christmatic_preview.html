@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHRISTMATIC — Preview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { background: #0A0A0A; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    .root { background: #0A0A0A; color: #F5F5F0; min-height: 100vh; }
+
+    /* NAV */
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 0.5px solid rgba(212,168,67,0.2); }
+    .logo { display: flex; align-items: center; gap: 10px; }
+    .logo-icon { width: 32px; height: 32px; background: #D4A843; border-radius: 6px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    /* Africa silhouette SVG inline */
+    .logo-text { font-size: 16px; font-weight: 600; letter-spacing: 2px; color: #F5F5F0; }
+    .logo-text span { color: #D4A843; }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-link { font-size: 13px; color: rgba(245,245,240,0.6); cursor: pointer; text-decoration: none; }
+    .nav-link.active { color: #D4A843; }
+    .lang-toggle { display: flex; gap: 2px; background: rgba(255,255,255,0.06); border-radius: 6px; padding: 3px; }
+    .lang-btn { font-size: 11px; padding: 3px 8px; border-radius: 4px; cursor: pointer; color: rgba(245,245,240,0.5); border: none; background: transparent; }
+    .lang-btn.active { background: #D4A843; color: #0A0A0A; font-weight: 600; }
+    .nav-avatar { width: 28px; height: 28px; border-radius: 50%; background: rgba(212,168,67,0.2); border: 0.5px solid rgba(212,168,67,0.4); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #D4A843; cursor: pointer; }
+
+    /* HERO */
+    .hero { position: relative; padding: 32px 24px 28px; background: linear-gradient(180deg, rgba(212,168,67,0.06) 0%, transparent 100%); border-bottom: 0.5px solid rgba(255,255,255,0.05); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(212,168,67,0.15); border: 0.5px solid rgba(212,168,67,0.3); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #D4A843; margin-bottom: 14px; }
+    .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #D4A843; flex-shrink: 0; }
+    .hero-title { font-size: 26px; font-weight: 500; line-height: 1.25; margin-bottom: 8px; }
+    .hero-title em { font-style: normal; color: #D4A843; }
+    .hero-sub { font-size: 13px; color: rgba(245,245,240,0.55); line-height: 1.6; max-width: 420px; margin-bottom: 20px; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-primary { background: #D4A843; color: #0A0A0A; border: none; border-radius: 8px; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .btn-primary:hover { background: #e0b84e; }
+    .btn-secondary { background: rgba(255,255,255,0.07); color: #F5F5F0; border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 22px; font-size: 13px; cursor: pointer; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.12); }
+
+    /* STATS */
+    .stats-bar { display: flex; padding: 16px 24px; border-bottom: 0.5px solid rgba(255,255,255,0.06); }
+    .stat { flex: 1; text-align: center; border-right: 0.5px solid rgba(255,255,255,0.06); }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 18px; font-weight: 500; color: #D4A843; }
+    .stat-label { font-size: 10px; color: rgba(245,245,240,0.4); margin-top: 2px; }
+
+    /* SECTIONS */
+    .section { padding: 24px 24px 8px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .section-title { font-size: 15px; font-weight: 500; color: #F5F5F0; display: flex; align-items: center; gap: 8px; }
+    .section-more { font-size: 12px; color: #D4A843; cursor: pointer; text-decoration: none; }
+
+    /* FILM CARDS */
+    .films-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; scrollbar-width: none; -ms-overflow-style: none; }
+    .films-row::-webkit-scrollbar { display: none; }
+    .film-card { flex: 0 0 120px; cursor: pointer; }
+    .film-card:hover .film-thumb { transform: scale(1.03); transition: transform 0.2s ease; }
+    .film-thumb { width: 120px; height: 170px; border-radius: 8px; position: relative; overflow: hidden; margin-bottom: 7px; transition: transform 0.2s ease; }
+    .film-thumb-bg { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 28px; opacity: 0.5; }
+    .film-thumb-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 55px; background: linear-gradient(transparent, rgba(10,10,10,0.92)); border-radius: 0 0 8px 8px; display: flex; align-items: flex-end; padding: 8px; }
+    .film-country { font-size: 9px; color: rgba(245,245,240,0.7); background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 3px; }
+    .film-badge { position: absolute; top: 7px; right: 7px; background: #D4A843; color: #0A0A0A; font-size: 8px; font-weight: 600; padding: 2px 5px; border-radius: 3px; }
+    .film-title { font-size: 11px; color: rgba(245,245,240,0.85); line-height: 1.3; }
+    .film-meta { font-size: 10px; color: rgba(245,245,240,0.4); margin-top: 2px; }
+
+    /* THUMB COLORS */
+    .thumb1 { background: linear-gradient(135deg,#1a1208,#2d1f05); }
+    .thumb2 { background: linear-gradient(135deg,#0d1a12,#0a2015); }
+    .thumb3 { background: linear-gradient(135deg,#1a1015,#2a0a1a); }
+    .thumb4 { background: linear-gradient(135deg,#0d1220,#081828); }
+    .thumb5 { background: linear-gradient(135deg,#1a1208,#281800); }
+
+    /* DIVIDER */
+    .divider { height: 0.5px; background: rgba(255,255,255,0.06); margin: 8px 24px; }
+
+    /* DON BANNER */
+    .don-banner { margin: 16px 24px; background: rgba(212,168,67,0.08); border: 0.5px solid rgba(212,168,67,0.2); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .don-title { font-size: 12px; font-weight: 500; color: #D4A843; margin-bottom: 3px; }
+    .don-sub { font-size: 11px; color: rgba(245,245,240,0.5); }
+    .btn-don { background: #D4A843; color: #0A0A0A; border: none; border-radius: 6px; padding: 7px 14px; font-size: 12px; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+    /* FOOTER */
+    .footer { padding: 16px 24px; text-align: center; border-top: 0.5px solid rgba(255,255,255,0.06); margin-top: 8px; }
+    .footer-text { font-size: 10px; color: rgba(245,245,240,0.25); letter-spacing: 1px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .hero-title { font-size: 22px; }
+      .stats-bar { gap: 0; }
+      .stat-num { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+<div class="root">
+
+  <!-- NAVBAR -->
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-icon">
+        <!-- Africa silhouette SVG -->
+        <svg width="20" height="20" viewBox="0 0 100 120" fill="#0A0A0A" xmlns="http://www.w3.org/2000/svg">
+          <path d="M38,4 C32,4 24,8 20,14 C16,20 14,26 16,32 C10,36 6,42 8,50 C10,58 14,62 12,70 C10,78 14,86 20,92 C26,98 34,104 40,108 C46,112 52,114 56,112 C62,108 68,102 72,96 C76,88 78,80 76,72 C80,68 84,62 82,54 C80,46 76,42 74,36 C78,30 76,22 70,16 C64,10 56,6 50,4 C46,3 42,4 38,4 Z"/>
+        </svg>
+      </div>
+      <div class="logo-text">CHRIS<span>TMATIC</span></div>
+    </div>
+
+    <div class="nav-links">
+      <a class="nav-link active" href="#">Accueil</a>
+      <a class="nav-link" href="#">Films</a>
+      <a class="nav-link" href="#">Séries</a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="lang-toggle">
+        <button class="lang-btn active">FR</button>
+        <button class="lang-btn">EN</button>
+      </div>
+      <div class="nav-avatar">C</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <div class="hero-dot"></div>
+      Films 100% chrétiens d'Afrique noire
+    </div>
+    <h1 class="hero-title">
+      Le cinéma africain<br>au service de <em>l'Évangile</em>
+    </h1>
+    <p class="hero-sub">
+      Films chrétiens d'Afrique subsaharienne — Nollywood, Côte d'Ivoire, Kenya, Ghana. Curatés avec foi.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary">Regarder maintenant</button>
+      <button class="btn-secondary">Découvrir les films</button>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Films</div></div>
+    <div class="stat"><div class="stat-num">5</div><div class="stat-label">Pays</div></div>
+    <div class="stat"><div class="stat-num">FR</div><div class="stat-label">&amp; Anglais</div></div>
+    <div class="stat"><div class="stat-num">0€</div><div class="stat-label">Pour commencer</div></div>
+  </div>
+
+  <!-- SECTION FRANÇAIS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🇫🇷 Films en Français</div>
+      <a class="section-more" href="#">Voir tout →</a>
+    </div>
+    <div class="films-row">
+
+      <div class="film-card">
+        <div class="film-thumb thumb1">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-badge">NOUVEAU</div>
+          <div class="film-thumb-overlay"><span class="film-country">Côte d'Ivoire</span></div>
+        </div>
+        <div class="film-title">Le Chemin de la Grâce</div>
+        <div class="film-meta">2023 · Drame</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb2">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">RDC</span></div>
+        </div>
+        <div class="film-title">Lumière dans les Ténèbres</div>
+        <div class="film-meta">2022 · Foi</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb3">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-badge">POPULAIRE</div>
+          <div class="film-thumb-overlay"><span class="film-country">Cameroun</span></div>
+        </div>
+        <div class="film-title">Rédemption</div>
+        <div class="film-meta">2024 · Drame</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb5">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">Sénégal</span></div>
+        </div>
+        <div class="film-title">La Promesse du Père</div>
+        <div class="film-meta">2023 · Famille</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb1" style="opacity:0.65;">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">Bénin</span></div>
+        </div>
+        <div class="film-title">Délivrance</div>
+        <div class="film-meta">2022 · Évangile</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SECTION ANGLAIS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-title">🇬🇧 Films en Anglais</div>
+      <a class="section-more" href="#">Voir tout →</a>
+    </div>
+    <div class="films-row">
+
+      <div class="film-card">
+        <div class="film-thumb thumb4">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-badge">TOP</div>
+          <div class="film-thumb-overlay"><span class="film-country">Nigeria</span></div>
+        </div>
+        <div class="film-title">High Calling</div>
+        <div class="film-meta">2024 · Nollywood</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb2">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-badge">NOUVEAU</div>
+          <div class="film-thumb-overlay"><span class="film-country">Ghana</span></div>
+        </div>
+        <div class="film-title">God's Calling</div>
+        <div class="film-meta">2023 · Drame</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb3">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">Kenya</span></div>
+        </div>
+        <div class="film-title">Under Siege</div>
+        <div class="film-meta">2024 · Spirituel</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb5">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">Nigeria</span></div>
+        </div>
+        <div class="film-title">Abejoye</div>
+        <div class="film-meta">2022 · Mount Zion</div>
+      </div>
+
+      <div class="film-card">
+        <div class="film-thumb thumb4" style="opacity:0.65;">
+          <div class="film-thumb-bg">🎬</div>
+          <div class="film-thumb-overlay"><span class="film-country">Afrique du Sud</span></div>
+        </div>
+        <div class="film-title">The Promise</div>
+        <div class="film-meta">2023 · Famille</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DON BANNER -->
+  <div class="don-banner">
+    <div>
+      <div class="don-title">Soutiens le ministère</div>
+      <div class="don-sub">Chaque don permet de servir l'Évangile</div>
+    </div>
+    <button class="btn-don">Donner</button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-text">CHRISTMATIC · Servir le Seigneur Jésus-Christ à travers le cinéma</p>
+  </footer>
+
+</div>
+</body>
+</html>

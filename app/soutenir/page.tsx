@@ -1,3 +1,5 @@
+'use client'
+
 export default function SoutenirPage() {
   return (
     <main className="soutenir-page">

@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : avril 2026 — Sprint 3 terminé ✅ — Site EN LIGNE ✅
+> Dernière mise à jour : avril 2026 — Sprint 3 terminé ✅ — Site EN LIGNE ✅ — Domaines connectés ✅
 
 ---
 
@@ -83,7 +83,9 @@
 ```
 Framework : Next.js 14.2.35 (App Router)
 Déploiement : Vercel ✅ EN LIGNE
-URL live : christmatic.vercel.app
+URL live : christmatic.tv ✅ (domaine principal)
+URL live alt : www.christmatic.tv ✅
+URL fallback : christmatic.vercel.app ✅
 Style : CSS variables globales (globals.css) — pas de Tailwind
 Langue par défaut : Français (toggle FR/EN)
 Node.js : v22.22.2 (LTS)
@@ -107,11 +109,11 @@ Bouton fallback "Voir sur YouTube" pour films bloqués ✅
 Futur : Cloudflare Stream
 ```
 
-### Domaines ✅ ACHETÉS sur Ionos
+### Domaines ✅ CONNECTÉS
 ```
-Principal : christmatic.tv ✅ acheté (~28€/an)
-Redirect : christmatic.com ✅ acheté (0€ première année)
-← À CONNECTER à Vercel (prochaine session)
+Principal : christmatic.tv ✅ connecté à Vercel (record A → 216.198.79.1)
+www       : www.christmatic.tv ✅ connecté à Vercel (record A → 216.198.79.1)
+Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
 ```
 
 ### Coûts MVP actuels
@@ -312,9 +314,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Page `/english` catalogue complet (6 films)
 - [x] Déploiement sur Vercel → christmatic.vercel.app
 - [x] Domaines christmatic.tv + christmatic.com achetés sur Ionos
+- [x] christmatic.tv connecté à Vercel (record A → 216.198.79.1) ✅
+- [x] www.christmatic.tv connecté à Vercel ✅
+- [x] christmatic.com redirige (301) vers christmatic.tv ✅
+- [x] Certificat SSL actif sur christmatic.tv ✅
 
 ### Sprint 4 ← PROCHAIN
-- [ ] Connecter christmatic.tv à Vercel
 - [ ] Page `/soutenir` — don libre / ministère
 - [ ] Auth Supabase (inscription / connexion)
 - [ ] Favoris utilisateur
@@ -336,7 +341,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 
 ## 14. Ressources
 
-- Site live : **christmatic.vercel.app** ✅
+- Site live : **christmatic.tv** ✅
 - Repo GitHub : github.com/raymondgadji/christmatic (public)
 - Supabase : supabase.com/dashboard/project/hrdtcpksdqoispbvzftg
 - Playlist YouTube : @Christmatic_movies

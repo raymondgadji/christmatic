@@ -36,12 +36,12 @@ export default function Nav() {
           letterSpacing: '2px',
           color: 'var(--color-text-primary)',
         }}>
-          CHRIS<span style={{ color: 'var(--color-gold)' }}>TMATIC</span>
+          CHRIST<span style={{ color: 'var(--color-gold)' }}>MATIC</span>
         </span>
       </Link>
 
       {/* LIENS */}
-      <div style={{ display: 'flex', gap: '24px' }}>
+      <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
         <Link href="/" style={{ fontSize: '13px', color: 'var(--color-gold)' }}>
           Accueil
         </Link>
@@ -50,6 +50,17 @@ export default function Nav() {
         </Link>
         <Link href="/english" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
           🇬🇧 English
+        </Link>
+        <Link href="/soutenir" style={{
+          fontSize: '13px',
+          color: '#0A0A0A',
+          background: 'var(--color-gold)',
+          padding: '5px 14px',
+          borderRadius: '20px',
+          fontWeight: 600,
+          textDecoration: 'none',
+        }}>
+          🙏 Soutenir
         </Link>
       </div>
 

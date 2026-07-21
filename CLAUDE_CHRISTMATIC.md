@@ -266,7 +266,7 @@ CREATE TABLE favoris (
 
 ⏳ **Films #25-27 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor pour les insérer dans la table `films`.
 
-### 🇬🇧 Films in English (21 films en ligne + 1 en attente)
+### 🇬🇧 Films in English (22 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -292,7 +292,7 @@ CREATE TABLE favoris (
 | 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
 | 22 | CHOICES — A Powerful Christian Movie on Decisions and Faith | USA (diaspora noire) | 2026 | rpWVRsuRpZ8 |
 
-⏳ **Film #22 pas encore en ligne** — premier film de la diaspora noire élargie (voir section 1), script SQL fourni, à exécuter dans Supabase SQL Editor.
+✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1).
 
 ---
 
@@ -406,6 +406,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
   - `public/llms.txt` : résumé du site façon llmstxt.org
   - `lib/seo.ts` : constante `SITE_URL`
 - Toutes les pages qui lisent Supabase (`page.tsx`, `english/page.tsx`, `francais/page.tsx`, `films/[slug]/page.tsx`) ont `export const dynamic = 'force-dynamic'` (changé le 22 juillet 2026, remplace l'ancien `revalidate = 3600`) : chaque visite refait la requête Supabase en direct, un `INSERT` dans `films` est visible immédiatement, sans délai ni redeploy. À reconsidérer (repasser en ISR avec un `revalidate` court) si le trafic grossit et que le coût des requêtes Supabase devient un sujet.
+- ⚠️ **Piège important (découvert 22 juillet 2026)** : `dynamic = 'force-dynamic'` sur une page ne suffit **pas toujours** à empêcher le Data Cache de Next.js de mettre en cache les appels internes de `supabase-js` (son `fetch` interne n'est pas automatiquement marqué `no-store`). Résultat vécu : le film CHOICES existait en base (confirmé via requête directe à l'API Supabase) mais n'apparaissait pas sur le site déployé. Fix dans [lib/supabase.ts](lib/supabase.ts) : le client Supabase force `cache: 'no-store'` sur chaque requête via l'option `global.fetch`. Si un futur ajout de film n'apparaît pas malgré une donnée correcte en base, vérifier ce point en premier avant de chercher ailleurs.
 - `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
 - Tous les composants avec `<style jsx>` nécessitent `'use client'`

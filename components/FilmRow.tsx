@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import FilmCard from './FilmCard'
 
 interface Film {
@@ -15,9 +16,10 @@ interface FilmRowProps {
   titre: string
   emoji: string
   films: Film[]
+  voirToutHref: string
 }
 
-export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
+export default function FilmRow({ titre, emoji, films, voirToutHref }: FilmRowProps) {
   return (
     <section style={{ padding: '32px 24px 8px' }}>
 
@@ -38,13 +40,13 @@ export default function FilmRow({ titre, emoji, films }: FilmRowProps) {
           <span>{emoji}</span>
           {titre}
         </h2>
-        <span style={{
+        <Link href={voirToutHref} style={{
           fontSize: '12px',
           color: 'var(--color-gold)',
-          cursor: 'pointer',
+          textDecoration: 'none',
         }}>
           Voir tout →
-        </span>
+        </Link>
       </div>
 
       <div style={{

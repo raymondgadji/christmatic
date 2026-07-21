@@ -92,12 +92,14 @@ export default async function Home() {
         titre="Films en Français"
         emoji="🇫🇷"
         films={formatFilms(filmsFr || [])}
+        voirToutHref="/francais"
       />
       <div style={{ height: '0.5px', background: 'var(--color-border)', margin: '0 24px' }} />
       <FilmRow
         titre="Films in English"
         emoji="🇬🇧"
         films={formatFilms(filmsEn || [])}
+        voirToutHref="/english"
       />
     </>
   )

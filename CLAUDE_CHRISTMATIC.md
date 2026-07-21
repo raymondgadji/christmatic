@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : avril 2026 — Sprint 3 terminé ✅ — Site EN LIGNE ✅ — Domaines connectés ✅
+> Dernière mise à jour : 21 juillet 2026 — Sprint 4 en cours 🔄
 
 ---
 
@@ -18,6 +18,7 @@
 - Afrique Centrale : RDC, Congo-Brazzaville...
 - Afrique Australe : Afrique du Sud, Zimbabwe, Zambie...
 - ❌ Exclus : films arabes (Maroc, Algérie, Tunisie, Égypte), films occidentaux (USA, Europe)
+- ✅ Exception acceptée : films produits par des réalisateurs africains noirs vivant en diaspora (UK, etc.)
 
 ### Deux sections principales
 - 🇫🇷 **Films en Français** (Côte d'Ivoire, Cameroun, RDC, Sénégal, Bénin, Gabon...)
@@ -50,7 +51,7 @@
 3. **Bilingue FR/EN** : seule plateforme pensée pour la diaspora francophone
 4. **Communauté** : commentaires, discussions, recommandations entre croyants
 5. **TV-first experience** : optimisé grand écran, Android TV app dans la roadmap
-6. **Modèle entrepreneurial** : pas une ONG, une startup avec une âme
+6. **Modèle entrepreneuriel** : pas une ONG, une startup avec une âme
 
 ---
 
@@ -58,7 +59,7 @@
 
 ### Phase 1 — Lancement (0-6 mois) : Gratuit total ← ON EST ICI
 - Objectif : construire l'audience, valider la niche
-- Monétisation : bouton "Soutenir le ministère" (don libre)
+- Monétisation : bouton "Soutenir le ministère" (don libre via PayPal) ✅
 - KPI cible : 500 utilisateurs actifs
 
 ### Phase 2 — Croissance (6-12 mois) : Freemium
@@ -98,7 +99,8 @@ BDD : Supabase (PostgreSQL managé) ✅
 URL Supabase : https://hrdtcpksdqoispbvzftg.supabase.co
 Region : West EU (Ireland)
 Package : @supabase/supabase-js
-Auth : Supabase Auth — Sprint 4
+Auth : Supabase Auth — Sprint 4 en cours
+⚠️ Plan FREE — se met en pause après inactivité → cliquer "Resume project"
 ```
 
 ### Vidéos
@@ -114,6 +116,19 @@ Futur : Cloudflare Stream
 Principal : christmatic.tv ✅ connecté à Vercel (record A → 216.198.79.1)
 www       : www.christmatic.tv ✅ connecté à Vercel (record A → 216.198.79.1)
 Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
+```
+
+### Paiements
+```
+PayPal : paypal.me/christmatic ✅ actif
+Stripe : ⏳ à configurer (nécessite statut entreprise)
+```
+
+### Logos PayPal disponibles
+```
+Logo_Alternative.svg      ← utilisé sur /soutenir (logo complet, couleurs officielles)
+PayPal_Logo2014.svg       ← logo texte seul (bleu #003087 + #0070E0)
+PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 ```
 
 ### Coûts MVP actuels
@@ -148,7 +163,8 @@ Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
 
 ### Logo
 - Silhouette Afrique noire (SVG) dans un carré doré (#D4A843), border-radius 6px
-- Texte : "CHRIS" blanc + "TMATIC" doré, letterspacing 2px, font-weight 600
+- Texte : "CHRIST" blanc + "MATIC" doré, letterspacing 2px, font-weight 600
+- ⚠️ Orthographe correcte : CHRIST + MATIC (pas CHRIS + TMATIC)
 
 ### Style général
 - Fond très sombre (noir #0A0A0A) — expérience cinéma
@@ -164,7 +180,7 @@ Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
 /francais             → Catalogue FR ✅ EN LIGNE
 /english              → Catalogue EN ✅ EN LIGNE
 /films/[slug]         → Détail film + player YouTube ✅ EN LIGNE
-/soutenir             → Don / ministère ← SPRINT 4
+/soutenir             → Don PayPal ✅ EN LIGNE
 /compte               → Auth (inscription/connexion) ← SPRINT 4
 ```
 
@@ -172,7 +188,7 @@ Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (24 films)
+### Table films ✅ créée et peuplée (44 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -192,7 +208,7 @@ CREATE TABLE films (
 );
 ```
 
-### Tables Sprint 4
+### Tables Sprint 4 (à créer)
 ```sql
 CREATE TABLE profils (
   id           UUID PRIMARY KEY REFERENCES auth.users(id),
@@ -212,39 +228,64 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (24 films) ✅
+## 9. Films en base (44 films en ligne + 1 en attente) ✅
 
-### 🇫🇷 Films en Français (18 films)
-| # | Titre | Pays | YouTube ID |
-|---|---|---|---|
-| 1 | Elle refuse de coucher avec son Patron | Cameroun | sUVfzeEaI2Q |
-| 2 | Un Coeur pour Pardonner | Gabon/Cameroun | evM4mH5EyWI |
-| 3 | Chambre Haute | Gabon/Cameroun | _TCrgCrYaSo |
-| 4 | Ennemi Invisible | Côte d'Ivoire | TlF77UIpiwQ |
-| 5 | Il fait toute chose en son Temps | Cameroun | TQAanLqtw7U |
-| 6 | Sous l'Emprise de l'esprit de l'amertume | Cameroun | 41wR9JHMnrY |
-| 7 | Pourquoi Moi ? La Foi de Madame Yevedo | Gabon | 8LB-kB7Rieg |
-| 8 | Sacrilège | Côte d'Ivoire | 4Qgml4diAV0 |
-| 9 | Le Temps de la Fin | RDC | urddeaWJsQ0 |
-| 10 | Deborah — Réfère toi à tes racines | Côte d'Ivoire | SBITkDa2oMU |
-| 11 | Captifs de l'Homme Fort | Côte d'Ivoire | tSSBrwK_fGw |
-| 12 | Malédiction Héréditaire | Côte d'Ivoire | pTk0kCA687U |
-| 13 | Jacob M'Mayami | Côte d'Ivoire | p6k6SoG0pL0 |
-| 14 | La Repentance 2 | Côte d'Ivoire | mPKFSruDgSs |
-| 15 | La Repentance 1 | Côte d'Ivoire | pRDxLDVrhno |
-| 16 | Les Rescapés de l'Enfer | Côte d'Ivoire | 6OzVDV9Q14M |
-| 17 | Jésus Christ, la Solution | Côte d'Ivoire | LK9VqUFeTT0 |
-| 18 | Et si Demain était Aujourd'hui | Côte d'Ivoire | lXL2Zq55neI |
+### 🇫🇷 Films en Français (24 films)
+| # | Titre | Pays | Année | YouTube ID |
+|---|---|---|---|---|
+| 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
+| 2 | Un Coeur pour Pardonner | Gabon/Cameroun | — | evM4mH5EyWI |
+| 3 | Chambre Haute | Gabon/Cameroun | — | _TCrgCrYaSo |
+| 4 | Ennemi Invisible | Côte d'Ivoire | — | TlF77UIpiwQ |
+| 5 | Il fait toute chose en son Temps | Cameroun | — | TQAanLqtw7U |
+| 6 | Sous l'Emprise de l'esprit de l'amertume | Cameroun | — | 41wR9JHMnrY |
+| 7 | Pourquoi Moi ? La Foi de Madame Yevedo | Gabon | — | 8LB-kB7Rieg |
+| 8 | Sacrilège | Côte d'Ivoire | — | 4Qgml4diAV0 |
+| 9 | Le Temps de la Fin | RDC | — | SBITkDa2oMU |
+| 10 | Deborah — Réfère toi à tes racines | Côte d'Ivoire | — | tSSBrwK_fGw |
+| 11 | Captifs de l'Homme Fort | Côte d'Ivoire | — | tSSBrwK_fGw |
+| 12 | Malédiction Héréditaire | Côte d'Ivoire | — | p6k6SoG0pL0 |
+| 13 | Jacob M'Mayami | Côte d'Ivoire | — | r7MvTknBUtQ |
+| 14 | La Repentance 2 | Côte d'Ivoire | — | mPKFSruDgSs |
+| 15 | La Repentance 1 | Côte d'Ivoire | — | pRDxLDVrhno |
+| 16 | Les Rescapés de l'Enfer | Côte d'Ivoire | — | 6OzVDV9Q14M |
+| 17 | Jésus Christ, la Solution | Côte d'Ivoire | — | LK9VqUFeTT0 |
+| 18 | Et si Demain était Aujourd'hui | Côte d'Ivoire | — | lXL2Zq55neI |
+| 19 | Le réparateur de brèches | Gabon | — | XreXsbAhsB4 |
+| 20 | Libéré du Péché | Cameroun | 2026 | diwJ-mHxt3k |
+| 21 | J'ai envoyé mes photos intimes à mon Pasteur par erreur | Togo | 2025 | Aq68-veGkoY |
+| 22 | Le Pardon | Cameroun | 2025 | 6KAHYdweIW0 |
+| 23 | La Puissance de la Prière dans le Combat II — Ep. 1 | Togo | 2025 | UTaOapEN3_c |
+| 24 | LA MAUVAISE BOUCHE | Cameroun | 2026 | 2knhXoVkqNo |
 
-### 🇬🇧 Films in English (6 films)
-| # | Titre | Pays | YouTube ID |
-|---|---|---|---|
-| 1 | When God is Silent | Nigeria | E4HdiMNLh0w |
-| 2 | The Space Between Us | Nigeria | THeU4f2V9gY |
-| 3 | Spirituals 4 | Nigeria | y41jI31M-3Y |
-| 4 | Prophet Suddenly 3 | Nigeria | m2BNiZWbV50 |
-| 5 | Prophet Suddenly 2 | Nigeria | lb9YjxjWOyU |
-| 6 | Prophet Suddenly 1 | Nigeria | QIoUmnSkOXE |
+⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
+
+### 🇬🇧 Films in English (20 films en ligne + 1 en attente)
+| # | Titre | Pays | Année | YouTube ID |
+|---|---|---|---|---|
+| 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
+| 2 | The Space Between Us | Nigeria | — | THeU4f2V9gY |
+| 3 | Spirituals 4 | Nigeria | — | y41jI31M-3Y |
+| 4 | Prophet Suddenly 3 | Nigeria | — | m2BNiZWbV50 |
+| 5 | Prophet Suddenly 2 | Nigeria | — | lb9YjxjWOyU |
+| 6 | Prophet Suddenly 1 | Nigeria | — | QIoUmnSkOXE |
+| 7 | Disconnected | Nigeria | 2026 | jgA3ZnhLukk |
+| 8 | Disconnected 2 | Nigeria | 2026 | OSIzU6wdFdw |
+| 9 | This Bed I Made | Ghana | 2026 | W1nC1C3lpmI |
+| 10 | Pastor's Marriage Counsellors | Nigeria | — | 8X12rBSXvKY |
+| 11 | Spirituals 3 | Nigeria | — | pRPFMJXefv0 |
+| 12 | Spirituals 2 | Nigeria | — | QafCUG04yGs |
+| 13 | Spirituals 1 | Nigeria | — | wbexvRPd0Go |
+| 14 | Ghetto Gospel | Nigeria | — | WdpFDuaaB14 |
+| 15 | Secrets of Our Pastor's Bed | Nigeria | — | dHXQGNCwqkY |
+| 16 | A Love Like Raymond | Nigeria | — | EbM0v7IwPOc |
+| 17 | Love in the Guest Room | Nigeria | — | FKe3cVTo4Fs |
+| 18 | Beware of Deceptive Brothers in Church | Nigeria | — | vWh2D9leIWs |
+| 19 | SPIRIT OF INFIRMITY \|\| LATEST NIGERIA CHRISTIAN MOVIE \|\| THE WINLOS | Nigeria | 2026 | rz2GgEcylJo |
+| 20 | The Fall — A Pastor's Secret Affair | Nigeria | 2026 | hEXurrIzAHI |
+| 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
+
+⏳ **Film #21 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor (dashboard/project/hrdtcpksdqoispbvzftg) pour l'insérer dans la table `films`.
 
 ---
 
@@ -252,8 +293,8 @@ CREATE TABLE favoris (
 
 ```
 christmatic/
+├── CLAUDE_CHRISTMATIC.md      ← CE FICHIER (racine)
 ├── docs/
-│   ├── CLAUDE_CHRISTMATIC.md  ← CE FICHIER
 │   └── christmatic_preview.html
 ├── .env.local                 ← jamais committé
 ├── next.config.mjs            ← eslint + typescript ignorés au build
@@ -266,10 +307,11 @@ christmatic/
 │   ├── globals.css            ✅ Charte graphique
 │   ├── francais/page.tsx      ✅ Catalogue FR
 │   ├── english/page.tsx       ✅ Catalogue EN
-│   └── films/[slug]/page.tsx  ✅ Détail + player YouTube
+│   ├── films/[slug]/page.tsx  ✅ Détail + player YouTube
+│   └── soutenir/page.tsx      ✅ Don PayPal — 'use client'
 │
 ├── components/
-│   ├── Nav.tsx                ✅
+│   ├── Nav.tsx                ✅ avec bouton 🙏 Soutenir
 │   ├── HeroBanner.tsx         ✅
 │   ├── FilmCard.tsx           ✅ cliquable avec Link
 │   └── FilmRow.tsx            ✅
@@ -314,22 +356,44 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Page `/english` catalogue complet (6 films)
 - [x] Déploiement sur Vercel → christmatic.vercel.app
 - [x] Domaines christmatic.tv + christmatic.com achetés sur Ionos
-- [x] christmatic.tv connecté à Vercel (record A → 216.198.79.1) ✅
-- [x] www.christmatic.tv connecté à Vercel ✅
-- [x] christmatic.com redirige (301) vers christmatic.tv ✅
-- [x] Certificat SSL actif sur christmatic.tv ✅
+- [x] christmatic.tv connecté à Vercel (record A → 216.198.79.1)
+- [x] www.christmatic.tv connecté à Vercel
+- [x] christmatic.com redirige (301) vers christmatic.tv
+- [x] Certificat SSL actif
 
-### Sprint 4 ← PROCHAIN
-- [ ] Page `/soutenir` — don libre / ministère
-- [ ] Auth Supabase (inscription / connexion)
+### Sprint 4 ← EN COURS
+- [x] Page `/soutenir` avec bouton PayPal (logo officiel) ✅
+- [x] Lien 🙏 Soutenir dans la Nav ✅
+- [x] PayPal `paypal.me/christmatic` créé ✅
+- [x] Corrections YouTube IDs films FR (9, 10, 12, 13) ✅
+- [x] Nouveau film FR : Le réparateur de brèches (Gabon) ✅
+- [x] Nouveaux films EN : Disconnected 1&2, This Bed I Made ✅
+- [x] Nouveaux films EN : Pastor's Marriage Counsellors, Spirituals 1/2/3, Ghetto Gospel, Secrets of Our Pastor's Bed, A Love Like Raymond, Love in the Guest Room ✅
+- [x] Nouveau film EN : Beware of Deceptive Brothers in Church ✅
+- [x] Nouveau film EN : Spirit of Infirmity (The Winlos) ✅
+- [x] Nouveaux films FR : Libéré du Péché, J'ai envoyé mes photos intimes à mon Pasteur par erreur, Le Pardon, La Puissance de la Prière dans le Combat II ✅
+- [x] Nouveau film EN : The Fall — A Pastor's Secret Affair (2026) ✅
+- [x] Nouveau film FR : LA MAUVAISE BOUCHE (Cameroun, 2026) ✅
+- [ ] Insérer film EN #21 : Faith That Moves Mountains (Nigeria, 2026) — script SQL prêt, à exécuter
+- [ ] Auth Supabase (inscription / connexion) ← PROCHAIN
 - [ ] Favoris utilisateur
 - [ ] SEO (meta tags, og:image par film)
 - [ ] Test mobile complet
+- [ ] Stripe (après configuration statut entreprise)
 - [ ] Partage diaspora France/Belgique — lancement !
 
 ---
 
-## 13. Règles de Travail avec Claude (CTO)
+## 13. Notes techniques importantes
+
+- `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
+- Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
+- Tous les composants avec `<style jsx>` nécessitent `'use client'`
+- Supabase plan FREE : se met en pause après inactivité → "Resume project" sur le dashboard
+
+---
+
+## 14. Règles de Travail avec Claude (CTO)
 
 - Toujours fournir ce `CLAUDE_CHRISTMATIC.md` en début de session
 - Préciser : "On travaille sur Sprint X, tâche Y"
@@ -339,12 +403,13 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 
 ---
 
-## 14. Ressources
+## 15. Ressources
 
 - Site live : **christmatic.tv** ✅
 - Repo GitHub : github.com/raymondgadji/christmatic (public)
 - Supabase : supabase.com/dashboard/project/hrdtcpksdqoispbvzftg
 - Playlist YouTube : @Christmatic_movies
+- PayPal don : paypal.me/christmatic
 - Concurrent : thefaithstream.com
 - Google Fonts : Playfair Display + Inter
 - Ionos (domaines) : christmatic.tv + christmatic.com

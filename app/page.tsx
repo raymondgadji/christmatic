@@ -2,7 +2,7 @@ import { supabase } from '../lib/supabase'
 import HeroBanner from '../components/HeroBanner'
 import FilmRow from '../components/FilmRow'
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 const faqJsonLd = {
   '@context': 'https://schema.org',

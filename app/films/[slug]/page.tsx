@@ -7,7 +7,7 @@ interface Props {
   params: { slug: string }
 }
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: film } = await supabase

@@ -17,8 +17,9 @@
 - Afrique de l'Est : Kenya, Ouganda, Tanzanie, Éthiopie...
 - Afrique Centrale : RDC, Congo-Brazzaville...
 - Afrique Australe : Afrique du Sud, Zimbabwe, Zambie...
-- ❌ Exclus : films arabes (Maroc, Algérie, Tunisie, Égypte), films occidentaux (USA, Europe)
+- ❌ Exclus : films arabes (Maroc, Algérie, Tunisie, Égypte), films occidentaux mainstream non-issus de la diaspora noire
 - ✅ Exception acceptée : films produits par des réalisateurs africains noirs vivant en diaspora (UK, etc.)
+- ✅ **Ligne éditoriale élargie (22 juillet 2026)** : la diaspora noire au sens large est désormais acceptée — créateurs afro-descendants (Afro-Américains, Afro-Caribéens, Black British...), pas seulement les réalisateurs nés en Afrique. Décision volontaire de Raymond pour élargir le vivier de contenu chrétien noir en anglais (ex. scène FSM/Christian movies afro-américaine). Le critère reste : contenu chrétien/évangélique + créateurs noirs, peu importe le pays de naissance.
 
 ### Deux sections principales
 - 🇫🇷 **Films en Français** (Côte d'Ivoire, Cameroun, RDC, Sénégal, Bénin, Gabon...)
@@ -265,7 +266,7 @@ CREATE TABLE favoris (
 
 ⏳ **Films #25-27 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor pour les insérer dans la table `films`.
 
-### 🇬🇧 Films in English (21 films)
+### 🇬🇧 Films in English (21 films en ligne + 1 en attente)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -289,6 +290,9 @@ CREATE TABLE favoris (
 | 19 | SPIRIT OF INFIRMITY \|\| LATEST NIGERIA CHRISTIAN MOVIE \|\| THE WINLOS | Nigeria | 2026 | rz2GgEcylJo |
 | 20 | The Fall — A Pastor's Secret Affair | Nigeria | 2026 | hEXurrIzAHI |
 | 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
+| 22 | CHOICES — A Powerful Christian Movie on Decisions and Faith | USA (diaspora noire) | 2026 | rpWVRsuRpZ8 |
+
+⏳ **Film #22 pas encore en ligne** — premier film de la diaspora noire élargie (voir section 1), script SQL fourni, à exécuter dans Supabase SQL Editor.
 
 ---
 
@@ -379,6 +383,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Nouveau film FR : LA MAUVAISE BOUCHE (Cameroun, 2026) ✅
 - [ ] Insérer film EN #21 : Faith That Moves Mountains (Nigeria, 2026) — script SQL prêt, à exécuter
 - [ ] Insérer série FR "Marié par Prophétie" (Ép. 1-3, Cameroun, 7SELAH) — script SQL prêt, à exécuter
+- [x] Ligne éditoriale élargie à la diaspora noire au sens large (Afro-Américains inclus) — décision du 22 juillet 2026, voir section 1 ✅
+- [ ] Insérer film EN #22 : CHOICES (USA, diaspora noire, 2026) — script SQL prêt, à exécuter
 - [x] GEO implémenté : Schema.org JSON-LD (Organization, WebSite, FAQPage, VideoObject par film), robots.txt (autorise GPTBot/ClaudeBot/PerplexityBot/CCBot), sitemap.xml dynamique, llms.txt ✅
 - [ ] Auth Supabase (inscription / connexion) ← PROCHAIN
 - [ ] Favoris utilisateur
@@ -399,7 +405,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
   - `app/sitemap.ts` : sitemap.xml dynamique généré depuis la table `films`
   - `public/llms.txt` : résumé du site façon llmstxt.org
   - `lib/seo.ts` : constante `SITE_URL`
-- Toutes les pages qui lisent Supabase (`page.tsx`, `english/page.tsx`, `francais/page.tsx`, `films/[slug]/page.tsx`) ont `export const revalidate = 3600` : le catalogue se rafraîchit tout seul (max 1h de délai), plus besoin de redeploy manuel après un `INSERT` dans `films`
+- Toutes les pages qui lisent Supabase (`page.tsx`, `english/page.tsx`, `francais/page.tsx`, `films/[slug]/page.tsx`) ont `export const dynamic = 'force-dynamic'` (changé le 22 juillet 2026, remplace l'ancien `revalidate = 3600`) : chaque visite refait la requête Supabase en direct, un `INSERT` dans `films` est visible immédiatement, sans délai ni redeploy. À reconsidérer (repasser en ISR avec un `revalidate` court) si le trafic grossit et que le coût des requêtes Supabase devient un sujet.
 - `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
 - Tous les composants avec `<style jsx>` nécessitent `'use client'`

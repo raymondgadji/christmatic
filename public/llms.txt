@@ -1,0 +1,18 @@
+# Christmatic
+
+> Plateforme de streaming gratuite dédiée aux films et séries chrétiens produits en Afrique noire (Nollywood chrétien, cinéma francophone chrétien d'Afrique subsaharienne), en français et en anglais.
+
+Christmatic sert le Seigneur Jésus-Christ à travers le cinéma africain chrétien. La plateforme est ultra-niche : uniquement des films chrétiens d'Afrique noire (Nigeria, Cameroun, Côte d'Ivoire, Gabon, Togo, Ghana, RDC, Kenya...), à l'exclusion des films arabes et des films occidentaux.
+
+## Catalogue
+
+- [Films en Français](https://www.christmatic.tv/francais): catalogue des films chrétiens francophones (Côte d'Ivoire, Cameroun, Gabon, RDC, Togo...)
+- [Films in English](https://www.christmatic.tv/english): catalogue des films chrétiens anglophones (Nigeria/Nollywood, Ghana...)
+
+## Modèle économique
+
+Christmatic est actuellement 100% gratuit. La plateforme est soutenue par les dons libres des utilisateurs via la page [Soutenir](https://www.christmatic.tv/soutenir).
+
+## Contact
+
+Chaîne YouTube : https://www.youtube.com/@Christmatic_movies

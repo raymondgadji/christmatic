@@ -228,9 +228,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (44 films en ligne + 1 en attente) ✅
+## 9. Films en base (45 films en ligne + 3 en attente) ✅
 
-### 🇫🇷 Films en Français (24 films)
+### 🇫🇷 Films en Français (24 films + série "Marié par Prophétie" en attente)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -257,10 +257,15 @@ CREATE TABLE favoris (
 | 22 | Le Pardon | Cameroun | 2025 | 6KAHYdweIW0 |
 | 23 | La Puissance de la Prière dans le Combat II — Ep. 1 | Togo | 2025 | UTaOapEN3_c |
 | 24 | LA MAUVAISE BOUCHE | Cameroun | 2026 | 2knhXoVkqNo |
+| 25 | Marié par Prophétie — Épisode 1 (7SELAH) | Cameroun | 2026 | 5Go7cz94hm0 |
+| 26 | Marié par Prophétie — Épisode 2 (7SELAH) | Cameroun | 2026 | 4r8Znaka2dQ |
+| 27 | Marié par Prophétie — Épisode 3 (7SELAH) | Cameroun | 2026 | M2TvJl8KRcI |
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
-### 🇬🇧 Films in English (20 films en ligne + 1 en attente)
+⏳ **Films #25-27 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor pour les insérer dans la table `films`.
+
+### 🇬🇧 Films in English (21 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -284,8 +289,6 @@ CREATE TABLE favoris (
 | 19 | SPIRIT OF INFIRMITY \|\| LATEST NIGERIA CHRISTIAN MOVIE \|\| THE WINLOS | Nigeria | 2026 | rz2GgEcylJo |
 | 20 | The Fall — A Pastor's Secret Affair | Nigeria | 2026 | hEXurrIzAHI |
 | 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
-
-⏳ **Film #21 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor (dashboard/project/hrdtcpksdqoispbvzftg) pour l'insérer dans la table `films`.
 
 ---
 
@@ -375,6 +378,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Nouveau film EN : The Fall — A Pastor's Secret Affair (2026) ✅
 - [x] Nouveau film FR : LA MAUVAISE BOUCHE (Cameroun, 2026) ✅
 - [ ] Insérer film EN #21 : Faith That Moves Mountains (Nigeria, 2026) — script SQL prêt, à exécuter
+- [ ] Insérer série FR "Marié par Prophétie" (Ép. 1-3, Cameroun, 7SELAH) — script SQL prêt, à exécuter
+- [x] GEO implémenté : Schema.org JSON-LD (Organization, WebSite, FAQPage, VideoObject par film), robots.txt (autorise GPTBot/ClaudeBot/PerplexityBot/CCBot), sitemap.xml dynamique, llms.txt ✅
 - [ ] Auth Supabase (inscription / connexion) ← PROCHAIN
 - [ ] Favoris utilisateur
 - [ ] SEO (meta tags, og:image par film)
@@ -386,6 +391,14 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 
 ## 13. Notes techniques importantes
 
+- **GEO (Generative Engine Optimization)** implémenté (inspiré du pattern cv-ats.com — 3 scripts JSON-LD séparés, pas de `@graph`, plus lisible par ChatGPT) :
+  - `app/layout.tsx` : JSON-LD `Organization` + `WebSite` (toutes les pages) + metadata OpenGraph/Twitter
+  - `app/page.tsx` : JSON-LD `FAQPage` (5 questions/réponses sur Christmatic)
+  - `app/films/[slug]/page.tsx` : `generateMetadata()` dynamique par film + JSON-LD `VideoObject`
+  - `app/robots.ts` : autorise explicitement GPTBot, ChatGPT-User, ClaudeBot, anthropic-ai, PerplexityBot, CCBot, Google-Extended
+  - `app/sitemap.ts` : sitemap.xml dynamique généré depuis la table `films`
+  - `public/llms.txt` : résumé du site façon llmstxt.org
+  - `lib/seo.ts` : constante `SITE_URL`
 - Toutes les pages qui lisent Supabase (`page.tsx`, `english/page.tsx`, `francais/page.tsx`, `films/[slug]/page.tsx`) ont `export const revalidate = 3600` : le catalogue se rafraîchit tout seul (max 1h de délai), plus besoin de redeploy manuel après un `INSERT` dans `films`
 - `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC

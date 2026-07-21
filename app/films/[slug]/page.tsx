@@ -1,11 +1,46 @@
 import { supabase } from '../../../lib/supabase'
 import { notFound } from 'next/navigation'
+import { Metadata } from 'next'
+import { SITE_URL } from '../../../lib/seo'
 
 interface Props {
   params: { slug: string }
 }
 
 export const revalidate = 3600
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { data: film } = await supabase
+    .from('films')
+    .select('*')
+    .eq('slug', params.slug)
+    .eq('is_published', true)
+    .single()
+
+  if (!film) return {}
+
+  const url = `${SITE_URL}/films/${film.slug}`
+  const description = film.description || `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`
+
+  return {
+    title: film.titre,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'video.movie',
+      url,
+      title: film.titre,
+      description,
+      images: film.thumbnail_url ? [film.thumbnail_url] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: film.titre,
+      description,
+      images: film.thumbnail_url ? [film.thumbnail_url] : undefined,
+    },
+  }
+}
 
 export default async function FilmPage({ params }: Props) {
   const { data: film } = await supabase
@@ -17,8 +52,26 @@ export default async function FilmPage({ params }: Props) {
 
   if (!film) notFound()
 
+  const videoJsonLd = film.youtube_id ? {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: film.titre,
+    description: film.description || film.titre,
+    thumbnailUrl: film.thumbnail_url || `https://img.youtube.com/vi/${film.youtube_id}/hqdefault.jpg`,
+    uploadDate: film.annee ? `${film.annee}-01-01` : undefined,
+    embedUrl: `https://www.youtube.com/embed/${film.youtube_id}`,
+    contentUrl: `https://www.youtube.com/watch?v=${film.youtube_id}`,
+    inLanguage: film.langue,
+    genre: film.tags && film.tags.length > 0 ? film.tags : undefined,
+    countryOfOrigin: film.pays ? { '@type': 'Country', name: film.pays } : undefined,
+  } : null
+
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto', padding: '32px 24px' }}>
+
+      {videoJsonLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }} />
+      )}
 
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '12px', color: 'var(--color-gold)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>

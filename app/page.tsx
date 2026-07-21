@@ -2,6 +2,8 @@ import { supabase } from '../lib/supabase'
 import HeroBanner from '../components/HeroBanner'
 import FilmRow from '../components/FilmRow'
 
+export const revalidate = 3600
+
 export default async function Home() {
   const { data: filmsFr } = await supabase
     .from('films')

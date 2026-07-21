@@ -5,6 +5,8 @@ interface Props {
   params: { slug: string }
 }
 
+export const revalidate = 3600
+
 export default async function FilmPage({ params }: Props) {
   const { data: film } = await supabase
     .from('films')

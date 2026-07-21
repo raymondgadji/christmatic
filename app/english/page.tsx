@@ -1,6 +1,8 @@
 import { supabase } from '../../lib/supabase'
 import FilmCard from '../../components/FilmCard'
 
+export const revalidate = 3600
+
 export default async function PageAnglais() {
   const { data: films } = await supabase
     .from('films')

@@ -31,7 +31,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       title: film.titre,
       description,
-      images: film.thumbnail_url ? [film.thumbnail_url] : undefined,
+      images: film.thumbnail_url ? [{
+        url: film.thumbnail_url,
+        width: 480,
+        height: 360,
+        alt: film.titre,
+      }] : undefined,
     },
     twitter: {
       card: 'summary_large_image',

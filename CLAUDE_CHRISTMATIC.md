@@ -229,9 +229,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (45 films en ligne + 3 en attente) ✅
+## 9. Films en base (50 films en ligne + 1 en attente) ✅
 
-### 🇫🇷 Films en Français (24 films + série "Marié par Prophétie" en attente)
+### 🇫🇷 Films en Français (28 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -261,12 +261,13 @@ CREATE TABLE favoris (
 | 25 | Marié par Prophétie — Épisode 1 (7SELAH) | Cameroun | 2026 | 5Go7cz94hm0 |
 | 26 | Marié par Prophétie — Épisode 2 (7SELAH) | Cameroun | 2026 | 4r8Znaka2dQ |
 | 27 | Marié par Prophétie — Épisode 3 (7SELAH) | Cameroun | 2026 | M2TvJl8KRcI |
+| 28 | Marié par Prophétie — Épisode 4 (7SELAH) | Cameroun | 2026 | Kws-Cf9muqY |
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
-⏳ **Films #25-27 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor pour les insérer dans la table `films`.
+✅ Film #28 en ligne.
 
-### 🇬🇧 Films in English (22 films)
+### 🇬🇧 Films in English (22 films en ligne + 1 en attente)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -291,8 +292,11 @@ CREATE TABLE favoris (
 | 20 | The Fall — A Pastor's Secret Affair | Nigeria | 2026 | hEXurrIzAHI |
 | 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
 | 22 | CHOICES — A Powerful Christian Movie on Decisions and Faith | USA (diaspora noire) | 2026 | rpWVRsuRpZ8 |
+| 23 | The Wedding Gift (The Only Laurel / THE WINLOS) | Nigeria | 2026 | prAWOgmD3eg |
 
 ✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1).
+
+⏳ **Film #23 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor.
 
 ---
 
@@ -381,11 +385,13 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Nouveaux films FR : Libéré du Péché, J'ai envoyé mes photos intimes à mon Pasteur par erreur, Le Pardon, La Puissance de la Prière dans le Combat II ✅
 - [x] Nouveau film EN : The Fall — A Pastor's Secret Affair (2026) ✅
 - [x] Nouveau film FR : LA MAUVAISE BOUCHE (Cameroun, 2026) ✅
-- [ ] Insérer film EN #21 : Faith That Moves Mountains (Nigeria, 2026) — script SQL prêt, à exécuter
-- [ ] Insérer série FR "Marié par Prophétie" (Ép. 1-3, Cameroun, 7SELAH) — script SQL prêt, à exécuter
+- [x] Film EN #21 : Faith That Moves Mountains (Nigeria, 2026) ✅
+- [x] Série FR "Marié par Prophétie" Ép. 1-3 (Cameroun, 7SELAH) ✅
 - [x] Ligne éditoriale élargie à la diaspora noire au sens large (Afro-Américains inclus) — décision du 22 juillet 2026, voir section 1 ✅
-- [ ] Insérer film EN #22 : CHOICES (USA, diaspora noire, 2026) — script SQL prêt, à exécuter
+- [x] Film EN #22 : CHOICES (USA, diaspora noire, 2026) ✅
+- [x] Film FR #28 : Marié par Prophétie — Épisode 4 (Cameroun, 7SELAH, 2026) ✅
 - [x] GEO implémenté : Schema.org JSON-LD (Organization, WebSite, FAQPage, VideoObject par film), robots.txt (autorise GPTBot/ClaudeBot/PerplexityBot/CCBot), sitemap.xml dynamique, llms.txt ✅
+- [ ] Insérer film EN #23 : The Wedding Gift (Nigeria, THE WINLOS) — script SQL prêt, à exécuter
 - [ ] Auth Supabase (inscription / connexion) ← PROCHAIN
 - [ ] Favoris utilisateur
 - [ ] SEO (meta tags, og:image par film)
@@ -407,6 +413,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
   - `lib/seo.ts` : constante `SITE_URL`
 - Toutes les pages qui lisent Supabase (`page.tsx`, `english/page.tsx`, `francais/page.tsx`, `films/[slug]/page.tsx`) ont `export const dynamic = 'force-dynamic'` (changé le 22 juillet 2026, remplace l'ancien `revalidate = 3600`) : chaque visite refait la requête Supabase en direct, un `INSERT` dans `films` est visible immédiatement, sans délai ni redeploy. À reconsidérer (repasser en ISR avec un `revalidate` court) si le trafic grossit et que le coût des requêtes Supabase devient un sujet.
 - ⚠️ **Piège important (découvert 22 juillet 2026)** : `dynamic = 'force-dynamic'` sur une page ne suffit **pas toujours** à empêcher le Data Cache de Next.js de mettre en cache les appels internes de `supabase-js` (son `fetch` interne n'est pas automatiquement marqué `no-store`). Résultat vécu : le film CHOICES existait en base (confirmé via requête directe à l'API Supabase) mais n'apparaissait pas sur le site déployé. Fix dans [lib/supabase.ts](lib/supabase.ts) : le client Supabase force `cache: 'no-store'` sur chaque requête via l'option `global.fetch`. Si un futur ajout de film n'apparaît pas malgré une donnée correcte en base, vérifier ce point en premier avant de chercher ailleurs.
+- **Image de partage (Open Graph) — 26 juillet 2026** : `app/opengraph-image.tsx` génère une image de partage par défaut (logo + tagline, 1200×630, via `next/og`, `runtime = 'edge'` — le runtime `node` par défaut plante au build statique sur Windows, erreur `Invalid URL` dans `@vercel/og`, garder `edge`) pour toutes les pages sans image dédiée (accueil, `/francais`, `/english`, `/soutenir`). Les pages film ont leur propre `og:image` (thumbnail YouTube) avec `width`/`height` explicites (480×360) — nécessaire pour que l'aperçu s'affiche correctement dans le composeur de post Facebook (le Sharing Debugger, plus tolérant, l'affichait déjà sans).
+- ⚠️ **Rappel Facebook — à faire à chaque nouveau film si Raymond compte le partager** : Facebook met en cache le scrape d'une URL indéfiniment. Après un ajout de film (ou tout changement d'og:image/titre/description), aller sur https://developers.facebook.com/tools/debug/ , coller l'URL du film, cliquer **"Scrape Again"** avant de partager sur Facebook — sinon l'ancien aperçu (souvent sans image) reste affiché.
 - `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
 - Tous les composants avec `<style jsx>` nécessitent `'use client'`

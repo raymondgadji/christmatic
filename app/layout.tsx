@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/react'
 import './globals.css'
 import Nav from '../components/Nav'
 import { SITE_URL } from '../lib/seo'
@@ -74,6 +75,7 @@ export default function RootLayout({
             CHRISTMATIC · Servir le Seigneur Jésus-Christ à travers le cinéma
           </p>
         </footer>
+        <Analytics />
       </body>
     </html>
   )

@@ -182,6 +182,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 /english              → Catalogue EN ✅ EN LIGNE
 /films/[slug]         → Détail film + player YouTube ✅ EN LIGNE
 /soutenir             → Don PayPal ✅ EN LIGNE
+/stats                → Stats catalogue + lien Vercel Analytics ✅ EN LIGNE
 /compte               → Auth (inscription/connexion) ← SPRINT 4
 ```
 
@@ -229,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (50 films en ligne + 1 en attente) ✅
+## 9. Films en base (56 films en ligne) ✅
 
-### 🇫🇷 Films en Français (28 films)
+### 🇫🇷 Films en Français (31 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -262,12 +263,19 @@ CREATE TABLE favoris (
 | 26 | Marié par Prophétie — Épisode 2 (7SELAH) | Cameroun | 2026 | 4r8Znaka2dQ |
 | 27 | Marié par Prophétie — Épisode 3 (7SELAH) | Cameroun | 2026 | M2TvJl8KRcI |
 | 28 | Marié par Prophétie — Épisode 4 (7SELAH) | Cameroun | 2026 | Kws-Cf9muqY |
+| 29 | Marié par Prophétie — Épisode 5 (7SELAH) | Cameroun | 2026 | mMoxUuQd4n4 |
+| 30 | Prophet Suddenly 4 (VF) | Nigeria | 2026 | CzqCe0Md8jI |
+| 31 | Chez le Pasteur — Épisode 1 : La guerre des pagnes (Serge Fonda TV) | Cameroun | 2026 | GLrOnXQk6t8 |
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
 ✅ Film #28 en ligne.
 
-### 🇬🇧 Films in English (22 films en ligne + 1 en attente)
+✅ Film #29 en ligne (confirmé via Facebook Sharing Debugger — og:image correcte).
+
+✅ Films #30-31 en ligne.
+
+### 🇬🇧 Films in English (25 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -293,10 +301,12 @@ CREATE TABLE favoris (
 | 21 | Faith That Moves Mountains \| Short Gospel Film | Nigeria | 2026 | jhioSiVp_WY |
 | 22 | CHOICES — A Powerful Christian Movie on Decisions and Faith | USA (diaspora noire) | 2026 | rpWVRsuRpZ8 |
 | 23 | The Wedding Gift (The Only Laurel / THE WINLOS) | Nigeria | 2026 | prAWOgmD3eg |
+| 24 | THE BLOT — A Powerful Christian Movie About Hidden Sin, Mercy and Redemption | Nigeria | 2026 | gItkfWKhK-s |
+| 25 | Prophet Suddenly 4 | Nigeria | 2026 | UjlbcOR7CfI |
 
-✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1).
+✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1). Film #23 confirmé en ligne également.
 
-⏳ **Film #23 pas encore en ligne** — script SQL fourni, à exécuter dans Supabase SQL Editor.
+✅ Films #24-25 en ligne.
 
 ---
 
@@ -419,6 +429,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
 - Tous les composants avec `<style jsx>` nécessitent `'use client'`
 - Supabase plan FREE : se met en pause après inactivité → "Resume project" sur le dashboard
+- **Analytics (26 juillet 2026)** : `@vercel/analytics` installé (`<Analytics />` dans `app/layout.tsx`) — trafic/visiteurs consultables sur vercel.com/raymondgadjis-projects/christmatic/analytics. Page `app/stats/page.tsx` : stats du catalogue (total, FR/EN, par pays, derniers ajouts) calculées depuis Supabase + lien vers ce dashboard (le dashboard Vercel Analytics n'est pas embeddable/interrogeable en API sur le plan gratuit).
 
 ---
 

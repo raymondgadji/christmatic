@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (56 films en ligne) ✅
+## 9. Films en base (55 films en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (31 films)
+### 🇫🇷 Films en Français (30 films en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -273,7 +273,9 @@ CREATE TABLE favoris (
 
 ✅ Film #29 en ligne (confirmé via Facebook Sharing Debugger — og:image correcte).
 
-✅ Films #30-31 en ligne.
+✅ Film #30 en ligne.
+
+🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
 ### 🇬🇧 Films in English (25 films)
 | # | Titre | Pays | Année | YouTube ID |

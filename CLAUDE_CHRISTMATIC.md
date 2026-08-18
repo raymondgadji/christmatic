@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (55 films en ligne + 1 dépublié) ✅
+## 9. Films en base (60 films en ligne + 0 en attente + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (30 films en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (33 films en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -266,6 +266,9 @@ CREATE TABLE favoris (
 | 29 | Marié par Prophétie — Épisode 5 (7SELAH) | Cameroun | 2026 | mMoxUuQd4n4 |
 | 30 | Prophet Suddenly 4 (VF) | Nigeria | 2026 | CzqCe0Md8jI |
 | 31 | Chez le Pasteur — Épisode 1 : La guerre des pagnes (Serge Fonda TV) | Cameroun | 2026 | GLrOnXQk6t8 |
+| 32 | Le Chemin (Pasteur Thimothée et Joëlle M. Kabasele) | RDC | 2026 | H_8Px2fkMXo |
+| 33 | Marié par Prophétie — Épisode 6 (7SELAH) | Cameroun | 2026 | -tAz-a-LJu8 |
+| 34 | Marié par Prophétie — Épisode 7 (7SELAH) | Cameroun | 2026 | CWLQCs81AYY |
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
@@ -275,9 +278,15 @@ CREATE TABLE favoris (
 
 ✅ Film #30 en ligne.
 
+✅ Film #33 en ligne (confirmé par Raymond le 18 août 2026).
+
+✅ Film #32 en ligne (confirmé par Raymond le 18 août 2026 — https://www.christmatic.tv/films/le-chemin).
+
+✅ Film #34 en ligne (confirmé par Raymond le 18 août 2026).
+
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (25 films)
+### 🇬🇧 Films in English (27 films)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -305,10 +314,14 @@ CREATE TABLE favoris (
 | 23 | The Wedding Gift (The Only Laurel / THE WINLOS) | Nigeria | 2026 | prAWOgmD3eg |
 | 24 | THE BLOT — A Powerful Christian Movie About Hidden Sin, Mercy and Redemption | Nigeria | 2026 | gItkfWKhK-s |
 | 25 | Prophet Suddenly 4 | Nigeria | 2026 | UjlbcOR7CfI |
+| 26 | Blind Worshippers (Amplifiers TV, Prophet Silas) | Nigeria | 2026 | gQGMIu4gtNk |
+| 27 | God in the Room (The Essence TV) | Nigeria | 2026 | M2mJQH-luxw |
 
 ✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1). Film #23 confirmé en ligne également.
 
 ✅ Films #24-25 en ligne.
+
+✅ Films #26-27 en ligne (confirmés par Raymond le 18 août 2026).
 
 ---
 

@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'Christmatic',
     title: 'Christmatic — Films chrétiens d\'Afrique noire',
-    description: 'Servir le Seigneur Jésus-Christ à travers le cinéma africain chrétien',
+    description: 'Servir le Seigneur Jésus-Christ à travers le cinéma africain chrétien — le « Netflix » des films en Christ africains, pour le public francophone et anglophone en quête de contenu gospel africain.',
     locale: 'fr_FR',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Christmatic — Films chrétiens d\'Afrique noire',
-    description: 'Servir le Seigneur Jésus-Christ à travers le cinéma africain chrétien',
+    description: 'Servir le Seigneur Jésus-Christ à travers le cinéma africain chrétien — le « Netflix » des films en Christ africains, pour le public francophone et anglophone en quête de contenu gospel africain.',
   },
 }
 

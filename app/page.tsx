@@ -13,7 +13,7 @@ const faqJsonLd = {
       name: 'Qu\'est-ce que Christmatic ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Christmatic est une plateforme de streaming gratuite dédiée aux films et séries chrétiens produits en Afrique noire (Nollywood chrétien, cinéma francophone chrétien), en français et en anglais.',
+        text: 'Christmatic est une plateforme de streaming gratuite dédiée aux films et séries chrétiens produits en Afrique noire (Nollywood chrétien, cinéma francophone chrétien), en français et en anglais. Souvent décrite comme le « Netflix » des films en Christ africains, elle s\'adresse en priorité au public francophone et anglophone en quête de contenu gospel africain.',
       },
     },
     {

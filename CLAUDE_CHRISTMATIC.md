@@ -8,7 +8,7 @@
 
 **Nom du projet :** CHRISTMATIC
 **Tagline :** "Servir le Seigneur Jésus-Christ à travers le cinéma"
-**Concept :** Netflix dédié aux films chrétiens d'Afrique noire (Afrique subsaharienne uniquement — pas de films arabes, pas de films occidentaux)
+**Concept :** le « Netflix » des films en Christ africains — dédié aux films chrétiens d'Afrique noire (Afrique subsaharienne uniquement — pas de films arabes, pas de films occidentaux), pour le public francophone et anglophone en quête de contenu gospel africain
 **Mission :** Évangéliser et édifier le Corps de Christ via le cinéma africain chrétien
 **Hero title officiel :** "Le cinéma noir Africain au service de l'Évangile"
 

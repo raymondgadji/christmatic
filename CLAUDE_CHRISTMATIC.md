@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 21 juillet 2026 — Sprint 4 en cours 🔄
+> Dernière mise à jour : 26 août 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer
 
 ---
 
@@ -100,7 +100,7 @@ BDD : Supabase (PostgreSQL managé) ✅
 URL Supabase : https://hrdtcpksdqoispbvzftg.supabase.co
 Region : West EU (Ireland)
 Package : @supabase/supabase-js
-Auth : Supabase Auth — Sprint 4 en cours
+Auth : Supabase Auth — prévu Sprint 5
 ⚠️ Plan FREE — se met en pause après inactivité → cliquer "Resume project"
 ```
 
@@ -183,14 +183,14 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 /films/[slug]         → Détail film + player YouTube ✅ EN LIGNE
 /soutenir             → Don PayPal ✅ EN LIGNE
 /stats                → Stats catalogue + lien Vercel Analytics ✅ EN LIGNE
-/compte               → Auth (inscription/connexion) ← SPRINT 4
+/compte               → Auth (inscription/connexion) ← SPRINT 5
 ```
 
 ---
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (45 films)
+### Table films ✅ créée et peuplée (62 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (60 films en ligne + 0 en attente + 1 dépublié) ✅
+## 9. Films en base (62 films — 61 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (33 films en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (35 films — 34 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -289,7 +289,7 @@ CREATE TABLE favoris (
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (27 films)
+### 🇬🇧 Films in English (27 films en ligne)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -400,7 +400,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] christmatic.com redirige (301) vers christmatic.tv
 - [x] Certificat SSL actif
 
-### Sprint 4 ← EN COURS
+### Sprint 4 ✅ TERMINÉ
 - [x] Page `/soutenir` avec bouton PayPal (logo officiel) ✅
 - [x] Lien 🙏 Soutenir dans la Nav ✅
 - [x] PayPal `paypal.me/christmatic` créé ✅
@@ -414,15 +414,25 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Nouveau film EN : The Fall — A Pastor's Secret Affair (2026) ✅
 - [x] Nouveau film FR : LA MAUVAISE BOUCHE (Cameroun, 2026) ✅
 - [x] Film EN #21 : Faith That Moves Mountains (Nigeria, 2026) ✅
-- [x] Série FR "Marié par Prophétie" Ép. 1-3 (Cameroun, 7SELAH) ✅
+- [x] Série FR "Marié par Prophétie" Ép. 1-8 (Cameroun, 7SELAH) ✅
 - [x] Ligne éditoriale élargie à la diaspora noire au sens large (Afro-Américains inclus) — décision du 22 juillet 2026, voir section 1 ✅
 - [x] Film EN #22 : CHOICES (USA, diaspora noire, 2026) ✅
 - [x] Film FR #28 : Marié par Prophétie — Épisode 4 (Cameroun, 7SELAH, 2026) ✅
+- [x] Film EN #23 : The Wedding Gift (Nigeria, THE WINLOS) ✅
+- [x] Films FR #29-30 : Marié par Prophétie Ép.5, Prophet Suddenly 4 (VF) ✅
+- [x] Film FR #32 : Le Chemin (RDC) ✅
+- [x] Films EN #24-25 : THE BLOT, Prophet Suddenly 4 ✅
+- [x] Films EN #26-27 : Blind Worshippers, God in the Room ✅
+- [x] Film FR #31 dépublié — Chez le Pasteur Ep.1 (vidéo YouTube supprimée par l'uploader, 1er août 2026) ✅
 - [x] GEO implémenté : Schema.org JSON-LD (Organization, WebSite, FAQPage, VideoObject par film), robots.txt (autorise GPTBot/ClaudeBot/PerplexityBot/CCBot), sitemap.xml dynamique, llms.txt ✅
-- [ ] Insérer film EN #23 : The Wedding Gift (Nigeria, THE WINLOS) — script SQL prêt, à exécuter
-- [ ] Auth Supabase (inscription / connexion) ← PROCHAIN
+- [x] SEO par film : `generateMetadata()` dynamique + og:image dimensionnée (480×360) sur `/films/[slug]` ✅
+- [x] Image Open Graph par défaut (1200×630, `next/og`) pour les pages sans image dédiée ✅
+- [x] Page `/stats` (statistiques catalogue) + Vercel Analytics installé ✅
+- [x] Piège Data Cache Next.js / Supabase résolu (`cache: 'no-store'` forcé dans `lib/supabase.ts`) ✅
+
+### Sprint 5 ← PROCHAIN
+- [ ] Auth Supabase (inscription / connexion)
 - [ ] Favoris utilisateur
-- [ ] SEO (meta tags, og:image par film)
 - [ ] Test mobile complet
 - [ ] Stripe (après configuration statut entreprise)
 - [ ] Partage diaspora France/Belgique — lancement !

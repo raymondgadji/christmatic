@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (62 films — 61 en ligne + 1 dépublié) ✅
+## 9. Films en base (63 films — 62 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (35 films — 34 en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (36 films — 35 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -270,6 +270,7 @@ CREATE TABLE favoris (
 | 33 | Marié par Prophétie — Épisode 6 (7SELAH) | Cameroun | 2026 | -tAz-a-LJu8 |
 | 34 | Marié par Prophétie — Épisode 7 (7SELAH) | Cameroun | 2026 | CWLQCs81AYY |
 | 35 | Marié par Prophétie — Épisode 8 (7SELAH) | Cameroun | 2026 | 1t1prVdzbrg |
+| 36 | Marié par Prophétie — Épisode 9 (7SELAH) | Cameroun | 2026 | JTngSKRHNkU |
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
@@ -286,6 +287,8 @@ CREATE TABLE favoris (
 ✅ Film #34 en ligne (confirmé par Raymond le 18 août 2026).
 
 ✅ Film #35 en ligne (confirmé par Raymond le 26 août 2026 — Marié par Prophétie Ép.8, https://www.christmatic.tv/films/marie-par-prophetie-ep8).
+
+✅ Film #36 en ligne (confirmé par Raymond le 28 août 2026 — Marié par Prophétie Ép.9, https://www.christmatic.tv/films/marie-par-prophetie-ep9).
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 

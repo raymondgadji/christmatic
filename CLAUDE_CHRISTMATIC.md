@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 26 août 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer
+> Dernière mise à jour : 21 septembre 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer, catalogue à 85 films
 
 ---
 
@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (64 films)
+### Table films ✅ créée et peuplée (85 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (64 films — 63 en ligne + 1 dépublié) ✅
+## 9. Films en base (85 films — 84 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (37 films — 36 en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (45 films — 44 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -272,6 +272,16 @@ CREATE TABLE favoris (
 | 35 | Marié par Prophétie — Épisode 8 (7SELAH) | Cameroun | 2026 | 1t1prVdzbrg |
 | 36 | Marié par Prophétie — Épisode 9 (7SELAH) | Cameroun | 2026 | JTngSKRHNkU |
 | 37 | Marié par Prophétie — Épisode 10 (7SELAH) | Cameroun | 2026 | 4_kVvuOsg7o |
+| 38 | Marié par Prophétie — Épisode 11 (7SELAH) | Cameroun | 2026 | -7xrcy4peiY |
+| 39 | Marié par Prophétie — Épisode 12 (7SELAH) | Cameroun | 2026 | kwqb0jcGRAs |
+| 40 | Mes Larmes, un Souvenir (Jésus Côte d'Ivoire) | Côte d'Ivoire | — | urddeaWJsQ0 |
+| 41 | Œil pour Œil, Dent pour Dent (Ciné-Leçon) | Côte d'Ivoire | — | FIygU0OOmIw |
+| 42 | Acte Abominable (Ciné-Leçon) | Côte d'Ivoire | — | HHDuxIB8R_o |
+| 43 | Voisinage Toxique (Ciné-Leçon) | Côte d'Ivoire | — | 2EFB6LnN8dM |
+| 44 | Juste une Nuit (Ciné-Leçon) | Côte d'Ivoire | — | qJbQ1cfKqts |
+| 45 | Presque pour la Vie (The Triumphant Christian Films) | Cameroun | — | n7wb-cRFBP4 |
+
+✅ Films #38-45 en ligne (ajoutés le 21 septembre 2026 via recensement automatique de la playlist YouTube, voir section 15bis).
 
 ⚠️ **Note** : vérifier que le film #11 "Captifs de l'Homme Fort" a bien un youtube_id distinct de #10.
 
@@ -295,7 +305,7 @@ CREATE TABLE favoris (
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (27 films en ligne)
+### 🇬🇧 Films in English (40 films en ligne)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -325,6 +335,21 @@ CREATE TABLE favoris (
 | 25 | Prophet Suddenly 4 | Nigeria | 2026 | UjlbcOR7CfI |
 | 26 | Blind Worshippers (Amplifiers TV, Prophet Silas) | Nigeria | 2026 | gQGMIu4gtNk |
 | 27 | God in the Room (The Essence TV) | Nigeria | 2026 | M2mJQH-luxw |
+| 28 | Open Door (Ese Talks Studio) | Nigeria | — | iTxHkJGN_wI |
+| 29 | Open Door 2 (Ese Talks Studio) | Nigeria | — | 7mDcOuiYxU0 |
+| 30 | After Genesis (G9Studios, Ola Adene) | Nigeria | 2025 | q0z6LTLl2W0 |
+| 31 | After Genesis 2 (G9Studios, Ola Adene) | Nigeria | 2026 | O9UDYDjdvps |
+| 32 | She Loved the Wrong Guy (The Winlos) | Nigeria | — | 4D6Bvxm9FmY |
+| 33 | Silent Proposal (The Winlos) | Nigeria | — | 2nyO9chO6OM |
+| 34 | The Unhealed Prophet (Fejosbaba TV) | Nigeria | 2026 | A2CubclB_Po |
+| 35 | Behind Her (Fejosbaba TV) | Nigeria | 2026 | C4UnPAhSyUs |
+| 36 | The Baby Christian (Anora MediaTV) | Nigeria | — | ZNebZZGjCO4 |
+| 37 | When Past Knocks (Flaming Sword Movies) | USA (diaspora noire) | — | NrirQtwLUio |
+| 38 | The First Ministry (Biodun Stephen) | Nigeria | 2026 | k-ApyygFibs |
+| 39 | Stain on the Altar (Whitestone Studios) | Nigeria | 2026 | Z8g7b8IF4_g |
+| 40 | Broken Vow (Whitestone Studios) | Nigeria | 2026 | nbO_2w2LOoQ |
+
+✅ Films #28-40 en ligne (ajoutés le 21 septembre 2026 via recensement automatique de la playlist YouTube, voir section 15bis).
 
 ✅ Film #22 en ligne — premier film de la diaspora noire élargie (voir section 1). Film #23 confirmé en ligne également.
 
@@ -474,6 +499,35 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - Coller l'erreur exacte pour debug rapide
 - Un composant à la fois
 - Langue : **français** discussions, **anglais** code
+
+---
+
+## 15bis. Procédure : synchroniser la playlist YouTube → Supabase
+
+**Playlist source** : "Christmatic TV 100% african Gospel films" — https://www.youtube.com/playlist?list=PLdp5bJ0vPgXSKs0uq8h8DK7UpVlJz3v3Z (chaîne de Raymond, publique, 85 vidéos au 21 sept. 2026)
+
+Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il demande de "recenser les nouveaux films", Claude doit :
+
+1. **Extraire la playlist** : ouvrir l'URL dans l'outil navigateur (Claude in Chrome), puis exécuter ce script JS dans la page pour lire `window.ytInitialData` (fonctionne dès le chargement initial, pas besoin de scroller jusqu'à ~85-100 vidéos ; les vidéos supprimées/privées sont automatiquement absentes du résultat) :
+   ```js
+   const data = window.ytInitialData;
+   function findContents(obj, results) {
+     if (!obj || typeof obj !== 'object') return;
+     if (obj.playlistVideoRenderer) {
+       const r = obj.playlistVideoRenderer;
+       results.push({ id: r.videoId, title: r.title?.runs?.map(x=>x.text).join('') || r.title?.simpleText, index: r.index?.simpleText });
+     }
+     for (const k in obj) if (typeof obj[k] === 'object') findContents(obj[k], results);
+   }
+   const results = []; findContents(data, results); results;
+   ```
+   (Le résultat JSON peut dépasser la limite d'affichage de l'outil JS → le stocker dans `window.__playlistResults` puis le lire par tranches de 10 avec `.slice(i, i+10)`.)
+2. **Comparer** chaque `videoId` extrait avec la colonne `youtube_id` des films déjà listés en section 9 de ce fichier (source de vérité tenue à jour à chaque ajout) → les IDs absents sont les nouveaux films.
+3. **Identifier le pays** via l'API oEmbed publique (pas besoin d'auth) :
+   `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ID&format=json` → champ `author_name` (nom de la chaîne). Chaînes déjà repérées : **7Selah** → Cameroun ("Marié par Prophétie"), **The Winlos** → Nigeria, **Fejosbaba TV** → Nigeria, **G9Studios / Ola Adene** → Nigeria, **Whitestone Studios** → Nigeria, **Biodun Stephen / BIODUNSTEPHEN TV** → Nigeria, **Ese Talks Studio** → Nigeria, **Flaming Sword Movies (FSM)** → USA (diaspora noire, comme le film CHOICES déjà en base). Chaîne inconnue → marquer "à confirmer" et laisser Raymond trancher avant d'exécuter le SQL.
+4. **Générer le SQL** `INSERT INTO films (...)` avec les mêmes règles que d'habitude (voir section 1 "Workflow d'ajout de film") : slug en kebab-case du titre, `thumbnail_url` = `https://img.youtube.com/vi/{id}/hqdefault.jpg`, `langue` déduite du titre (fr/en), `annee` NULL si non précisée explicitement dans le titre YouTube, `is_published = true`, `is_featured = false`, `description` laissée à NULL (Raymond la remplit s'il veut, comme pour les ajouts manuels).
+5. Raymond exécute le SQL lui-même dans le SQL Editor Supabase (Claude n'a pas d'accès direct à la base), vérifie en ligne sur christmatic.tv, puis passe par le Facebook Sharing Debugger si le film doit être partagé (voir section 9).
+6. Une fois confirmé, mettre à jour la section 9 et les compteurs de ce fichier.
 
 ---
 

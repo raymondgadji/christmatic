@@ -531,6 +531,31 @@ Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il de
 
 ---
 
+## 15ter. Procédure : campagne de partage Facebook (page + groupes)
+
+**Page Facebook** : https://www.facebook.com/christmatictv (Raymond y est connecté et administrateur). Objectif : partager chaque nouveau film sur la page ET dans les groupes Facebook chrétiens dont Raymond est membre, à un rythme choisi par lui (ex. ~5 films par session, pas tout d'un coup).
+
+Procédure par film (établie le 21 septembre 2026) :
+1. **Rafraîchir le cache Facebook** : Sharing Debugger `https://developers.facebook.com/tools/debug/?q=https%3A%2F%2Fwww.christmatic.tv%2Ffilms%2F{slug}` → cliquer "Fetch new information" (ou "Scrape Again") → vérifier visuellement l'aperçu (image/titre corrects).
+2. Aller sur `https://www.facebook.com/post/create` (poste en tant que Page).
+3. Cliquer sur "Share to groups" (scroller un peu dans le panneau de gauche pour le voir) → cocher les 6 groupes disponibles en cliquant directement sur chaque case (⚠️ le clic programmatique ne suffit pas, Facebook ne met pas à jour son état React sans un vrai clic souris) : Évangile en ligne, LES AMIS DE JESUS CHRIST, L'Afrique aux africains et les africains pour Jésus, Jésus est ma force je prie Jésus, 100% JÉSUS., Jésus T'aime et Il a donné sa vie pour toi sur la Croix ❤️.
+4. Coller le texte dans "What's on your mind" avec ce gabarit :
+   ```
+   🎬 Nouveau sur Christmatic ! {Titre} est maintenant disponible sur notre plateforme, gratuitement.
+   👉 https://www.christmatic.tv/films/{slug}
+   🙏 Le cinéma noir africain au service de l'Évangile.
+   ```
+   La carte de lien (image + titre) se génère automatiquement une fois l'URL détectée.
+5. **Toujours montrer l'aperçu à Raymond et attendre sa confirmation explicite avant de cliquer sur "Post"** (action publique irréversible).
+6. Mettre à jour le suivi ci-dessous après chaque lot partagé.
+
+**Suivi de la campagne pour les 21 films ajoutés le 21/09/2026** (voir section 9 pour la liste complète des slugs) :
+- ✅ Partagés (5) : Marié par Prophétie Ép.11, Marié par Prophétie Ép.12, Mes Larmes un Souvenir, Œil pour Œil Dent pour Dent, Acte Abominable
+- ⏳ Reste à partager (16), en repartant de : Voisinage Toxique, Juste une Nuit, Presque pour la Vie, Open Door, Open Door 2, After Genesis, After Genesis 2, She Loved the Wrong Guy, Silent Proposal, The Unhealed Prophet, Behind Her, The Baby Christian, When Past Knocks, The First Ministry, Stain on the Altar, Broken Vow
+- Rythme choisi par Raymond : ~5 films par session
+
+---
+
 ## 15. Ressources
 
 - Site live : **christmatic.tv** ✅

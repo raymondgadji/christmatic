@@ -550,9 +550,22 @@ Procédure par film (établie le 21 septembre 2026) :
 6. Mettre à jour le suivi ci-dessous après chaque lot partagé.
 
 **Suivi de la campagne pour les 21 films ajoutés le 21/09/2026** (voir section 9 pour la liste complète des slugs) :
-- ✅ Partagés (5) : Marié par Prophétie Ép.11, Marié par Prophétie Ép.12, Mes Larmes un Souvenir, Œil pour Œil Dent pour Dent, Acte Abominable
-- ⏳ Reste à partager (16), en repartant de : Voisinage Toxique, Juste une Nuit, Presque pour la Vie, Open Door, Open Door 2, After Genesis, After Genesis 2, She Loved the Wrong Guy, Silent Proposal, The Unhealed Prophet, Behind Her, The Baby Christian, When Past Knocks, The First Ministry, Stain on the Altar, Broken Vow
+- ✅ Partagés (10) : Marié par Prophétie Ép.11, Marié par Prophétie Ép.12, Mes Larmes un Souvenir, Œil pour Œil Dent pour Dent, Acte Abominable, Voisinage Toxique, Juste une Nuit, Presque pour la Vie, Open Door, Open Door 2
+- ⏳ Reste à partager (11), en repartant de : After Genesis, After Genesis 2, She Loved the Wrong Guy, Silent Proposal, The Unhealed Prophet, Behind Her, The Baby Christian, When Past Knocks, The First Ministry, Stain on the Altar, Broken Vow
 - Rythme choisi par Raymond : ~5 films par session
+- **Piège Facebook découvert le 22/09/2026** : l'image d'un lien tout juste scrapé peut ne pas être disponible immédiatement côté Facebook (message Debugger *"images are processed asynchronously"*) — cliquer "Scrape Again" une seconde fois (~5-10s après) jusqu'à ce que l'image apparaisse, puis repartir d'une page `post/create` fraîche (le composer garde en cache le 1er scrape sans image). Et : toujours vérifier que le clic dans le champ de texte a bien pris le focus (taper un mot test avant le message complet) — sinon les caractères tapés (le "/" de l'URL) sont interprétés comme des raccourcis clavier Facebook et peuvent activer "Share to story" par erreur.
+
+**Analyse d'audience (22/09/2026, Vercel Analytics 30 jours + /stats)** — voir dashboards : `vercel.com/raymondgadjis-projects/christmatic/analytics` et `christmatic.tv/stats` :
+- 137 visiteurs (+95%), 341 pages vues (+148%) sur 30 jours — pic net fin de période, corrélé au démarrage de la campagne Facebook le 21/09.
+- Référents : facebook.com + m.facebook.com = 45 visiteurs (~33% du trafic, 1er canal) ; chatgpt.com = 10 visiteurs (le GEO commence à porter ses fruits) ; google.com = 10, bing.com = 7 (SEO organique modeste mais réel) ; koush.app = 2.
+- Pays : USA 34% (diaspora, 1er pays devant les pays africains eux-mêmes), France 12%, Côte d'Ivoire 9%, Bénin 7%, RDC 7%.
+- Mobile 54% / Desktop 46%. Taux de rebond 56% (en baisse de 12 pts vs période précédente, mais encore élevé).
+- **Pistes d'audience identifiées** (à discuter avec Raymond avant implémentation) :
+  1. Aucun bouton de partage (WhatsApp notamment) sur les pages film actuellement — or WhatsApp est le canal de diffusion n°1 de la diaspora africaine ; un bouton "Partager sur WhatsApp" sur `/films/[slug]` pourrait créer une boucle virale gratuite.
+  2. Le GEO (llms.txt, JSON-LD, robots.txt) fonctionne déjà (10 visiteurs via ChatGPT) — enrichir les descriptions/FAQ par film pourrait amplifier cet effet.
+  3. Aucune trace de soumission à Google Search Console dans la doc — vérifier/soumettre le sitemap pour accélérer l'indexation et obtenir les requêtes de recherche tapées par les utilisateurs.
+  4. Trafic USA dominant (diaspora) mais aucun canal Instagram/TikTok exploité à ce jour — extraits vidéo courts (trailers) pourraient toucher cette audience différemment du texte+lien Facebook.
+  5. Taux de rebond élevé — une section "films similaires" en bas de page film pourrait retenir davantage les visiteurs après une vue.
 
 ---
 

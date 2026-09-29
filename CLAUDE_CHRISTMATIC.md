@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (85 films)
+### Table films ✅ créée et peuplée (97 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (85 films — 84 en ligne + 1 dépublié) ✅
+## 9. Films en base (97 films — 96 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (45 films — 44 en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (47 films — 46 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -280,6 +280,10 @@ CREATE TABLE favoris (
 | 43 | Voisinage Toxique (Ciné-Leçon) | Côte d'Ivoire | — | 2EFB6LnN8dM |
 | 44 | Juste une Nuit (Ciné-Leçon) | Côte d'Ivoire | — | qJbQ1cfKqts |
 | 45 | Presque pour la Vie (The Triumphant Christian Films) | Cameroun | — | n7wb-cRFBP4 |
+| 46 | Marié par Prophétie — Épisode 13 (7SELAH) | Cameroun | 2026 | LrTfUEM-nZM |
+| 47 | Le Jour où j'ai décidé de prier (Horanoia TV) | RDC | 2026 | N0eIUDWzeMk |
+
+✅ Films #46-47 en ligne (29/09/2026). Même lot : youtube_id de #11 "Captifs de l'Homme Fort" corrigé → `pTk0kCA687U`.
 
 ✅ Films #38-45 en ligne (ajoutés le 21 septembre 2026 via recensement automatique de la playlist YouTube, voir section 15bis).
 
@@ -305,7 +309,7 @@ CREATE TABLE favoris (
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (40 films en ligne)
+### 🇬🇧 Films in English (50 films en ligne)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -348,6 +352,18 @@ CREATE TABLE favoris (
 | 38 | The First Ministry (Biodun Stephen) | Nigeria | 2026 | k-ApyygFibs |
 | 39 | Stain on the Altar (Whitestone Studios) | Nigeria | 2026 | Z8g7b8IF4_g |
 | 40 | Broken Vow (Whitestone Studios) | Nigeria | 2026 | nbO_2w2LOoQ |
+| 41 | Nora (AT Films Production) — 360K vues en 3 jours, is_featured | Nigeria | 2026 | KCpWrmUFRnM |
+| 42 | Stormed (Mount Zion / Damilola Mike-Bamiloye) | Nigeria | 2026 | vuCoPHVBVZM |
+| 43 | Pastor Must Hear (Anora MediaTV) | Nigeria | 2026 | W2d-LoMuIU0 |
+| 44 | Wealth in the Dream (GACEM Films) | Nigeria | 2026 | 4fgnC_DoLzg |
+| 45 | Wealth in the Dream 2 (GACEM Films) | Nigeria | 2026 | a3zjLHuHFHY |
+| 46 | Rebranded (Revelation Cinemas TV) | Nigeria | 2026 | CL3fCFCbe2E |
+| 47 | The Evangelist (Calvary Movies TV) | Nigeria | 2026 | owFodw12DeE |
+| 48 | At Mercy's Feet (Tiwalara TV) | Nigeria | 2026 | yKkjoCXU_bA |
+| 49 | Sleeping Prophecy (Fejosbaba TV) | Nigeria | 2026 | 1N6AmUZ6v3k |
+| 50 | The Password (Fejosbaba TV) | Nigeria | 2026 | UFXS0UtmU0I |
+
+✅ Films #41-50 en ligne (29/09/2026, vérifiés + Sharing Debugger fait pour les 12).
 
 ✅ Films #28-40 en ligne (ajoutés le 21 septembre 2026 via recensement automatique de la playlist YouTube, voir section 15bis).
 

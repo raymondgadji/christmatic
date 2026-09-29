@@ -66,26 +66,26 @@ export default async function Home() {
     .eq('is_published', true)
     .order('created_at', { ascending: false })
 
-  const { data: featuredRow } = await supabase
+  const { data: featuredRows } = await supabase
     .from('films')
     .select('titre, slug, pays, annee, duree_min, langue, description, youtube_id, thumbnail_url')
     .eq('is_featured', true)
     .eq('is_published', true)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .maybeSingle()
+    .order('created_at', { ascending: true })
+    .limit(5)
 
-  let featured: FeaturedFilm | null = null
-  if (featuredRow) {
-    let backdrop_url = featuredRow.thumbnail_url || ''
-    if (featuredRow.youtube_id) {
-      // maxresdefault (1280×720) doesn't exist for every video — fall back to the 480×360 thumbnail
-      const maxres = `https://img.youtube.com/vi/${featuredRow.youtube_id}/maxresdefault.jpg`
-      const head = await fetch(maxres, { method: 'HEAD', cache: 'no-store' }).catch(() => null)
-      if (head?.ok) backdrop_url = maxres
-    }
-    featured = { ...featuredRow, backdrop_url }
-  }
+  const featured: FeaturedFilm[] = await Promise.all(
+    (featuredRows || []).map(async ({ youtube_id, thumbnail_url, ...film }) => {
+      let backdrop_url = thumbnail_url || ''
+      if (youtube_id) {
+        // maxresdefault (1280×720) doesn't exist for every video — fall back to the 480×360 thumbnail
+        const maxres = `https://img.youtube.com/vi/${youtube_id}/maxresdefault.jpg`
+        const head = await fetch(maxres, { method: 'HEAD', cache: 'no-store' }).catch(() => null)
+        if (head?.ok) backdrop_url = maxres
+      }
+      return { ...film, backdrop_url }
+    })
+  )
 
   const formatFilms = (films: {
     id: string

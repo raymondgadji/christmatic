@@ -398,7 +398,8 @@ christmatic/
 │
 ├── components/
 │   ├── Nav.tsx                ✅ avec bouton 🙏 Soutenir
-│   ├── HeroBanner.tsx         ✅
+│   ├── HeroBanner.tsx         ✅ Hero "À la une" (wrapper : carrousel si films, sinon hero texte)
+│   ├── HeroCarousel.tsx       ✅ Carrousel auto (5 s) des films `is_featured` — max 5, du plus ancien au plus récent ; piloté depuis Supabase (29/09/2026 : Nora, Wealth in the Dream 1 & 2, Le Jour où j'ai décidé de prier, Marié par Prophétie Ép.13)
 │   ├── FilmCard.tsx           ✅ cliquable avec Link
 │   └── FilmRow.tsx            ✅
 │

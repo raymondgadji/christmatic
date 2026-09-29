@@ -44,20 +44,17 @@ function formatMeta(film: FeaturedFilm) {
 
 export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
   const [active, setActive] = useState(0)
-  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
-    if (films.length < 2 || paused) return
+    if (films.length < 2) return
     const id = setInterval(() => setActive((i) => (i + 1) % films.length), INTERVAL_MS)
     return () => clearInterval(id)
-  }, [films.length, paused, active])
+  }, [films.length, active])
 
   return (
     <section
       aria-roledescription="carrousel"
       aria-label="Films à la une"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       style={{
         position: 'relative',
         minHeight: 'clamp(420px, 62vh, 620px)',

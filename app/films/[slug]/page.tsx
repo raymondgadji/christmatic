@@ -9,6 +9,10 @@ interface Props {
 
 export const dynamic = 'force-dynamic'
 
+// Playlist YouTube "Christmatic TV 100% african Gospel films" : chaque film est lu dans son contexte
+// pour que les lectures sur christmatic.tv comptent comme des vues de la playlist.
+const YOUTUBE_PLAYLIST_ID = 'PLdp5bJ0vPgXSKs0uq8h8DK7UpVlJz3v3Z'
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { data: film } = await supabase
     .from('films')
@@ -97,14 +101,14 @@ export default async function FilmPage({ params }: Props) {
       {film.youtube_id && (
         <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', borderRadius: '12px', overflow: 'hidden', marginBottom: '24px', background: '#000' }}>
           <iframe
-            src={`https://www.youtube.com/embed/${film.youtube_id}?rel=0&modestbranding=1`}
+            src={`https://www.youtube.com/embed/${film.youtube_id}?list=${YOUTUBE_PLAYLIST_ID}&rel=0&modestbranding=1`}
             title={film.titre}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
           />
           
-            <a href={`https://www.youtube.com/watch?v=${film.youtube_id}`}
+            <a href={`https://www.youtube.com/watch?v=${film.youtube_id}&list=${YOUTUBE_PLAYLIST_ID}`}
             target="_blank"
             rel="noopener noreferrer"
             style={{ position: 'absolute', bottom: '16px', right: '16px', background: '#FF0000', color: '#fff', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '6px', textDecoration: 'none', zIndex: 10 }}

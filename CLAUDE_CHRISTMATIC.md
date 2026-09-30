@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (97 films)
+### Table films ✅ créée et peuplée (99 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,7 +230,7 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (97 films — 96 en ligne + 1 dépublié) ✅
+## 9. Films en base (99 films — 98 en ligne + 1 dépublié) ✅
 
 ### 🇫🇷 Films en Français (47 films — 46 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
@@ -309,7 +309,7 @@ CREATE TABLE favoris (
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (50 films en ligne)
+### 🇬🇧 Films in English (52 films en ligne)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -362,6 +362,10 @@ CREATE TABLE favoris (
 | 48 | At Mercy's Feet (Tiwalara TV) | Nigeria | 2026 | yKkjoCXU_bA |
 | 49 | Sleeping Prophecy (Fejosbaba TV) | Nigeria | 2026 | 1N6AmUZ6v3k |
 | 50 | The Password (Fejosbaba TV) | Nigeria | 2026 | UFXS0UtmU0I |
+| 51 | Alejo Oloore: The Messenger of Good Fortune (REHODRAM Films) | Nigeria | — | vjzr9A-5Yps |
+| 52 | Lagos to Gomorrah (2nd Touch Production) | Nigeria | 2026 | AvzyBgOvgic |
+
+✅ Films #51-52 en ligne (30/09/2026, confirmés par Raymond + vérifiés HTTP 200 + og:image OK). Recensement playlist : 99 vidéos affichées, 97 lisibles, 2 nouvelles. **Lot 3 (2 films) : Sharing Debugger + partage Facebook prévus le 01/10/2026** (gabarit « » + 7 groupes, voir mémoire christmatic_facebook_sharing_queue).
 
 ✅ Films #41-50 en ligne (29/09/2026, vérifiés + Sharing Debugger fait pour les 12).
 

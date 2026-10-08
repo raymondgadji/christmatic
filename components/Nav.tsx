@@ -25,8 +25,9 @@ export default function Nav() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <svg width="18" height="22" viewBox="0 0 100 120" fill="#0A0A0A">
-            <path d="M38,4 C32,4 24,8 20,14 C16,20 14,26 16,32 C10,36 6,42 8,50 C10,58 14,62 12,70 C10,78 14,86 20,92 C26,98 34,104 40,108 C46,112 52,114 56,112 C62,108 68,102 72,96 C76,88 78,80 76,72 C80,68 84,62 82,54 C80,46 76,42 74,36 C78,30 76,22 70,16 C64,10 56,6 50,4 C46,3 42,4 38,4 Z"/>
+          <svg width="18" height="22" viewBox="0 0 100 120" fill="#0A0A0A" aria-hidden="true">
+            <rect x="40" y="6" width="20" height="108" rx="3" />
+            <rect x="14" y="34" width="72" height="20" rx="3" />
           </svg>
         </div>
         <span style={{

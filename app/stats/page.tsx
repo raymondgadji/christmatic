@@ -143,11 +143,12 @@ export default async function StatsPage() {
           </p>
         ) : (
           <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px', marginBottom: '16px' }}>
               {[
                 { label: 'Clics au total', value: sharesTotal },
                 { label: 'WhatsApp', value: sharesParCanal.whatsapp || 0 },
                 { label: 'Facebook', value: sharesParCanal.facebook || 0 },
+                { label: 'LinkedIn', value: sharesParCanal.linkedin || 0 },
                 { label: 'Lien copié', value: sharesParCanal.copy || 0 },
               ].map((stat) => (
                 <div key={stat.label} style={{

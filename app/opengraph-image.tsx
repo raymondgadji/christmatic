@@ -27,8 +27,12 @@ export default async function Image() {
               background: '#D4A843',
               borderRadius: 20,
               display: 'flex',
+              position: 'relative',
             }}
-          />
+          >
+            <div style={{ position: 'absolute', left: 45, top: 16, width: 20, height: 78, background: '#0A0A0A', borderRadius: 3 }} />
+            <div style={{ position: 'absolute', left: 25, top: 38, width: 60, height: 20, background: '#0A0A0A', borderRadius: 3 }} />
+          </div>
           <div style={{ display: 'flex', fontSize: 88, fontWeight: 700, color: '#F5F5F0' }}>
             CHRIST<span style={{ color: '#D4A843' }}>MATIC</span>
           </div>

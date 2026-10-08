@@ -4,7 +4,7 @@
 CREATE TABLE IF NOT EXISTS share_clicks (
   id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   film_slug  TEXT NOT NULL,
-  channel    TEXT NOT NULL CHECK (channel IN ('whatsapp', 'facebook', 'copy')),
+  channel    TEXT NOT NULL CHECK (channel IN ('whatsapp', 'facebook', 'linkedin', 'copy')),
   created_at TIMESTAMPTZ DEFAULT now()
 );
 

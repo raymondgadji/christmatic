@@ -74,6 +74,16 @@ export default function RootLayout({
           }}>
             CHRISTMATIC · Servir le Seigneur Jésus-Christ à travers le cinéma
           </p>
+          <p style={{ marginTop: '10px', fontSize: '12px' }}>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SITE_URL)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--color-gold)' }}
+            >
+              Partager Christmatic sur LinkedIn
+            </a>
+          </p>
         </footer>
         <Analytics />
       </body>

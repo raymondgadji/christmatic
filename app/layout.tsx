@@ -1,11 +1,19 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Nav from '../components/Nav'
+import PwaInstall from '../components/PwaInstall'
 import { SITE_URL } from '../lib/seo'
+
+export const viewport: Viewport = {
+  themeColor: '#0A0A0A',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  applicationName: 'Christmatic',
+  appleWebApp: { capable: true, title: 'Christmatic', statusBarStyle: 'black' },
+  icons: { apple: '/pwa-icon/180' },
   title: {
     default: 'Christmatic — Films chrétiens d\'Afrique noire',
     template: '%s | Christmatic',
@@ -84,6 +92,7 @@ export default function RootLayout({
               Partager Christmatic sur LinkedIn
             </a>
           </p>
+          <PwaInstall />
         </footer>
         <Analytics />
       </body>

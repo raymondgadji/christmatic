@@ -1,6 +1,11 @@
 import { supabase } from '../lib/supabase'
 import HeroBanner, { type FeaturedFilm } from '../components/HeroBanner'
 import FilmRow from '../components/FilmRow'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
 
 export const dynamic = 'force-dynamic'
 

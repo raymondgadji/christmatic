@@ -1,5 +1,11 @@
 import { supabase } from '../../lib/supabase'
 import FilmCard from '../../components/FilmCard'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Films chrétiens en français',
+  alternates: { canonical: '/francais' },
+}
 
 export const dynamic = 'force-dynamic'
 

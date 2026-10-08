@@ -1,4 +1,10 @@
 import { supabase } from '../../lib/supabase'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Statistiques',
+  alternates: { canonical: '/stats' },
+}
 
 export const dynamic = 'force-dynamic'
 

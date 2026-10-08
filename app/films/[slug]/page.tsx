@@ -2,6 +2,7 @@ import { supabase } from '../../../lib/supabase'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { SITE_URL } from '../../../lib/seo'
+import ShareButtons from '../../../components/ShareButtons'
 
 interface Props {
   params: { slug: string }
@@ -117,6 +118,10 @@ export default async function FilmPage({ params }: Props) {
           </a>
         </div>
       )}
+
+      <div style={{ marginBottom: '24px' }}>
+        <ShareButtons titre={film.titre} slug={film.slug} langue={film.langue} siteUrl={SITE_URL} />
+      </div>
 
       {film.description && (
         <div style={{ background: 'var(--color-bg-secondary)', borderRadius: '8px', padding: '16px 20px', marginBottom: '24px' }}>

@@ -5,9 +5,28 @@ export const dynamic = 'force-dynamic'
 export default async function StatsPage() {
   const { data: films } = await supabase
     .from('films')
-    .select('langue, pays, titre, created_at')
+    .select('langue, pays, titre, slug, created_at')
     .eq('is_published', true)
     .order('created_at', { ascending: false })
+
+  // Clics sur les boutons de partage des pages film (table share_clicks, voir docs/create_share_clicks.sql)
+  const { data: shares, error: sharesError } = await supabase
+    .from('share_clicks')
+    .select('film_slug, channel')
+    .limit(10000)
+
+  const sharesTotal = shares?.length || 0
+  const sharesParCanal = (shares || []).reduce((acc: Record<string, number>, c) => {
+    acc[c.channel] = (acc[c.channel] || 0) + 1
+    return acc
+  }, {})
+  const sharesParFilm = Object.entries(
+    (shares || []).reduce((acc: Record<string, number>, c) => {
+      acc[c.film_slug] = (acc[c.film_slug] || 0) + 1
+      return acc
+    }, {})
+  ).sort((a, b) => b[1] - a[1]).slice(0, 5)
+  const titreParSlug: Record<string, string> = Object.fromEntries((films || []).map((f) => [f.slug, f.titre]))
 
   const total = films?.length || 0
   const totalFr = films?.filter((f) => f.langue === 'fr').length || 0
@@ -108,6 +127,57 @@ export default async function StatsPage() {
             </div>
           ))}
         </div>
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '13px', color: 'var(--color-gold)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Partages depuis les pages film
+        </h2>
+        {sharesError ? (
+          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+            Suivi pas encore activé (table share_clicks absente — voir docs/create_share_clicks.sql).
+          </p>
+        ) : sharesTotal === 0 ? (
+          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+            Aucun clic de partage enregistré pour l&apos;instant.
+          </p>
+        ) : (
+          <>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px', marginBottom: '16px' }}>
+              {[
+                { label: 'Clics au total', value: sharesTotal },
+                { label: 'WhatsApp', value: sharesParCanal.whatsapp || 0 },
+                { label: 'Facebook', value: sharesParCanal.facebook || 0 },
+                { label: 'Lien copié', value: sharesParCanal.copy || 0 },
+              ].map((stat) => (
+                <div key={stat.label} style={{
+                  background: 'var(--color-bg-secondary)',
+                  border: '0.5px solid var(--color-border)',
+                  borderRadius: '8px',
+                  padding: '16px',
+                }}>
+                  <div style={{ fontSize: '28px', fontWeight: 600, color: 'var(--color-gold)' }}>{stat.value}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {sharesParFilm.map(([slug, count]) => (
+                <div key={slug} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '14px',
+                  color: 'var(--color-text-muted)',
+                  padding: '6px 0',
+                  borderBottom: '0.5px solid var(--color-border)',
+                }}>
+                  <span>{titreParSlug[slug] || slug}</span>
+                  <span style={{ color: 'var(--color-text-primary)' }}>{count}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
       <div style={{

@@ -72,7 +72,7 @@ export default async function Home() {
     .eq('is_featured', true)
     .eq('is_published', true)
     .order('created_at', { ascending: true })
-    .limit(5)
+    .limit(7)
 
   const featured: FeaturedFilm[] = await Promise.all(
     (featuredRows || []).map(async ({ youtube_id, thumbnail_url, ...film }) => {

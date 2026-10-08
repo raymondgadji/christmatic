@@ -411,7 +411,7 @@ christmatic/
 ├── components/
 │   ├── Nav.tsx                ✅ avec bouton 🙏 Soutenir
 │   ├── HeroBanner.tsx         ✅ Hero "À la une" (wrapper : carrousel si films, sinon hero texte)
-│   ├── HeroCarousel.tsx       ✅ Carrousel auto (5 s) des films `is_featured` — **max 7** (relevé de 5 à 7 le 08/10/2026 pour ajouter Marié par Prophétie Ép.14 et Wealth in the Dream 3 via `docs/update_featured_carousel.sql`), du plus ancien au plus récent ; piloté depuis Supabase (29/09/2026 : Nora, Wealth in the Dream 1 & 2, Le Jour où j'ai décidé de prier, Marié par Prophétie Ép.13)
+│   ├── HeroCarousel.tsx       ✅ Carrousel auto (5 s) des films `is_featured` — **max 7** (relevé de 5 à 7 le 08/10/2026 pour ajouter Marié par Prophétie Ép.14 et Wealth in the Dream 3 via `docs/update_featured_carousel.sql` ; puis Marié par Prophétie Ép.13 remplacé par La Victoire du Premier-né via `docs/update_featured_carousel_2.sql`), du plus ancien au plus récent ; piloté depuis Supabase (29/09/2026 : Nora, Wealth in the Dream 1 & 2, Le Jour où j'ai décidé de prier, Marié par Prophétie Ép.13)
 │   ├── FilmCard.tsx           ✅ cliquable avec Link
 │   └── FilmRow.tsx            ✅
 │

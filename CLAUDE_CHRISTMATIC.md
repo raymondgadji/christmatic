@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 21 septembre 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer, catalogue à 85 films
+> Dernière mise à jour : 8 octobre 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer, catalogue à 105 films (104 en ligne)
 
 ---
 
@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (99 films)
+### Table films ✅ créée et peuplée (105 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (99 films — 98 en ligne + 1 dépublié) ✅
+## 9. Films en base (105 films — 104 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (47 films — 46 en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (50 films — 49 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -245,7 +245,7 @@ CREATE TABLE favoris (
 | 8 | Sacrilège | Côte d'Ivoire | — | 4Qgml4diAV0 |
 | 9 | Le Temps de la Fin | RDC | — | SBITkDa2oMU |
 | 10 | Deborah — Réfère toi à tes racines | Côte d'Ivoire | — | tSSBrwK_fGw |
-| 11 | Captifs de l'Homme Fort | Côte d'Ivoire | — | tSSBrwK_fGw |
+| 11 | Captifs de l'Homme Fort | Côte d'Ivoire | — | pTk0kCA687U |
 | 12 | Malédiction Héréditaire | Côte d'Ivoire | — | p6k6SoG0pL0 |
 | 13 | Jacob M'Mayami | Côte d'Ivoire | — | r7MvTknBUtQ |
 | 14 | La Repentance 2 | Côte d'Ivoire | — | mPKFSruDgSs |
@@ -282,6 +282,9 @@ CREATE TABLE favoris (
 | 45 | Presque pour la Vie (The Triumphant Christian Films) | Cameroun | — | n7wb-cRFBP4 |
 | 46 | Marié par Prophétie — Épisode 13 (7SELAH) | Cameroun | 2026 | LrTfUEM-nZM |
 | 47 | Le Jour où j'ai décidé de prier (Horanoia TV) | RDC | 2026 | N0eIUDWzeMk |
+| 48 | La Victoire du Premier-né (Jésus Côte d'Ivoire) | Côte d'Ivoire | — | 2QxrJe-fzEY |
+| 49 | Le Pacte du Mal (Ciné-Leçon) | Côte d'Ivoire | — | ja5kYJcHlKI |
+| 50 | Marié par Prophétie — Épisode 14 (7SELAH) | Cameroun | 2026 | sDle9yzvHrg |
 
 ✅ Films #46-47 en ligne (29/09/2026). Même lot : youtube_id de #11 "Captifs de l'Homme Fort" corrigé → `pTk0kCA687U`.
 
@@ -309,7 +312,7 @@ CREATE TABLE favoris (
 
 🚫 **Film #31 dépublié (1er août 2026)** — vidéo YouTube supprimée par l'uploader (Serge Fonda TV). `is_published = false` en base, données conservées. Réactiver avec `UPDATE films SET is_published = true WHERE slug = 'chez-le-pasteur-ep1-guerre-des-pagnes';` si un nouveau lien apparaît.
 
-### 🇬🇧 Films in English (52 films en ligne)
+### 🇬🇧 Films in English (55 films en ligne)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | When God is Silent | Nigeria | — | E4HdiMNLh0w |
@@ -364,6 +367,11 @@ CREATE TABLE favoris (
 | 50 | The Password (Fejosbaba TV) | Nigeria | 2026 | UFXS0UtmU0I |
 | 51 | Alejo Oloore: The Messenger of Good Fortune (REHODRAM Films) | Nigeria | — | vjzr9A-5Yps |
 | 52 | Lagos to Gomorrah (2nd Touch Production) | Nigeria | 2026 | AvzyBgOvgic |
+| 53 | The Last Door (Fejosbaba TV) | Nigeria | 2026 | UZFMIF2Fa-o |
+| 54 | Wealth in the Dream 3 (GACEM Films) | Nigeria | 2026 | 49SNelgOT9k |
+| 55 | BUSY — Letter to the Church (God Said Media) | Nigeria | — | lnry1Ipw5Xk |
+
+✅ Films FR #48-50 + EN #53-55 en ligne (08/10/2026, SQL exécuté par Raymond, vérifiés HTTP 200 + og:image OK + descriptions affichées). Recensement playlist : 105 vidéos annoncées, 100 lisibles (5 masquées/indisponibles), 6 nouveaux films. Pays de BUSY (God Said Media) confirmé Nigeria par Raymond. #48 sans description (aucune sur YouTube ni sur le web). SQL conservé dans `docs/insert_films_2026-10-08.sql`. Sharing Debugger Facebook à faire si partage.
 
 ✅ Films #51-52 en ligne (30/09/2026, confirmés par Raymond + vérifiés HTTP 200 + og:image OK). Recensement playlist : 99 vidéos affichées, 97 lisibles, 2 nouvelles. **Lot 3 (2 films) : Sharing Debugger + partage Facebook prévus le 01/10/2026** (gabarit « » + 7 groupes, voir mémoire christmatic_facebook_sharing_queue).
 
@@ -505,6 +513,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - ⚠️ **Piège important (découvert 22 juillet 2026)** : `dynamic = 'force-dynamic'` sur une page ne suffit **pas toujours** à empêcher le Data Cache de Next.js de mettre en cache les appels internes de `supabase-js` (son `fetch` interne n'est pas automatiquement marqué `no-store`). Résultat vécu : le film CHOICES existait en base (confirmé via requête directe à l'API Supabase) mais n'apparaissait pas sur le site déployé. Fix dans [lib/supabase.ts](lib/supabase.ts) : le client Supabase force `cache: 'no-store'` sur chaque requête via l'option `global.fetch`. Si un futur ajout de film n'apparaît pas malgré une donnée correcte en base, vérifier ce point en premier avant de chercher ailleurs.
 - **Image de partage (Open Graph) — 26 juillet 2026** : `app/opengraph-image.tsx` génère une image de partage par défaut (logo + tagline, 1200×630, via `next/og`, `runtime = 'edge'` — le runtime `node` par défaut plante au build statique sur Windows, erreur `Invalid URL` dans `@vercel/og`, garder `edge`) pour toutes les pages sans image dédiée (accueil, `/francais`, `/english`, `/soutenir`). Les pages film ont leur propre `og:image` (thumbnail YouTube) avec `width`/`height` explicites (480×360) — nécessaire pour que l'aperçu s'affiche correctement dans le composeur de post Facebook (le Sharing Debugger, plus tolérant, l'affichait déjà sans).
 - ⚠️ **Rappel Facebook — à faire à chaque nouveau film si Raymond compte le partager** : Facebook met en cache le scrape d'une URL indéfiniment. Après un ajout de film (ou tout changement d'og:image/titre/description), aller sur https://developers.facebook.com/tools/debug/ , coller l'URL du film, cliquer **"Scrape Again"** avant de partager sur Facebook — sinon l'ancien aperçu (souvent sans image) reste affiché.
+- **Boutons de partage (08/10/2026)** : `components/ShareButtons.tsx` (composant client) sur chaque page film, entre le lecteur et le synopsis — « Partager sur WhatsApp » (lien `wa.me`, message FR/EN selon `film.langue`, même gabarit que les posts Facebook, titre sans le studio), « Partager sur Facebook » (`sharer.php?u=`) et « Copier le lien ». Chaque clic est compté dans la table Supabase `share_clicks` (`film_slug`, `channel` = whatsapp | facebook | copy) créée par `docs/create_share_clicks.sql` (à exécuter une fois dans le SQL Editor Supabase) ; les totaux s'affichent sur `/stats` (section « Partages depuis les pages film », avec un message de repli tant que la table n'existe pas). Suivi maison choisi car les événements personnalisés Vercel Analytics ne sont pas garantis sur le plan gratuit.
 - `app/soutenir/page.tsx` doit avoir `'use client'` en première ligne (styled-jsx)
 - Logo texte Nav : **CHRIST** (blanc) + **MATIC** (doré) — pas CHRIS+TMATIC
 - Tous les composants avec `<style jsx>` nécessitent `'use client'`
@@ -546,33 +555,44 @@ Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il de
 2. **Comparer** chaque `videoId` extrait avec la colonne `youtube_id` des films déjà listés en section 9 de ce fichier (source de vérité tenue à jour à chaque ajout) → les IDs absents sont les nouveaux films.
 3. **Identifier le pays** via l'API oEmbed publique (pas besoin d'auth) :
    `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ID&format=json` → champ `author_name` (nom de la chaîne). Chaînes déjà repérées : **7Selah** → Cameroun ("Marié par Prophétie"), **The Winlos** → Nigeria, **Fejosbaba TV** → Nigeria, **G9Studios / Ola Adene** → Nigeria, **Whitestone Studios** → Nigeria, **Biodun Stephen / BIODUNSTEPHEN TV** → Nigeria, **Ese Talks Studio** → Nigeria, **Flaming Sword Movies (FSM)** → USA (diaspora noire, comme le film CHOICES déjà en base). Chaîne inconnue → marquer "à confirmer" et laisser Raymond trancher avant d'exécuter le SQL.
-4. **Générer le SQL** `INSERT INTO films (...)` avec les mêmes règles que d'habitude (voir section 1 "Workflow d'ajout de film") : slug en kebab-case du titre, `thumbnail_url` = `https://img.youtube.com/vi/{id}/hqdefault.jpg`, `langue` déduite du titre (fr/en), `annee` NULL si non précisée explicitement dans le titre YouTube, `is_published = true`, `is_featured = false`, `description` laissée à NULL (Raymond la remplit s'il veut, comme pour les ajouts manuels).
-5. Raymond exécute le SQL lui-même dans le SQL Editor Supabase (Claude n'a pas d'accès direct à la base), vérifie en ligne sur christmatic.tv, puis passe par le Facebook Sharing Debugger si le film doit être partagé (voir section 9).
+4. **Générer le SQL** `INSERT INTO films (...)` avec les mêmes règles que d'habitude (voir section 1 "Workflow d'ajout de film") : slug en kebab-case du titre, `thumbnail_url` = `https://img.youtube.com/vi/{id}/hqdefault.jpg`, `langue` déduite du titre (fr/en), `annee` NULL si non précisée explicitement dans le titre YouTube, `is_published = true`, `is_featured = false`, `description` : voir étape 5bis (NULL seulement si aucune source fiable).
+5. **Écrire le SQL dans un fichier** `docs/insert_films_AAAA-MM-JJ.sql` (outil Write, UTF-8, un seul `INSERT` multi-lignes, une ligne par film) — **ne pas le donner en bloc dans le chat** : le copier-coller depuis le terminal corrompt le texte (caractères manquants, erreur `42601` vécue le 08/10/2026). Raymond ouvre le fichier (VS Code / Bloc-notes), Ctrl+A, Ctrl+C, colle dans le SQL Editor Supabase et clique Run (Claude n'a pas d'accès direct à la base). Réponse attendue : *Success. No rows returned*. Ensuite Claude vérifie lui-même les pages en ligne (HTTP 200, og:image, description, nombre de `/films/` dans le sitemap), puis Raymond passe par le Sharing Debugger si le film doit être partagé (voir section 9).
+5bis. **Descriptions** : les lire sur la page YouTube du film (`shortDescription` via `fetch('/watch?v=ID')` dans l'onglet YouTube), reformuler en 1-2 phrases dans la langue du film ; si YouTube n'en a pas, chercher sur le web ; si rien de fiable, laisser `NULL` (ne jamais inventer de synopsis). Mettre la description dans l'`INSERT`. La page film l'utilise comme meta description (sinon texte générique "film chrétien de {pays}, disponible gratuitement sur Christmatic").
 6. Une fois confirmé, mettre à jour la section 9 et les compteurs de ce fichier.
 
 ---
 
 ## 15ter. Procédure : campagne de partage Facebook (page + groupes)
 
+> **RÈGLE PERMANENTE (Raymond, 08/10/2026) — texte de chaque post Facebook, pour TOUS les films :**
+> ```
+> 🎬 « {Titre} » est maintenant disponible sur Christmatic TV 100% African Gospel films.
+> 👉 https://www.christmatic.tv/films/{slug}
+> 🙏 Le cinéma noir africain au service de l'Évangile
+> ```
+> `{Titre}` = titre du film SANS le studio entre parenthèses, entre guillemets français « ». Jamais « Nouveau sur Christmatic ! » (abandonné). Demander l'accord de Raymond avant chaque clic sur « Post ».
+
 **Page Facebook** : https://www.facebook.com/christmatictv (Raymond y est connecté et administrateur). Objectif : partager chaque nouveau film sur la page ET dans les groupes Facebook chrétiens dont Raymond est membre, à un rythme choisi par lui (ex. ~5 films par session, pas tout d'un coup).
 
 Procédure par film (établie le 21 septembre 2026) :
 1. **Rafraîchir le cache Facebook** : Sharing Debugger `https://developers.facebook.com/tools/debug/?q=https%3A%2F%2Fwww.christmatic.tv%2Ffilms%2F{slug}` → cliquer "Fetch new information" (ou "Scrape Again") → vérifier visuellement l'aperçu (image/titre corrects).
 2. Aller sur `https://www.facebook.com/post/create` (poste en tant que Page).
-3. Cliquer sur "Share to groups" (scroller un peu dans le panneau de gauche pour le voir) → cocher les 6 groupes disponibles en cliquant directement sur chaque case (⚠️ le clic programmatique ne suffit pas, Facebook ne met pas à jour son état React sans un vrai clic souris) : Évangile en ligne, LES AMIS DE JESUS CHRIST, L'Afrique aux africains et les africains pour Jésus, Jésus est ma force je prie Jésus, 100% JÉSUS., Jésus T'aime et Il a donné sa vie pour toi sur la Croix ❤️.
-4. Coller le texte dans "What's on your mind" avec ce gabarit :
+3. Cliquer sur "Share to groups" (scroller un peu dans le panneau de gauche pour le voir) → cocher les **7 groupes** (depuis le 29/09/2026), un clic à la fois avec un screenshot après chaque clic (les positions changent après chaque coche ; les `ref_` du bouton Done se périment) : Évangile en ligne, LES AMIS DE JESUS CHRIST, L'Afrique aux africains et les africains pour Jésus, Jésus est ma force je prie Jésus, 100% JÉSUS., Jésus T'aime et Il a donné sa vie pour toi sur la Croix ❤️, **CHRÉTIENS DE TOUTES LES NATIONS**. Vérifier « 7 Facebook groups selected » et « Share to story : Off » avant de poster.
+4. Coller le texte dans "What's on your mind" avec ce gabarit (**NOUVEAU depuis le 30/09/2026, demandé par Raymond**) :
    ```
-   🎬 Nouveau sur Christmatic ! {Titre} est maintenant disponible sur notre plateforme, gratuitement.
+   🎬 « {Titre} » est maintenant disponible sur Christmatic TV 100% African Gospel films.
    👉 https://www.christmatic.tv/films/{slug}
-   🙏 Le cinéma noir africain au service de l'Évangile.
+   🙏 Le cinéma noir africain au service de l'Évangile
    ```
-   La carte de lien (image + titre) se génère automatiquement une fois l'URL détectée.
+   (Titre entre guillemets français « », pas de point final après « Évangile ». L'ancien gabarit « Nouveau sur Christmatic ! … » est abandonné.) La carte de lien (image + titre) se génère automatiquement. Si elle reste sans image : Debugger → « Scrape Again » (erreur 429 YouTube possible, relire la page Debugger), puis attendre 10-15 min et repartir d'une page `post/create` neuve (`navigate` avec `force: true`).
 5. **Toujours montrer l'aperçu à Raymond et attendre sa confirmation explicite avant de cliquer sur "Post"** (action publique irréversible).
 6. Mettre à jour le suivi ci-dessous après chaque lot partagé.
 
-**Suivi de la campagne pour les 21 films ajoutés le 21/09/2026** (voir section 9 pour la liste complète des slugs) :
-- ✅ Partagés (10) : Marié par Prophétie Ép.11, Marié par Prophétie Ép.12, Mes Larmes un Souvenir, Œil pour Œil Dent pour Dent, Acte Abominable, Voisinage Toxique, Juste une Nuit, Presque pour la Vie, Open Door, Open Door 2
-- ⏳ Reste à partager (11), en repartant de : After Genesis, After Genesis 2, She Loved the Wrong Guy, Silent Proposal, The Unhealed Prophet, Behind Her, The Baby Christian, When Past Knocks, The First Ministry, Stain on the Altar, Broken Vow
+**Suivi de la campagne (mis à jour le 08/10/2026 d'après la mémoire de projet `christmatic_facebook_sharing_queue.md`)** :
+- ✅ Lot 1 (21 films du 21/09) : tous partagés (clôturé le 24/09). ✅ Lot 2 (12 films du 29/09) : tous partagés (clôturé le 30/09). Raymond a décidé le 30/09 d'**oublier les films anciens** : on ne partage que les nouveaux films.
+- ✅ Lot 3 CLÔTURÉ le 08/10/2026 : ✅ Alejo Oloore (`alejo-oloore-the-messenger-of-good-fortune`) partagé le 08/10/2026 ; ✅ Lagos to Gomorrah (`lagos-to-gomorrah`) partagé le 08/10/2026. **File d'attente Facebook entièrement vide au 08/10/2026 : tous les films du catalogue récent sont partagés.**
+- ✅ Lot 4 CLÔTURÉ le 08/10/2026 (6 films partagés, 7 groupes, Page incluse) : ✅ La Victoire du Premier-né (`la-victoire-du-premier-ne`) partagé le 08/10/2026 ; ✅ Le Pacte du Mal (`le-pacte-du-mal`) partagé le 08/10/2026 ; ✅ Marié par Prophétie Ép.14 (`marie-par-prophetie-ep14`) partagé le 08/10/2026 ; ✅ The Last Door (`the-last-door`) partagé le 08/10/2026 ; ✅ Wealth in the Dream 3 (`wealth-in-the-dream-3`) partagé le 08/10/2026 ; ✅ BUSY (`busy-letter-to-the-church`) partagé le 08/10/2026.
+- Note : « She Loved the Wrong Guy » (EN #32) a été renommé **In Love with a Playboy** (slug `in-love-with-a-playboy`) pour matcher l'affiche.
 - Rythme choisi par Raymond : ~5 films par session
 - **Piège Facebook découvert le 22/09/2026** : l'image d'un lien tout juste scrapé peut ne pas être disponible immédiatement côté Facebook (message Debugger *"images are processed asynchronously"*) — cliquer "Scrape Again" une seconde fois (~5-10s après) jusqu'à ce que l'image apparaisse, puis repartir d'une page `post/create` fraîche (le composer garde en cache le 1er scrape sans image). Et : toujours vérifier que le clic dans le champ de texte a bien pris le focus (taper un mot test avant le message complet) — sinon les caractères tapés (le "/" de l'URL) sont interprétés comme des raccourcis clavier Facebook et peuvent activer "Share to story" par erreur.
 

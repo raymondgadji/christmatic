@@ -13,5 +13,6 @@ export interface Film {
   tags: string[]
   is_featured: boolean
   is_published: boolean
+  published_at: string | null   // vraie date de mise en ligne YouTube (ISO avec fuseau)
   created_at: string
 }

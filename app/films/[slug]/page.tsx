@@ -68,7 +68,8 @@ export default async function FilmPage({ params }: Props) {
     name: film.titre,
     description: film.description || film.titre,
     thumbnailUrl: film.thumbnail_url || `https://img.youtube.com/vi/${film.youtube_id}/hqdefault.jpg`,
-    uploadDate: film.annee ? `${film.annee}-01-01` : undefined,
+    // Date + heure + fuseau (exigé par Google). published_at = vraie date de mise en ligne YouTube ; repli provisoire sur l'année tant que la colonne n'est pas remplie.
+    uploadDate: film.published_at || (film.annee ? `${film.annee}-01-01T00:00:00+00:00` : undefined),
     embedUrl: `https://www.youtube.com/embed/${film.youtube_id}`,
     contentUrl: `https://www.youtube.com/watch?v=${film.youtube_id}`,
     inLanguage: film.langue,

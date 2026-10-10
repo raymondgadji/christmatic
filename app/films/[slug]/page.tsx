@@ -1,7 +1,7 @@
 import { supabase } from '../../../lib/supabase'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import { SITE_URL, isBilingualFilm } from '../../../lib/seo'
+import { SITE_URL, autoDescription, isBilingualFilm } from '../../../lib/seo'
 import ShareButtons from '../../../components/ShareButtons'
 import FilmPlayer from '../../../components/FilmPlayer'
 import FavoriteButton from '../../../components/FavoriteButton'
@@ -29,7 +29,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!film) return {}
 
   const url = `${SITE_URL}/films/${film.slug}`
-  const description = film.description || `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`
+  const description = film.description || (isBilingualFilm(film.created_at)
+    ? autoDescription(film.pays)
+    : `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`)
 
   return {
     title: film.titre,
@@ -70,7 +72,7 @@ export default async function FilmPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
     name: film.titre,
-    description: film.description || film.titre,
+    description: film.description || (isBilingualFilm(film.created_at) ? autoDescription(film.pays) : film.titre),
     thumbnailUrl: film.thumbnail_url || `https://img.youtube.com/vi/${film.youtube_id}/hqdefault.jpg`,
     // Date + heure + fuseau (exigé par Google). published_at = vraie date de mise en ligne YouTube ; repli provisoire sur l'année tant que la colonne n'est pas remplie.
     uploadDate: film.published_at || (film.annee ? `${film.annee}-01-01T00:00:00+00:00` : undefined),

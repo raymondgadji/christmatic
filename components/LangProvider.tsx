@@ -15,7 +15,8 @@ const LangContext = createContext<LangContextValue>({ lang: 'fr', setLang: () =>
 
 // Langue de l'interface (boutons, menus, libellés). Le contenu des films (titre, synopsis) ne change pas.
 // Le serveur et le premier affichage sont TOUJOURS en français : Google voit exactement le même site qu'avant.
-// L'anglais n'apparaît que si le visiteur le choisit (bouton EN), ou s'il arrive directement sur /english sans avoir déjà choisi.
+// Ensuite, côté navigateur : le choix mémorisé du visiteur (boutons FR / EN), sinon la langue de son navigateur ;
+// les robots restent en français.
 export default function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('fr')
 
@@ -26,13 +27,20 @@ export default function LangProvider({ children }: { children: React.ReactNode }
         setLangState(stored)
         return
       }
-      // Pas de choix mémorisé : arrivée directe sur /english (lien partagé, Google...) => anglais d'emblée.
+      // Pas de choix mémorisé. Les robots (Google, aperçus de partage...) restent en français : ils voient le site comme avant.
+      const isRobot = navigator.webdriver || /bot|crawl|spider|slurp|google|bing|yandex|baidu|duckduck|facebookexternalhit|linkedin|whatsapp|preview/i.test(navigator.userAgent)
+      if (isRobot) return
+      // Arrivée directe sur /english (lien partagé, Google...) => anglais d'emblée, et on le mémorise.
       // Un clic interne (ex. « Voir tout » depuis l'accueil en français) ne change pas la langue.
       const cameFromSite = document.referrer.startsWith(window.location.origin)
       if (window.location.pathname.startsWith('/english') && !cameFromSite) {
         setLangState('en')
         localStorage.setItem(KEY, 'en')
+        return
       }
+      // Sinon : la langue du navigateur du visiteur (anglais => interface anglaise, le reste => français). Il peut changer avec FR / EN.
+      const browser = (navigator.languages?.[0] || navigator.language || 'fr').toLowerCase()
+      if (browser.startsWith('en')) setLangState('en')
     } catch {
       // stockage indisponible (navigation privée...) : on reste en français
     }

@@ -45,10 +45,13 @@ export default function ShareButtons({ titre, slug, langue, siteUrl }: Props) {
   const url = `${siteUrl}/films/${slug}`
   const isEn = langue === 'en'
 
-  // Message WhatsApp sans emoji : WhatsApp (surtout sur ordinateur) transforme les emojis en « � » dans le texte pré-rempli de wa.me
-  const message = isEn
-    ? `« ${title} » is now available on Christmatic TV 100% African Gospel films.\n${url}\nAfrican black cinema at the service of the Gospel`
-    : `« ${title} » est maintenant disponible sur Christmatic TV 100% African Gospel films.\n${url}\nLe cinéma noir africain au service de l'Évangile`
+  // Message WhatsApp bilingue FR + EN (décision de Raymond, 10/10/2026), sans emoji : WhatsApp Desktop les affiche en « � »
+  const message =
+    `« ${title} » est maintenant disponible sur Christmatic TV 100% African Gospel films.\n` +
+    `« ${title} » is now available on Christmatic TV 100% African Gospel films.\n` +
+    `${url}\n` +
+    `Le cinéma noir africain au service de l'Évangile\n` +
+    `African black cinema at the service of the Gospel`
 
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(message)}`
   const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`

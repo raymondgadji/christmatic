@@ -9,12 +9,14 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
   const { user, loading, openLogin } = useAuth()
   const [fav, setFav] = useState(false)
   const [busy, setBusy] = useState(false)
+  const [pending, setPending] = useState(false) // clic fait avant la connexion : on ajoute le film dès qu'elle réussit
 
   useEffect(() => {
     if (!user) {
       setFav(false)
       return
     }
+    if (pending) return // l'ajout en attente (juste après la connexion) fixe lui-même l'état
     let active = true
     supabase
       .from('favorites')
@@ -27,11 +29,26 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
     return () => {
       active = false
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, filmId])
+
+  useEffect(() => {
+    if (!user || !pending) return
+    setPending(false)
+    setFav(true)
+    supabase
+      .from('favorites')
+      .insert({ film_id: filmId })
+      .then(({ error }) => {
+        // 23505 = déjà en favori : l'état voulu est atteint
+        if (error && error.code !== '23505') setFav(false)
+      })
+  }, [user, pending, filmId])
 
   async function toggle() {
     if (loading || busy) return
     if (!user) {
+      setPending(true)
       openLogin()
       return
     }

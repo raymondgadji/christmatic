@@ -564,20 +564,25 @@ Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il de
    `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ID&format=json` → champ `author_name` (nom de la chaîne). Chaînes déjà repérées : **7Selah** → Cameroun ("Marié par Prophétie"), **The Winlos** → Nigeria, **Fejosbaba TV** → Nigeria, **G9Studios / Ola Adene** → Nigeria, **Whitestone Studios** → Nigeria, **Biodun Stephen / BIODUNSTEPHEN TV** → Nigeria, **Ese Talks Studio** → Nigeria, **Flaming Sword Movies (FSM)** → USA (diaspora noire, comme le film CHOICES déjà en base). Chaîne inconnue → marquer "à confirmer" et laisser Raymond trancher avant d'exécuter le SQL.
 4. **Générer le SQL** `INSERT INTO films (...)` avec les mêmes règles que d'habitude (voir section 1 "Workflow d'ajout de film") : slug en kebab-case du titre, `thumbnail_url` = `https://img.youtube.com/vi/{id}/hqdefault.jpg`, `langue` déduite du titre (fr/en), `annee` = **vraie année de mise en ligne YouTube** (champ `publishDate` de la page watch du film ; décision de Raymond le 08/10/2026 : on ne met jamais une année inventée — ne pas mettre 2026 par défaut) ; ⚠️ 17 films ont été mis à 2026 provisoirement via `docs/update_annee_2026.sql`, à corriger avec les vraies dates ; `is_published = true`, `is_featured = false`, `description` : voir étape 5bis (NULL seulement si aucune source fiable).
 5. **Écrire le SQL dans un fichier** `docs/insert_films_AAAA-MM-JJ.sql` (outil Write, UTF-8, un seul `INSERT` multi-lignes, une ligne par film) — **ne pas le donner en bloc dans le chat** : le copier-coller depuis le terminal corrompt le texte (caractères manquants, erreur `42601` vécue le 08/10/2026). Raymond ouvre le fichier (VS Code / Bloc-notes), Ctrl+A, Ctrl+C, colle dans le SQL Editor Supabase et clique Run (Claude n'a pas d'accès direct à la base). Réponse attendue : *Success. No rows returned*. Ensuite Claude vérifie lui-même les pages en ligne (HTTP 200, og:image, description, nombre de `/films/` dans le sitemap), puis Raymond passe par le Sharing Debugger si le film doit être partagé (voir section 9).
-5bis. **Descriptions** : les lire sur la page YouTube du film (`shortDescription` via `fetch('/watch?v=ID')` dans l'onglet YouTube), reformuler en 1-2 phrases dans la langue du film ; si YouTube n'en a pas, chercher sur le web ; si rien de fiable, laisser `NULL` (ne jamais inventer de synopsis). Mettre la description dans l'`INSERT`. La page film l'utilise comme meta description (sinon texte générique "film chrétien de {pays}, disponible gratuitement sur Christmatic").
+5bis. **Descriptions (synopsis ÉCRIT EN FRANÇAIS ET EN ANGLAIS, règle de Raymond du 10/10/2026)** : les lire sur la page YouTube du film (`shortDescription` via `fetch('/watch?v=ID')` dans l'onglet YouTube), reformuler en 1-2 phrases dans la langue du film ; si YouTube n'en a pas, chercher sur le web ; si rien de fiable, laisser `NULL` (ne jamais inventer de synopsis). Mettre la description dans l'`INSERT`. La page film l'utilise comme meta description (sinon texte générique "film chrétien de {pays}, disponible gratuitement sur Christmatic").
 6. Une fois confirmé, mettre à jour la section 9 et les compteurs de ce fichier.
 
 ---
 
 ## 15ter. Procédure : campagne de partage Facebook (page + groupes)
 
-> **RÈGLE PERMANENTE (Raymond, 08/10/2026) — texte de chaque post Facebook, pour TOUS les films :**
+> **RÈGLES PERMANENTES (Raymond, 08/10 puis 10/10/2026) :**
+> 1. **TOUT PARTAGE EST TOUJOURS BILINGUE FR + EN** (Facebook, WhatsApp, LinkedIn, et tout autre canal, aujourd'hui ou à l'avenir) — jamais une seule langue.
+> 2. Texte de chaque post Facebook, pour TOUS les films (bilingue depuis le 10/10/2026) :
 > ```
 > 🎬 « {Titre} » est maintenant disponible sur Christmatic TV 100% African Gospel films.
+> 🎬 « {Titre} » is now available on Christmatic TV 100% African Gospel films.
 > 👉 https://www.christmatic.tv/films/{slug}
 > 🙏 Le cinéma noir africain au service de l'Évangile
+> 🙏 African black cinema at the service of the Gospel
 > ```
-> `{Titre}` = titre du film SANS le studio entre parenthèses, entre guillemets français « ». Jamais « Nouveau sur Christmatic ! » (abandonné). Demander l'accord de Raymond avant chaque clic sur « Post ».
+> `{Titre}` = titre du film SANS le studio entre parenthèses, entre guillemets français « ». Jamais « Nouveau sur Christmatic ! » (abandonné). Demander l'accord de Raymond avant chaque clic sur « Post ». (WhatsApp : mêmes phrases FR + EN mais **sans emojis**, voir `ShareButtons.tsx`.)
+> 3. **Les synopsis des nouveaux films s'écrivent en français ET en anglais** (colonne `description`, les deux langues dans le même texte).
 
 **Page Facebook** : https://www.facebook.com/christmatictv (Raymond y est connecté et administrateur). Objectif : partager chaque nouveau film sur la page ET dans les groupes Facebook chrétiens dont Raymond est membre, à un rythme choisi par lui (ex. ~5 films par session, pas tout d'un coup).
 
@@ -585,13 +590,15 @@ Procédure par film (établie le 21 septembre 2026) :
 1. **Rafraîchir le cache Facebook** : Sharing Debugger `https://developers.facebook.com/tools/debug/?q=https%3A%2F%2Fwww.christmatic.tv%2Ffilms%2F{slug}` → cliquer "Fetch new information" (ou "Scrape Again") → vérifier visuellement l'aperçu (image/titre corrects).
 2. Aller sur `https://www.facebook.com/post/create` (poste en tant que Page).
 3. Cliquer sur "Share to groups" (scroller un peu dans le panneau de gauche pour le voir) → cocher les **7 groupes** (depuis le 29/09/2026), un clic à la fois avec un screenshot après chaque clic (les positions changent après chaque coche ; les `ref_` du bouton Done se périment) : Évangile en ligne, LES AMIS DE JESUS CHRIST, L'Afrique aux africains et les africains pour Jésus, Jésus est ma force je prie Jésus, 100% JÉSUS., Jésus T'aime et Il a donné sa vie pour toi sur la Croix ❤️, **CHRÉTIENS DE TOUTES LES NATIONS**. Vérifier « 7 Facebook groups selected » et « Share to story : Off » avant de poster.
-4. Coller le texte dans "What's on your mind" avec ce gabarit (**NOUVEAU depuis le 30/09/2026, demandé par Raymond**) :
+4. Coller le texte dans "What's on your mind" avec ce gabarit **BILINGUE FR + EN** (règle de Raymond, 10/10/2026 ; gabarit sans « Nouveau sur Christmatic ») :
    ```
    🎬 « {Titre} » est maintenant disponible sur Christmatic TV 100% African Gospel films.
+   🎬 « {Titre} » is now available on Christmatic TV 100% African Gospel films.
    👉 https://www.christmatic.tv/films/{slug}
    🙏 Le cinéma noir africain au service de l'Évangile
+   🙏 African black cinema at the service of the Gospel
    ```
-   (Titre entre guillemets français « », pas de point final après « Évangile ». L'ancien gabarit « Nouveau sur Christmatic ! … » est abandonné.) La carte de lien (image + titre) se génère automatiquement. Si elle reste sans image : Debugger → « Scrape Again » (erreur 429 YouTube possible, relire la page Debugger), puis attendre 10-15 min et repartir d'une page `post/create` neuve (`navigate` avec `force: true`).
+   (Titre entre guillemets français « », sans le studio ; pas de point final après « Évangile » / « Gospel ».) La carte de lien (image + titre) se génère automatiquement. Si elle reste sans image : Debugger → « Scrape Again » (erreur 429 YouTube possible, relire la page Debugger), puis attendre 10-15 min et repartir d'une page `post/create` neuve (`navigate` avec `force: true`).
 5. **Toujours montrer l'aperçu à Raymond et attendre sa confirmation explicite avant de cliquer sur "Post"** (action publique irréversible).
 6. Mettre à jour le suivi ci-dessous après chaque lot partagé.
 

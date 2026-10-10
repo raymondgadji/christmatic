@@ -8,6 +8,7 @@ interface Props {
   slug: string
   langue?: string | null
   siteUrl: string
+  bilingual?: boolean
 }
 
 // "Titre (Studio)" -> "Titre" : le studio n'apparaît pas dans le message partagé
@@ -39,19 +40,23 @@ const baseStyle = {
   textDecoration: 'none',
 } as const
 
-export default function ShareButtons({ titre, slug, langue, siteUrl }: Props) {
+export default function ShareButtons({ titre, slug, langue, siteUrl, bilingual = false }: Props) {
   const [copied, setCopied] = useState(false)
   const title = cleanTitle(titre)
   const url = `${siteUrl}/films/${slug}`
   const isEn = langue === 'en'
 
-  // Message WhatsApp bilingue FR + EN (décision de Raymond, 10/10/2026), sans emoji : WhatsApp Desktop les affiche en « � »
-  const message =
-    `« ${title} » est maintenant disponible sur Christmatic TV 100% African Gospel films.\n` +
-    `« ${title} » is now available on Christmatic TV 100% African Gospel films.\n` +
-    `${url}\n` +
-    `Le cinéma noir africain au service de l'Évangile\n` +
-    `African black cinema at the service of the Gospel`
+  // Message WhatsApp, sans emoji (WhatsApp Desktop les affiche en « � »).
+  // Films ajoutés à partir du 10/10/2026 : bilingue FR + EN (décision de Raymond). Films plus anciens : une seule langue, comme avant.
+  const frPart = `« ${title} » est maintenant disponible sur Christmatic TV 100% African Gospel films.`
+  const enPart = `« ${title} » is now available on Christmatic TV 100% African Gospel films.`
+  const frMotto = "Le cinéma noir africain au service de l'Évangile"
+  const enMotto = 'African black cinema at the service of the Gospel'
+  const message = bilingual
+    ? `${frPart}\n${enPart}\n${url}\n${frMotto}\n${enMotto}`
+    : isEn
+      ? `${enPart}\n${url}\n${enMotto}`
+      : `${frPart}\n${url}\n${frMotto}`
 
   const whatsappHref = `https://wa.me/?text=${encodeURIComponent(message)}`
   const facebookHref = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`

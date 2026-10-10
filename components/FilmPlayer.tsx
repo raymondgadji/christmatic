@@ -8,17 +8,44 @@ interface Props {
 }
 
 type FullscreenEl = HTMLDivElement & { webkitRequestFullscreen?: () => void }
-type FullscreenDoc = Document & { webkitFullscreenElement?: Element | null }
+type FullscreenDoc = Document & { webkitFullscreenElement?: Element | null; webkitExitFullscreen?: () => void }
+
+function currentFullscreenElement() {
+  const d = document as FullscreenDoc
+  return d.fullscreenElement || d.webkitFullscreenElement || null
+}
+
+function exitAllFullscreen() {
+  const d = document as FullscreenDoc
+  try {
+    if (d.exitFullscreen) d.exitFullscreen().catch(() => {})
+    else d.webkitExitFullscreen?.()
+  } catch {
+    // rien à quitter
+  }
+}
 
 // Lecteur du film : pleine largeur sur téléphone, bouton « Plein écran » (bascule en paysage quand le navigateur le permet)
 export default function FilmPlayer({ src, title }: Props) {
   const ref = useRef<HTMLDivElement>(null)
+  const nested = useRef(false)
 
   useEffect(() => {
-    // En quittant le plein écran, on rend la rotation libre
+    // Le lecteur YouTube a son propre bouton plein écran : il s'empile sur le nôtre (2 niveaux).
+    // Quand l'utilisateur quitte le niveau YouTube, on quitte aussi le nôtre : un seul « exit » suffit.
     const onChange = () => {
-      const d = document as FullscreenDoc
-      if (!d.fullscreenElement && !d.webkitFullscreenElement) {
+      const fs = currentFullscreenElement()
+      if (fs && fs.tagName === 'IFRAME') {
+        nested.current = true
+        return
+      }
+      if (fs && fs === ref.current && nested.current) {
+        nested.current = false
+        exitAllFullscreen()
+        return
+      }
+      if (!fs) {
+        nested.current = false
         try {
           screen.orientation?.unlock?.()
         } catch {

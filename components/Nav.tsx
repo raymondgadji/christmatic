@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import NavAccount from './NavAccount'
 
 export default function Nav() {
   return (
@@ -52,6 +53,7 @@ export default function Nav() {
         <Link href="/english" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
           🇬🇧 English
         </Link>
+        <NavAccount />
         <Link href="/soutenir" style={{
           fontSize: '13px',
           color: '#0A0A0A',

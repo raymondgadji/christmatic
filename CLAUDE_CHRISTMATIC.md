@@ -501,11 +501,13 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Bilingue FR+EN pour les NOUVEAUX films (partage + synopsis) ; films existants inchangés ✅
 - [x] Ajouts en anglais pour le public américain : `/english` (description + intro), hreflang, `llms.txt` ✅
 
-### Sprint 5 ← PROCHAIN
-- [ ] Auth Supabase (inscription / connexion)
-- [ ] Favoris utilisateur
-- [~] Test mobile complet — fait en partie (PWA + lecteur plein écran testés sur Samsung A10 le 10/10/2026) ; reste : parcours complet (favoris, comptes) une fois Sprint 5 construit, iPhone non testé
-- [ ] Stripe (après configuration statut entreprise)
+### Sprint 5 ← EN COURS (ouvert le 10/10/2026)
+Ordre décidé avec Raymond le 10/10/2026 : 1) Auth facultatif + Favoris, 2) test iPhone, 3) Stripe en dernier.
+- [~] Auth Supabase **facultative** (e-mail + code à 6 chiffres, sans mot de passe ni lien ; Google à ajouter ensuite) — code écrit (`components/AuthProvider.tsx`, `NavAccount.tsx`), modèles d'e-mail Supabase « Confirm sign up » et « Magic link or OTP » modifiés pour afficher `{{ .Token }}` (10/10/2026) ; reste : SQL, déploiement, SMTP personnalisé, test réel
+- [~] Favoris (« Ma liste ») — `components/FavoriteButton.tsx` (page film), page privée `/ma-liste` (noindex), table `favorites` + RLS (`docs/create_favorites.sql`, à exécuter)
+- [ ] Connexion Google (Google Cloud OAuth, à faire par Raymond) — après validation de l'e-mail
+- [~] Test mobile complet — fait en partie (PWA + lecteur plein écran testés sur Samsung A10 le 10/10/2026) ; reste : parcours favoris/connexion sur Android, puis iPhone (le verrouillage paysage `screen.orientation.lock` n'existe pas sur iPhone ; installation PWA à la main via Safari > Partager > Sur l'écran d'accueil)
+- [ ] Stripe — **reporté (décision de Raymond, 10/10/2026)** : aucune demande de dons pour l'instant, le don PayPal existe déjà. Quand ce sera utile : créer un **compte Stripe distinct** (« Créer un compte distinct », PAS « dans une organisation » qui partage données/équipe/rapports avec site72.fr) nommé Christmatic pour ne pas mélanger avec « AI Tech » / site72.fr, puis un lien de paiement à montant libre ; ne rien créer sans que Raymond le fasse lui-même (création de compte + infos entreprise)
 - [~] Partage diaspora France/Belgique — lancement ! — amorcé : Page + 7 groupes Facebook, WhatsApp/LinkedIn prêts ; reste : suivre les stats (Vercel, `/stats`, Search Console), nouveaux canaux si besoin
 - [ ] *(à suivre, hors Sprint 5)* Search Console dans ~1 semaine : sitemap, accueil indexé, 2 avertissements de dates, requêtes/pays (USA) ; `christmatic.com` en 302 chez Ionos (optionnel)
 

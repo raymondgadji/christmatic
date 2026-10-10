@@ -4,6 +4,7 @@ import { Metadata } from 'next'
 import { SITE_URL, autoDescription, isBilingualFilm } from '../../../lib/seo'
 import ShareButtons from '../../../components/ShareButtons'
 import FilmPlayer from '../../../components/FilmPlayer'
+import FavoriteButton from '../../../components/FavoriteButton'
 
 interface Props {
   params: { slug: string }
@@ -109,6 +110,10 @@ export default async function FilmPage({ params }: Props) {
           title={film.titre}
         />
       )}
+
+      <div style={{ marginBottom: '12px' }}>
+        <FavoriteButton filmId={film.id} />
+      </div>
 
       <div style={{ marginBottom: '24px' }}>
         <ShareButtons titre={film.titre} slug={film.slug} langue={film.langue} siteUrl={SITE_URL} bilingual={isBilingualFilm(film.created_at)} />

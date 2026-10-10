@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Nav from '../components/Nav'
 import PwaInstall from '../components/PwaInstall'
+import AuthProvider from '../components/AuthProvider'
 import { SITE_URL } from '../lib/seo'
 
 export const viewport: Viewport = {
@@ -65,6 +66,7 @@ export default function RootLayout({
         {/* GEO — Schema.org JSON-LD : scripts séparés (pas de @graph, meilleure lecture par les LLM) */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <AuthProvider>
         <Nav />
         <main>
           {children}
@@ -94,6 +96,7 @@ export default function RootLayout({
           </p>
           <PwaInstall />
         </footer>
+        </AuthProvider>
         <Analytics />
       </body>
     </html>

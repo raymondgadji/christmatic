@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import type { FeaturedFilm } from './HeroBanner'
+import { T, useTr, useLang } from './LangProvider'
+import { countryEn } from '../lib/seo'
 
 const INTERVAL_MS = 5000
 
@@ -33,17 +35,19 @@ const btnSecondary = {
   textDecoration: 'none',
 } as const
 
-function formatMeta(film: FeaturedFilm) {
+function formatMeta(film: FeaturedFilm, en: boolean) {
   return [
-    film.pays,
+    en ? countryEn(film.pays) : film.pays,
     film.annee,
     film.duree_min ? `${Math.floor(film.duree_min / 60)}h${String(film.duree_min % 60).padStart(2, '0')}` : null,
-    film.langue === 'en' ? 'Anglais' : 'Français',
+    film.langue === 'en' ? (en ? 'English' : 'Anglais') : (en ? 'French' : 'Français'),
   ].filter(Boolean).join(' · ')
 }
 
 export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
   const [active, setActive] = useState(0)
+  const tr = useTr()
+  const { lang } = useLang()
 
   useEffect(() => {
     if (films.length < 2) return
@@ -53,8 +57,8 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
 
   return (
     <section
-      aria-roledescription="carrousel"
-      aria-label="Films à la une"
+      aria-roledescription={tr('carrousel', 'carousel')}
+      aria-label={tr('Films à la une', 'Featured films')}
       style={{
         position: 'relative',
         minHeight: 'clamp(420px, 62vh, 620px)',
@@ -72,7 +76,7 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
           <div
             key={film.slug}
             aria-hidden={!isActive}
-            aria-roledescription="diapositive"
+            aria-roledescription={tr('diapositive', 'slide')}
             style={{
               position: 'absolute',
               inset: 0,
@@ -110,7 +114,7 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
                 marginBottom: '16px',
                 backdropFilter: 'blur(4px)',
               }}>
-                🔥 À la une
+                🔥 <T fr="À la une" en="Featured" />
               </div>
 
               <h2 style={{
@@ -124,7 +128,7 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
                 {film.titre}
               </h2>
 
-              <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', margin: '0 0 16px' }}>{formatMeta(film)}</p>
+              <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', margin: '0 0 16px' }}>{formatMeta(film, lang === 'en')}</p>
 
               {film.description && (
                 <p style={{
@@ -143,8 +147,8 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
               )}
 
               <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: film.description ? 0 : '8px' }}>
-                <Link href={`/films/${film.slug}`} style={btnPrimary} tabIndex={isActive ? 0 : -1}>▶ Regarder maintenant</Link>
-                <Link href={film.langue === 'en' ? '/english' : '/francais'} style={btnSecondary} tabIndex={isActive ? 0 : -1}>Découvrir les films</Link>
+                <Link href={`/films/${film.slug}`} style={btnPrimary} tabIndex={isActive ? 0 : -1}>▶ <T fr="Regarder maintenant" en="Watch now" /></Link>
+                <Link href={film.langue === 'en' ? '/english' : '/francais'} style={btnSecondary} tabIndex={isActive ? 0 : -1}><T fr="Découvrir les films" en="Discover the films" /></Link>
               </div>
             </div>
           </div>
@@ -164,7 +168,7 @@ export default function HeroCarousel({ films }: { films: FeaturedFilm[] }) {
             <button
               key={film.slug}
               type="button"
-              aria-label={`Afficher ${film.titre}`}
+              aria-label={`${tr('Afficher', 'Show')} ${film.titre}`}
               aria-current={i === active}
               onClick={() => setActive(i)}
               style={{

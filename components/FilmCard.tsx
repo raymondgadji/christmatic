@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Country from './Country'
 
 interface FilmCardProps {
   titre: string
@@ -71,7 +72,7 @@ export default function FilmCard({
               padding: '2px 6px',
               borderRadius: '3px',
             }}>
-              {pays}
+              <Country pays={pays} />
             </span>
           </div>
 

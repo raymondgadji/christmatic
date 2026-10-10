@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useTr } from './LangProvider'
 
 interface InstallEvent extends Event {
   prompt: () => Promise<void>
@@ -12,6 +13,7 @@ export default function PwaInstall() {
   const [installEvent, setInstallEvent] = useState<InstallEvent | null>(null)
   const [isIos, setIsIos] = useState(false)
   const [installed, setInstalled] = useState(false)
+  const tr = useTr()
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -67,7 +69,7 @@ export default function PwaInstall() {
             fontFamily: 'inherit',
           }}
         >
-          Installer l&apos;app Christmatic
+          {tr("Installer l'app Christmatic", 'Install the Christmatic app')}
         </button>
       </p>
     )
@@ -76,7 +78,7 @@ export default function PwaInstall() {
   if (isIos) {
     return (
       <p style={{ marginTop: '10px', fontSize: '12px', color: 'var(--color-text-muted)' }}>
-        Installer l&apos;app sur iPhone : touchez « Partager » puis « Sur l&apos;écran d&apos;accueil ».
+        {tr("Installer l'app sur iPhone : touchez « Partager » puis « Sur l'écran d'accueil ».", 'Install the app on iPhone: tap “Share” then “Add to Home Screen”.')}
       </p>
     )
   }

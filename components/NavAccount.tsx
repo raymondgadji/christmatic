@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useAuth } from './AuthProvider'
+import { T } from './LangProvider'
 
 // Dans le menu : « Se connecter » (sans compte) ou « Ma liste » (connecté).
 export default function NavAccount() {
@@ -12,7 +13,7 @@ export default function NavAccount() {
   if (user) {
     return (
       <Link href="/ma-liste" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
-        ♥ Ma liste
+        ♥ <T fr="Ma liste" en="My list" />
       </Link>
     )
   }
@@ -23,7 +24,7 @@ export default function NavAccount() {
       onClick={openLogin}
       style={{ fontSize: '13px', color: 'var(--color-text-muted)', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
     >
-      Se connecter
+      <T fr="Se connecter" en="Log in" />
     </button>
   )
 }

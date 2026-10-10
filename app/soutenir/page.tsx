@@ -1,6 +1,9 @@
 'use client'
 
+import { useTr } from '../../components/LangProvider'
+
 export default function SoutenirPage() {
+  const tr = useTr()
   return (
     <main className="soutenir-page">
       <div className="soutenir-container">
@@ -8,58 +11,66 @@ export default function SoutenirPage() {
         {/* Header */}
         <div className="soutenir-header">
           <div className="soutenir-icon">🙏</div>
-          <h1 className="soutenir-title">Soutenir le Ministère</h1>
+          <h1 className="soutenir-title">{tr('Soutenir le Ministère', 'Support the Ministry')}</h1>
           <p className="soutenir-subtitle">
-            Chaque don permet à Christmatic de continuer à mettre le cinéma africain chrétien au service de l&apos;Évangile.
+            {tr(
+              "Chaque don permet à Christmatic de continuer à mettre le cinéma africain chrétien au service de l'Évangile.",
+              'Every gift allows Christmatic to keep putting African Christian cinema at the service of the Gospel.'
+            )}
           </p>
         </div>
 
         {/* Vision */}
         <div className="soutenir-vision">
           <p>
-            Christmatic est une plateforme à but spirituel. Nous sélectionnons avec discernement
-            des films chrétiens d&apos;Afrique noire pour évangéliser et édifier le Corps de Christ —
-            en France, en Belgique, au Canada et partout dans la diaspora africaine.
+            {tr(
+              "Christmatic est une plateforme à but spirituel. Nous sélectionnons avec discernement des films chrétiens d'Afrique noire pour évangéliser et édifier le Corps de Christ — en France, en Belgique, au Canada et partout dans la diaspora africaine.",
+              'Christmatic is a platform with a spiritual purpose. We carefully select Christian films from Black Africa to evangelize and edify the Body of Christ — in France, Belgium, Canada and throughout the African diaspora.'
+            )}
           </p>
           <p>
-            Vos dons couvrent les frais techniques (hébergement, domaines) et nous permettent
-            de continuer à grandir pour la gloire de Dieu.
+            {tr(
+              'Vos dons couvrent les frais techniques (hébergement, domaines) et nous permettent de continuer à grandir pour la gloire de Dieu.',
+              'Your gifts cover the technical costs (hosting, domains) and allow us to keep growing for the glory of God.'
+            )}
           </p>
         </div>
 
         {/* Utilisation des dons */}
         <div className="soutenir-usages">
-          <h2>Vos dons servent à</h2>
+          <h2>{tr('Vos dons servent à', 'Your gifts are used to')}</h2>
           <div className="usage-grid">
             <div className="usage-card">
               <span className="usage-icon">🌍</span>
-              <span>Maintenir la plateforme en ligne</span>
+              <span>{tr('Maintenir la plateforme en ligne', 'Keep the platform online')}</span>
             </div>
             <div className="usage-card">
               <span className="usage-icon">🎬</span>
-              <span>Ajouter de nouveaux films chrétiens</span>
+              <span>{tr('Ajouter de nouveaux films chrétiens', 'Add new Christian films')}</span>
             </div>
             <div className="usage-card usage-card--highlight">
               <span className="usage-icon">📺</span>
               <div>
-                <strong>Développer l&apos;application Android TV</strong>
+                <strong>{tr("Développer l'application Android TV", 'Build the Android TV app')}</strong>
                 <p>
-                  Notre grande vision : une app Android TV pour regarder Christmatic
-                  directement sur votre télévision — comme Netflix, mais pour l&apos;Évangile.
+                  {tr(
+                    "Notre grande vision : une app Android TV pour regarder Christmatic directement sur votre télévision — comme Netflix, mais pour l'Évangile.",
+                    'Our big vision: an Android TV app to watch Christmatic directly on your television — like Netflix, but for the Gospel.'
+                  )}
                 </p>
               </div>
             </div>
             <div className="usage-card">
               <span className="usage-icon">✝️</span>
-              <span>Étendre la portée de l&apos;Évangile</span>
+              <span>{tr("Étendre la portée de l'Évangile", 'Extend the reach of the Gospel')}</span>
             </div>
           </div>
         </div>
 
         {/* Bouton don PayPal */}
         <div className="soutenir-cta">
-          <h2>Faire un don</h2>
-          <p className="cta-desc">Montant libre — en toute grâce, selon votre cœur.</p>
+          <h2>{tr('Faire un don', 'Make a gift')}</h2>
+          <p className="cta-desc">{tr('Montant libre — en toute grâce, selon votre cœur.', 'Any amount — freely, as your heart leads.')}</p>
           <a
             href="https://paypal.me/christmatic"
             target="_blank"
@@ -73,20 +84,22 @@ export default function SoutenirPage() {
               <path fill="#0070E0" d="M12.725 25.238l-1.927 12.218-1.21 7.664a1.038 1.038 0 0 0 1.026 1.199h6.67a1.276 1.276 0 0 0 1.26-1.078l1.758-11.139a1.277 1.277 0 0 1 1.261-1.078h3.926c6.183 0 11.428-4.51 12.388-10.622.68-4.338-1.504-8.286-5.238-10.243-.01.462-.05.923-.121 1.38-.959 6.11-6.206 10.621-12.387 10.621h-6.145a1.278 1.278 0 0 0-1.261 1.079"/>
               <path fill="#003087" d="M10.797 37.456h-7.76a1.037 1.037 0 0 1-1.024-1.2L7.245 3.078A1.277 1.277 0 0 1 8.506 2h13.336c6.313 0 10.904 4.594 10.797 10.159-1.571-.824-3.417-1.295-5.439-1.295H16.082a1.277 1.277 0 0 0-1.262 1.078l-2.094 13.296-1.93 12.218z"/>
             </svg>
-            Soutenir via PayPal
+            {tr('Soutenir via PayPal', 'Support via PayPal')}
           </a>
           <p className="cta-note">
-            Vous serez redirigé vers PayPal. Votre don est sécurisé.
+            {tr('Vous serez redirigé vers PayPal. Votre don est sécurisé.', 'You will be redirected to PayPal. Your gift is secure.')}
           </p>
         </div>
 
         {/* Verset */}
         <div className="soutenir-verset">
           <p>
-            &ldquo;Que chacun donne comme il l&apos;a résolu en son cœur, sans tristesse ni contrainte ;
-            car Dieu aime celui qui donne avec joie.&rdquo;
+            {tr(
+              "“Que chacun donne comme il l'a résolu en son cœur, sans tristesse ni contrainte ; car Dieu aime celui qui donne avec joie.”",
+              '“Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver.”'
+            )}
           </p>
-          <span>— 2 Corinthiens 9:7</span>
+          <span>{tr('— 2 Corinthiens 9:7', '— 2 Corinthians 9:7 (KJV)')}</span>
         </div>
 
       </div>

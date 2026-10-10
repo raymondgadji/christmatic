@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import HeroCarousel from './HeroCarousel'
+import { T } from './LangProvider'
 
 export interface FeaturedFilm {
   titre: string
@@ -50,14 +51,14 @@ function Stats() {
       flexWrap: 'wrap',
     }}>
       {[
-        { num: '200+', label: 'Films' },
-        { num: '5', label: 'Pays' },
-        { num: 'FR & EN', label: 'Bilingue' },
-        { num: '0€', label: 'Pour commencer' },
+        { num: '200+', label: 'Films', en: 'Films' },
+        { num: '5', label: 'Pays', en: 'Countries' },
+        { num: 'FR & EN', label: 'Bilingue', en: 'Bilingual' },
+        { num: '0€', label: 'Pour commencer', en: 'To start' },
       ].map((stat) => (
         <div key={stat.label}>
           <div style={{ fontSize: '20px', fontWeight: 600, color: 'var(--color-gold)' }}>{stat.num}</div>
-          <div style={{ fontSize: '11px', color: 'var(--color-text-hint)', marginTop: '2px' }}>{stat.label}</div>
+          <div style={{ fontSize: '11px', color: 'var(--color-text-hint)', marginTop: '2px' }}><T fr={stat.label} en={stat.en} /></div>
         </div>
       ))}
     </div>
@@ -86,7 +87,7 @@ export default function HeroBanner({ featured }: { featured?: FeaturedFilm[] }) 
         marginBottom: '20px',
       }}>
         <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--color-gold)', display: 'inline-block' }}/>
-        Films 100% chrétiens d&apos;Afrique noire
+        <T fr="Films 100% chrétiens d'Afrique noire" en="100% Christian films from Black Africa" />
       </div>
 
       <h1 style={{
@@ -97,9 +98,9 @@ export default function HeroBanner({ featured }: { featured?: FeaturedFilm[] }) 
         marginBottom: '16px',
         maxWidth: '560px',
       }}>
-        Le cinéma noir Africain<br/>
-        au service de{' '}
-        <em style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}>l&apos;Évangile</em>
+        <T fr="Le cinéma noir Africain" en="African black cinema" /><br/>
+        <T fr="au service de" en="at the service of" />{' '}
+        <em style={{ fontStyle: 'normal', color: 'var(--color-gold)' }}><T fr="l'Évangile" en="the Gospel" /></em>
       </h1>
 
       <p style={{
@@ -109,13 +110,12 @@ export default function HeroBanner({ featured }: { featured?: FeaturedFilm[] }) 
         maxWidth: '480px',
         marginBottom: '28px',
       }}>
-        Films chrétiens d&apos;Afrique subsaharienne — Nollywood, Côte d&apos;Ivoire,
-        Kenya, Ghana. Curatés avec foi.
+        <T fr="Films chrétiens d'Afrique subsaharienne — Nollywood, Côte d'Ivoire, Kenya, Ghana. Curatés avec foi." en="Christian films from sub-Saharan Africa — Nollywood, Ivory Coast, Kenya, Ghana. Curated with faith." />
       </p>
 
       <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <Link href="/francais" style={btnPrimary}>Regarder maintenant</Link>
-        <Link href="/english" style={btnSecondary}>Découvrir les films</Link>
+        <Link href="/francais" style={btnPrimary}><T fr="Regarder maintenant" en="Watch now" /></Link>
+        <Link href="/english" style={btnSecondary}><T fr="Découvrir les films" en="Discover the films" /></Link>
       </div>
 
       <Stats />

@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import NavAccount from './NavAccount'
+import LangToggle from './LangToggle'
+import { T } from './LangProvider'
 
 export default function Nav() {
   return (
@@ -45,7 +47,7 @@ export default function Nav() {
       {/* LIENS */}
       <div className="site-nav-links" style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
         <Link href="/" style={{ fontSize: '13px', color: 'var(--color-gold)' }}>
-          Accueil
+          <T fr="Accueil" en="Home" />
         </Link>
         <Link href="/francais" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
           🇫🇷 Français
@@ -63,36 +65,12 @@ export default function Nav() {
           fontWeight: 600,
           textDecoration: 'none',
         }}>
-          🙏 Soutenir
+          🙏 <T fr="Soutenir" en="Support" />
         </Link>
       </div>
 
       {/* TOGGLE FR/EN */}
-      <div className="site-nav-lang" style={{
-        display: 'flex',
-        gap: '2px',
-        background: 'rgba(255,255,255,0.06)',
-        borderRadius: '6px',
-        padding: '3px',
-      }}>
-        <button style={{
-          fontSize: '11px',
-          padding: '3px 8px',
-          borderRadius: '4px',
-          border: 'none',
-          background: 'var(--color-gold)',
-          color: '#0A0A0A',
-          fontWeight: 600,
-        }}>FR</button>
-        <button style={{
-          fontSize: '11px',
-          padding: '3px 8px',
-          borderRadius: '4px',
-          border: 'none',
-          background: 'transparent',
-          color: 'var(--color-text-muted)',
-        }}>EN</button>
-      </div>
+      <LangToggle />
 
     </nav>
   )

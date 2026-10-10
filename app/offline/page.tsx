@@ -1,3 +1,5 @@
+import { T } from '../../components/LangProvider'
+
 export const metadata = { title: 'Hors connexion', robots: { index: false } }
 
 export default function OfflinePage() {
@@ -7,13 +9,13 @@ export default function OfflinePage() {
         Christmatic
       </div>
       <h1 style={{ fontFamily: 'var(--font-titre)', fontSize: '28px', fontWeight: 500, marginBottom: '16px' }}>
-        Vous êtes hors connexion
+        <T fr="Vous êtes hors connexion" en="You are offline" />
       </h1>
       <p style={{ fontSize: '15px', color: 'var(--color-text-muted)', lineHeight: 1.7, marginBottom: '28px' }}>
-        Les films se regardent en ligne. Reconnectez-vous à internet, puis réessayez.
+        <T fr="Les films se regardent en ligne. Reconnectez-vous à internet, puis réessayez." en="Films are watched online. Reconnect to the internet, then try again." />
       </p>
       <a href="/" style={{ display: 'inline-block', background: 'var(--color-gold)', color: '#0A0A0A', padding: '10px 24px', borderRadius: '20px', fontWeight: 600, fontSize: '14px', textDecoration: 'none' }}>
-        Réessayer
+        <T fr="Réessayer" en="Try again" />
       </a>
     </div>
   )

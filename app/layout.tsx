@@ -4,6 +4,7 @@ import './globals.css'
 import Nav from '../components/Nav'
 import PwaInstall from '../components/PwaInstall'
 import AuthProvider from '../components/AuthProvider'
+import LangProvider, { T } from '../components/LangProvider'
 import { SITE_URL } from '../lib/seo'
 
 export const viewport: Viewport = {
@@ -66,6 +67,7 @@ export default function RootLayout({
         {/* GEO — Schema.org JSON-LD : scripts séparés (pas de @graph, meilleure lecture par les LLM) */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <LangProvider>
         <AuthProvider>
         <Nav />
         <main>
@@ -82,7 +84,7 @@ export default function RootLayout({
             color: 'var(--color-text-hint)',
             letterSpacing: '1px',
           }}>
-            CHRISTMATIC · Servir le Seigneur Jésus-Christ à travers le cinéma
+            <T fr="CHRISTMATIC · Servir le Seigneur Jésus-Christ à travers le cinéma" en="CHRISTMATIC · Serving the Lord Jesus Christ through cinema" />
           </p>
           <p style={{ marginTop: '10px', fontSize: '12px' }}>
             <a
@@ -91,12 +93,13 @@ export default function RootLayout({
               rel="noopener noreferrer"
               style={{ color: 'var(--color-gold)' }}
             >
-              Partager Christmatic sur LinkedIn
+              <T fr="Partager Christmatic sur LinkedIn" en="Share Christmatic on LinkedIn" />
             </a>
           </p>
           <PwaInstall />
         </footer>
         </AuthProvider>
+        </LangProvider>
         <Analytics />
       </body>
     </html>

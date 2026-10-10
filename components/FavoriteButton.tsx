@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from './AuthProvider'
+import { useTr } from './LangProvider'
 
 // Bouton « Ma liste » d'une page film. Sans compte : ouvre la fenêtre de connexion.
 export default function FavoriteButton({ filmId }: { filmId: string }) {
   const { user, loading, openLogin } = useAuth()
+  const tr = useTr()
   const [fav, setFav] = useState(false)
   const [busy, setBusy] = useState(false)
   const [pending, setPending] = useState(false) // clic fait avant la connexion : on ajoute le film dès qu'elle réussit
@@ -83,7 +85,7 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
       }}
     >
       <span aria-hidden="true">{fav ? '♥' : '♡'}</span>
-      {fav ? 'Dans ma liste' : 'Ajouter à ma liste'}
+      {fav ? tr('Dans ma liste', 'In my list') : tr('Ajouter à ma liste', 'Add to my list')}
     </button>
   )
 }

@@ -1,10 +1,12 @@
 import { supabase } from '../../../lib/supabase'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
-import { SITE_URL, autoDescription, isBilingualFilm } from '../../../lib/seo'
+import { SITE_URL, isBilingualFilm } from '../../../lib/seo'
 import ShareButtons from '../../../components/ShareButtons'
 import FilmPlayer from '../../../components/FilmPlayer'
 import FavoriteButton from '../../../components/FavoriteButton'
+import { T } from '../../../components/LangProvider'
+import Country from '../../../components/Country'
 
 interface Props {
   params: { slug: string }
@@ -27,9 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!film) return {}
 
   const url = `${SITE_URL}/films/${film.slug}`
-  const description = film.description || (isBilingualFilm(film.created_at)
-    ? autoDescription(film.pays)
-    : `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`)
+  const description = film.description || `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`
 
   return {
     title: film.titre,
@@ -70,7 +70,7 @@ export default async function FilmPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
     name: film.titre,
-    description: film.description || (isBilingualFilm(film.created_at) ? autoDescription(film.pays) : film.titre),
+    description: film.description || film.titre,
     thumbnailUrl: film.thumbnail_url || `https://img.youtube.com/vi/${film.youtube_id}/hqdefault.jpg`,
     // Date + heure + fuseau (exigé par Google). published_at = vraie date de mise en ligne YouTube ; repli provisoire sur l'année tant que la colonne n'est pas remplie.
     uploadDate: film.published_at || (film.annee ? `${film.annee}-01-01T00:00:00+00:00` : undefined),
@@ -90,7 +90,7 @@ export default async function FilmPage({ params }: Props) {
 
       <div style={{ marginBottom: '24px' }}>
         <div style={{ fontSize: '12px', color: 'var(--color-gold)', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-          {film.pays} · {film.annee}
+          <Country pays={film.pays} /> · {film.annee}
         </div>
         <h1 style={{ fontFamily: 'var(--font-titre)', fontSize: '28px', fontWeight: 500, lineHeight: 1.3, marginBottom: '12px' }}>
           {film.titre}
@@ -131,7 +131,7 @@ export default async function FilmPage({ params }: Props) {
       )}
 
       <a href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'var(--color-gold)' }}>
-        ← Retour à l'accueil
+        ← <T fr="Retour à l'accueil" en="Back to home" />
       </a>
 
     </div>

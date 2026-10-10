@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import FilmCard from './FilmCard'
+import { T } from './LangProvider'
 
 interface Film {
   id: string
@@ -45,7 +46,7 @@ export default function FilmRow({ titre, emoji, films, voirToutHref }: FilmRowPr
           color: 'var(--color-gold)',
           textDecoration: 'none',
         }}>
-          Voir tout →
+          <T fr="Voir tout →" en="See all →" />
         </Link>
       </div>
 

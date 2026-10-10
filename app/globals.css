@@ -120,7 +120,4 @@ img {
     justify-content: center;
     gap: 10px 16px !important;
   }
-  .site-nav-lang {
-    display: none !important;
-  }
 }

@@ -1,5 +1,6 @@
 import { supabase } from '../../lib/supabase'
 import FilmCard from '../../components/FilmCard'
+import { T } from '../../components/LangProvider'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -31,7 +32,7 @@ export default async function PageFrancais() {
           textTransform: 'uppercase',
           marginBottom: '8px',
         }}>
-          Catalogue complet
+          <T fr="Catalogue complet" en="Full catalog" />
         </div>
         <h1 style={{
           fontFamily: 'var(--font-titre)',
@@ -45,7 +46,7 @@ export default async function PageFrancais() {
           color: 'var(--color-text-muted)',
           marginTop: '8px',
         }}>
-          {films?.length || 0} films — Côte d&apos;Ivoire, Cameroun, Gabon, RDC...
+          <T fr={`${films?.length || 0} films — Côte d'Ivoire, Cameroun, Gabon, RDC...`} en={`${films?.length || 0} films — Ivory Coast, Cameroon, Gabon, DR Congo...`} />
         </p>
       </div>
 

@@ -105,3 +105,22 @@ img {
   padding-bottom: 0;
   border-radius: 0;
 }
+
+/* Menu sur téléphone : le logo en haut, les liens (dont « Ma liste ») sur une 2e ligne, rien ne sort de l'écran */
+@media (max-width: 700px) {
+  .site-nav {
+    flex-wrap: wrap;
+    padding: 12px 16px !important;
+    row-gap: 10px;
+  }
+  .site-nav-links {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 16px !important;
+  }
+  .site-nav-lang {
+    display: none !important;
+  }
+}

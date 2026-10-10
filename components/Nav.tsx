@@ -3,7 +3,7 @@ import NavAccount from './NavAccount'
 
 export default function Nav() {
   return (
-    <nav style={{
+    <nav className="site-nav" style={{
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -43,7 +43,7 @@ export default function Nav() {
       </Link>
 
       {/* LIENS */}
-      <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+      <div className="site-nav-links" style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
         <Link href="/" style={{ fontSize: '13px', color: 'var(--color-gold)' }}>
           Accueil
         </Link>
@@ -68,7 +68,7 @@ export default function Nav() {
       </div>
 
       {/* TOGGLE FR/EN */}
-      <div style={{
+      <div className="site-nav-lang" style={{
         display: 'flex',
         gap: '2px',
         background: 'rgba(255,255,255,0.06)',

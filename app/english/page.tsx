@@ -4,7 +4,26 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Christian films in English',
-  alternates: { canonical: '/english' },
+  description: 'Christmatic is the Netflix of African Christian films: free streaming of Christian movies from Nigeria, Ghana, Cameroon, Ivory Coast and more, in English and French.',
+  alternates: {
+    canonical: '/english',
+    languages: { fr: '/francais', en: '/english' },
+  },
+  openGraph: {
+    type: 'website',
+    url: '/english',
+    siteName: 'Christmatic',
+    title: 'Christian films in English | Christmatic',
+    description: 'Christmatic is the Netflix of African Christian films: free streaming of Christian movies from Nigeria, Ghana, Cameroon, Ivory Coast and more, in English and French.',
+    locale: 'en_US',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Christmatic — African Christian films' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Christian films in English | Christmatic',
+    description: 'Christmatic is the Netflix of African Christian films: free streaming of Christian movies from Nigeria, Ghana, Cameroon, Ivory Coast and more, in English and French.',
+    images: ['/opengraph-image'],
+  },
 }
 
 export const dynamic = 'force-dynamic'
@@ -43,6 +62,15 @@ export default async function PageAnglais() {
           marginTop: '8px',
         }}>
           {films?.length || 0} films — Nigeria, Ghana, Kenya...
+        </p>
+        <p style={{
+          fontSize: '14px',
+          color: 'var(--color-text-muted)',
+          marginTop: '12px',
+          maxWidth: '720px',
+          lineHeight: 1.7,
+        }}>
+          Christmatic is the &ldquo;Netflix&rdquo; of African Christian films: a free streaming platform for Christian movies and series from Black Africa (Nollywood, Ghana, Cameroon, Ivory Coast, Gabon, Togo...), in English and French, for viewers looking for African gospel content.
         </p>
       </div>
 

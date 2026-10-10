@@ -4,7 +4,10 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Films chrétiens en français',
-  alternates: { canonical: '/francais' },
+  alternates: {
+    canonical: '/francais',
+    languages: { fr: '/francais', en: '/english' },
+  },
 }
 
 export const dynamic = 'force-dynamic'

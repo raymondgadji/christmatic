@@ -25,7 +25,19 @@ function exitAllFullscreen() {
   }
 }
 
-// Lecteur du film : pleine largeur sur téléphone, bouton « Plein écran » (bascule en paysage quand le navigateur le permet)
+// Après le plein écran, certains Android laissent la page dézoomée (« petit écran ») :
+// on impose brièvement une échelle minimale de 1, puis on restaure la balise viewport d'origine.
+function resetPageScale() {
+  const meta = document.querySelector('meta[name="viewport"]')
+  if (!meta) return
+  const original = meta.getAttribute('content') || 'width=device-width, initial-scale=1'
+  meta.setAttribute('content', 'width=device-width, initial-scale=1, minimum-scale=1')
+  window.setTimeout(() => meta.setAttribute('content', original), 400)
+  window.dispatchEvent(new Event('resize'))
+}
+
+// Lecteur du film : pleine largeur sur téléphone, bouton « Plein écran »
+// (pas de verrouillage d'orientation : il laissait la page mal dimensionnée à la sortie ; l'utilisateur tourne son téléphone)
 export default function FilmPlayer({ src, title }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const nested = useRef(false)
@@ -46,11 +58,7 @@ export default function FilmPlayer({ src, title }: Props) {
       }
       if (!fs) {
         nested.current = false
-        try {
-          screen.orientation?.unlock?.()
-        } catch {
-          // non pris en charge : sans effet
-        }
+        resetPageScale()
       }
     }
     document.addEventListener('fullscreenchange', onChange)
@@ -67,12 +75,6 @@ export default function FilmPlayer({ src, title }: Props) {
     try {
       if (el.requestFullscreen) await el.requestFullscreen()
       else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen()
-      else return
-      try {
-        await (screen.orientation as ScreenOrientation & { lock?: (o: string) => Promise<void> }).lock?.('landscape')
-      } catch {
-        // verrouillage non disponible : le plein écran reste actif
-      }
     } catch {
       // plein écran refusé par le navigateur : le lecteur YouTube garde son propre bouton
     }

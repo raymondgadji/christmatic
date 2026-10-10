@@ -62,7 +62,7 @@ export default function FilmPlayer({ src, title }: Props) {
         />
       </div>
       <button type="button" className="film-player-fs" onClick={goFullscreen} aria-label="Plein écran">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
           <path d="M8 3H3v5M16 3h5v5M8 21H3v-5M16 21h5v-5" />
         </svg>
         Plein écran

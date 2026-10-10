@@ -9,6 +9,7 @@ interface Props {
 
 type FullscreenEl = HTMLDivElement & { webkitRequestFullscreen?: () => void }
 type FullscreenDoc = Document & { webkitFullscreenElement?: Element | null; webkitExitFullscreen?: () => void }
+type LockableOrientation = ScreenOrientation & { lock?: (o: string) => Promise<void> }
 
 function currentFullscreenElement() {
   const d = document as FullscreenDoc
@@ -36,13 +37,40 @@ function resetPageScale() {
   window.dispatchEvent(new Event('resize'))
 }
 
-// Lecteur du film : pleine largeur sur téléphone, bouton « Plein écran »
-// (pas de verrouillage d'orientation : il laissait la page mal dimensionnée à la sortie ; l'utilisateur tourne son téléphone)
+// Lecteur du film : pleine largeur sur téléphone, bouton « Plein écran » qui passe AUTOMATIQUEMENT en paysage.
+// ⚠️ Décision de Raymond : ne jamais retirer le plein écran automatique en paysage (meilleure expérience utilisateur).
 export default function FilmPlayer({ src, title }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   const nested = useRef(false)
+  const orientationBefore = useRef<string>('')
 
   useEffect(() => {
+    // À la sortie : on remet l'orientation d'origine (portrait) puis on libère la rotation, et on remet la page à l'échelle normale.
+    function restorePage() {
+      const so = screen.orientation as LockableOrientation | undefined
+      const before = orientationBefore.current
+      if (so && before.startsWith('portrait') && so.lock) {
+        so.lock(before)
+          .catch(() => {})
+          .finally(() => window.setTimeout(() => {
+            try {
+              so.unlock?.()
+            } catch {
+              // non pris en charge
+            }
+          }, 700))
+      } else {
+        try {
+          so?.unlock?.()
+        } catch {
+          // non pris en charge
+        }
+      }
+      resetPageScale()
+      window.setTimeout(resetPageScale, 600)
+      window.setTimeout(resetPageScale, 1300)
+    }
+
     // Le lecteur YouTube a son propre bouton plein écran : il s'empile sur le nôtre (2 niveaux).
     // Quand l'utilisateur quitte le niveau YouTube, on quitte aussi le nôtre : un seul « exit » suffit.
     const onChange = () => {
@@ -58,7 +86,7 @@ export default function FilmPlayer({ src, title }: Props) {
       }
       if (!fs) {
         nested.current = false
-        resetPageScale()
+        restorePage()
       }
     }
     document.addEventListener('fullscreenchange', onChange)
@@ -72,9 +100,16 @@ export default function FilmPlayer({ src, title }: Props) {
   async function goFullscreen() {
     const el = ref.current as FullscreenEl | null
     if (!el) return
+    orientationBefore.current = screen.orientation?.type || ''
     try {
       if (el.requestFullscreen) await el.requestFullscreen()
       else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen()
+      else return
+      try {
+        await (screen.orientation as LockableOrientation).lock?.('landscape')
+      } catch {
+        // verrouillage non disponible : le plein écran reste actif
+      }
     } catch {
       // plein écran refusé par le navigateur : le lecteur YouTube garde son propre bouton
     }

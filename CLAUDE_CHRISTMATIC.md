@@ -450,14 +450,14 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 
 ### Sprint 3 ✅ TERMINÉ
 - [x] Page `/films/[slug]` avec player YouTube
-- [x] Bouton "Voir sur YouTube" pour films bloqués
+- [x] Bouton "Voir sur YouTube" pour films bloqués *(retiré le 10/10/2026 à la demande de Raymond : l'utilisateur reste dans l'app)*
 - [x] Page `/francais` catalogue complet (18 films)
 - [x] Page `/english` catalogue complet (6 films)
 - [x] Déploiement sur Vercel → christmatic.vercel.app
 - [x] Domaines christmatic.tv + christmatic.com achetés sur Ionos
 - [x] christmatic.tv connecté à Vercel (record A → 216.198.79.1)
 - [x] www.christmatic.tv connecté à Vercel
-- [x] christmatic.com redirige (301) vers christmatic.tv
+- [x] christmatic.com redirige vers www.christmatic.tv *(en 302 chez Ionos au 08/10/2026, voir section 13)*
 - [x] Certificat SSL actif
 
 ### Sprint 4 ✅ TERMINÉ
@@ -490,12 +490,24 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] Page `/stats` (statistiques catalogue) + Vercel Analytics installé ✅
 - [x] Piège Data Cache Next.js / Supabase résolu (`cache: 'no-store'` forcé dans `lib/supabase.ts`) ✅
 
+### Sprint 4bis ✅ TERMINÉ (08-10/10/2026) — contenu, partage, SEO/Google, PWA
+- [x] 6 nouveaux films (catalogue 105) + vraies dates YouTube (`published_at`, années corrigées) ✅
+- [x] 8 films partagés sur Facebook (gabarit + 7 groupes), file d'attente vide ✅
+- [x] Boutons de partage WhatsApp / Facebook / LinkedIn / Copier le lien + suivi des clics (`/stats`) ✅
+- [x] Logo à croix, grande image de partage (LinkedIn validé), carrousel d'accueil à 7 films ✅
+- [x] Google Search Console : propriété vérifiée, sitemap soumis, canoniques par page, redirection `christmatic.tv` en 308, VideoObject `uploadDate` corrigé et validé (rapport Vidéos 39 valides / 0 invalide) ✅
+- [x] PWA installable (manifeste, icônes, service worker réseau d'abord, page hors connexion) — installée et testée sur Samsung A10 ✅
+- [x] Lecteur de film plein écran mobile (paysage automatique, sortie en un exit, bouton pleine largeur) ✅
+- [x] Bilingue FR+EN pour les NOUVEAUX films (partage + synopsis) ; films existants inchangés ✅
+- [x] Ajouts en anglais pour le public américain : `/english` (description + intro), hreflang, `llms.txt` ✅
+
 ### Sprint 5 ← PROCHAIN
 - [ ] Auth Supabase (inscription / connexion)
 - [ ] Favoris utilisateur
-- [ ] Test mobile complet
+- [~] Test mobile complet — fait en partie (PWA + lecteur plein écran testés sur Samsung A10 le 10/10/2026) ; reste : parcours complet (favoris, comptes) une fois Sprint 5 construit, iPhone non testé
 - [ ] Stripe (après configuration statut entreprise)
-- [ ] Partage diaspora France/Belgique — lancement !
+- [~] Partage diaspora France/Belgique — lancement ! — amorcé : Page + 7 groupes Facebook, WhatsApp/LinkedIn prêts ; reste : suivre les stats (Vercel, `/stats`, Search Console), nouveaux canaux si besoin
+- [ ] *(à suivre, hors Sprint 5)* Search Console dans ~1 semaine : sitemap, accueil indexé, 2 avertissements de dates, requêtes/pays (USA) ; `christmatic.com` en 302 chez Ionos (optionnel)
 
 ---
 

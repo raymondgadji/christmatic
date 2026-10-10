@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { SITE_URL } from '../../../lib/seo'
 import ShareButtons from '../../../components/ShareButtons'
+import FilmPlayer from '../../../components/FilmPlayer'
 
 interface Props {
   params: { slug: string }
@@ -101,23 +102,10 @@ export default async function FilmPage({ params }: Props) {
       </div>
 
       {film.youtube_id && (
-        <div style={{ position: 'relative', width: '100%', paddingBottom: '56.25%', borderRadius: '12px', overflow: 'hidden', marginBottom: '24px', background: '#000' }}>
-          <iframe
-            src={`https://www.youtube.com/embed/${film.youtube_id}?list=${YOUTUBE_PLAYLIST_ID}&rel=0&modestbranding=1`}
-            title={film.titre}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-          />
-          
-            <a href={`https://www.youtube.com/watch?v=${film.youtube_id}&list=${YOUTUBE_PLAYLIST_ID}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ position: 'absolute', bottom: '16px', right: '16px', background: '#FF0000', color: '#fff', fontSize: '12px', fontWeight: 600, padding: '6px 14px', borderRadius: '6px', textDecoration: 'none', zIndex: 10 }}
-          >
-            ▶ Voir sur YouTube
-          </a>
-        </div>
+        <FilmPlayer
+          src={`https://www.youtube.com/embed/${film.youtube_id}?list=${YOUTUBE_PLAYLIST_ID}&rel=0&modestbranding=1`}
+          title={film.titre}
+        />
       )}
 
       <div style={{ marginBottom: '24px' }}>

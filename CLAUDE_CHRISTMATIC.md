@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 8 octobre 2026 — Sprint 4 terminé ✅, Sprint 5 à démarrer, catalogue à 105 films (104 en ligne)
+> Dernière mise à jour : 10 octobre 2026 — Sprint 5 en cours (connexion facultative + favoris + interface FR/EN en ligne ; reste connexion Google, e-mails pro Resend, test iPhone ; Stripe reporté), catalogue à 105 films (104 en ligne)
 
 ---
 
@@ -100,7 +100,7 @@ BDD : Supabase (PostgreSQL managé) ✅
 URL Supabase : https://hrdtcpksdqoispbvzftg.supabase.co
 Region : West EU (Ireland)
 Package : @supabase/supabase-js
-Auth : Supabase Auth — prévu Sprint 5
+Auth : Supabase Auth — e-mail + code à 6 chiffres, facultatif (en ligne depuis le 10/10/2026)
 ⚠️ Plan FREE — se met en pause après inactivité → cliquer "Resume project"
 ```
 
@@ -122,7 +122,7 @@ Redirect  : christmatic.com ✅ redirige (301) vers https://www.christmatic.tv
 ### Paiements
 ```
 PayPal : paypal.me/christmatic ✅ actif
-Stripe : ⏳ à configurer (nécessite statut entreprise)
+Stripe : ⏳ reporté (décision du 10/10/2026 : aucune demande de don ; si besoin, compte Stripe DISTINCT nommé Christmatic)
 ```
 
 ### Logos PayPal disponibles

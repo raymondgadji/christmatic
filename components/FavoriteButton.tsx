@@ -5,6 +5,26 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from './AuthProvider'
 import { useTr } from './LangProvider'
 
+const PENDING_KEY = 'christmatic_pending_fav'
+
+// L'ajout en attente n'est valable que 10 minutes (si le visiteur abandonne la connexion, rien ne s'ajoute plus tard par surprise)
+function pendingFilm() {
+  try {
+    const [id, t] = (localStorage.getItem(PENDING_KEY) || '').split('|')
+    return id && Date.now() - Number(t) < 10 * 60 * 1000 ? id : null
+  } catch {
+    return null
+  }
+}
+
+function clearPending() {
+  try {
+    localStorage.removeItem(PENDING_KEY)
+  } catch {
+    // ignoré
+  }
+}
+
 // Bouton « Ma liste » d'une page film. Sans compte : ouvre la fenêtre de connexion.
 export default function FavoriteButton({ filmId }: { filmId: string }) {
   const { user, loading, openLogin } = useAuth()
@@ -18,7 +38,7 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
       setFav(false)
       return
     }
-    if (pending) return // l'ajout en attente (juste après la connexion) fixe lui-même l'état
+    if (pending || pendingFilm() === filmId) return // l'ajout en attente (juste après la connexion) fixe lui-même l'état
     let active = true
     supabase
       .from('favorites')
@@ -35,8 +55,9 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
   }, [user, filmId])
 
   useEffect(() => {
-    if (!user || !pending) return
+    if (!user || !(pending || pendingFilm() === filmId)) return
     setPending(false)
+    clearPending()
     setFav(true)
     supabase
       .from('favorites')
@@ -51,6 +72,11 @@ export default function FavoriteButton({ filmId }: { filmId: string }) {
     if (loading || busy) return
     if (!user) {
       setPending(true)
+      try {
+        localStorage.setItem(PENDING_KEY, `${filmId}|${Date.now()}`) // survit au retour de Google (la page se recharge)
+      } catch {
+        // ignoré : l'ajout automatique ne marchera qu'avec le code par e-mail
+      }
       openLogin()
       return
     }

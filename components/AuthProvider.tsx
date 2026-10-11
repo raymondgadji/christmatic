@@ -73,6 +73,22 @@ const inputStyle = {
   outline: 'none',
 } as const
 
+const googleButtonStyle = {
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '10px',
+  padding: '12px 18px',
+  borderRadius: '8px',
+  border: '0.5px solid var(--color-border)',
+  background: '#fff',
+  color: '#1f1f1f',
+  fontSize: '14px',
+  fontWeight: 600,
+  cursor: 'pointer',
+} as const
+
 const buttonStyle = {
   width: '100%',
   padding: '12px 18px',
@@ -117,6 +133,20 @@ function LoginModal({ onClose }: { onClose: () => void }) {
     }
     setEmail(clean)
     setStep('code')
+  }
+
+  async function signInWithGoogle() {
+    setError('')
+    setBusy(true)
+    // On revient sur la page où se trouvait le visiteur (ex. la page du film) une fois connecté
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + window.location.pathname },
+    })
+    if (error) {
+      setBusy(false)
+      setError(tr('Connexion Google impossible pour le moment. Utilisez votre e-mail.', 'Google sign-in is unavailable right now. Please use your email.'))
+    }
   }
 
   async function verifyCode(e: React.FormEvent) {
@@ -180,6 +210,23 @@ function LoginModal({ onClose }: { onClose: () => void }) {
 
         {step === 'email' ? (
           <form onSubmit={sendCode}>
+            <button
+              type="button"
+              onClick={signInWithGoogle}
+              disabled={busy}
+              style={{ ...googleButtonStyle, marginBottom: '16px', opacity: busy ? 0.6 : 1 }}
+            >
+              <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z" />
+                <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z" />
+                <path fill="#FBBC05" d="M10.5 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z" />
+                <path fill="#34A853" d="M24 48c6.3 0 11.7-2.1 15.6-5.7l-7.5-5.8c-2.1 1.4-4.8 2.3-8.1 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z" />
+              </svg>
+              {tr('Continuer avec Google', 'Continue with Google')}
+            </button>
+            <p style={{ textAlign: 'center', fontSize: '12px', color: 'var(--color-text-hint)', margin: '0 0 14px' }}>
+              {tr('ou avec votre e-mail', 'or with your email')}
+            </p>
             <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: '0 0 16px' }}>
               {tr(
                 'Connectez-vous pour garder vos films favoris et les retrouver sur tous vos appareils. Pas de mot de passe : nous vous envoyons un code par e-mail. Les films restent gratuits, avec ou sans compte.',

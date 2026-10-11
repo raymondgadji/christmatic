@@ -18,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/francais`, lastModified: new Date() },
     { url: `${SITE_URL}/english`, lastModified: new Date() },
     { url: `${SITE_URL}/soutenir`, lastModified: new Date() },
+    { url: `${SITE_URL}/confidentialite`, lastModified: new Date() },
     ...filmEntries,
   ]
 }

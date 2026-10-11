@@ -95,6 +95,10 @@ export default function RootLayout({
             >
               <T fr="Partager Christmatic sur LinkedIn" en="Share Christmatic on LinkedIn" />
             </a>
+            {' · '}
+            <a href="/confidentialite" style={{ color: 'var(--color-gold)' }}>
+              <T fr="Politique de confidentialité" en="Privacy policy" />
+            </a>
           </p>
           <PwaInstall />
         </footer>

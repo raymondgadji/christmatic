@@ -505,6 +505,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 Ordre décidé avec Raymond le 10/10/2026 : 1) Auth facultatif + Favoris, 2) test iPhone, 3) Stripe en dernier.
 - [x] Auth Supabase **facultative** (e-mail + code (8 chiffres avec les réglages actuels de Supabase ; l'interface ne fixe pas le nombre)) ✅ en ligne et testée par Raymond le 10/10/2026 ; SMTP Resend en place (11/10/2026)
 - [x] Favoris (« Ma liste ») ✅ en ligne, testés (Nora ajouté)
+- [x] E-mails professionnels via Resend (`mail.christmatic.tv`, DNS Ionos) ✅ code reçu en boîte de réception (11/10/2026)
+- [x] Page « Politique de confidentialité » (`/confidentialite`, FR/EN) ✅ en ligne et liée en pied de page
 - [x] Interface FR/EN choisie par le visiteur (boutons, menus, libellés) — voir section 13
 - [x] Connexion Google ✅ app publiée le 11/10/2026 (mode production), testée avec un compte non propriétaire ✅
 - [~] Test mobile complet — fait en partie (PWA + lecteur plein écran testés sur Samsung A10 le 10/10/2026) ; reste : parcours favoris/connexion sur Android, puis iPhone (le verrouillage paysage `screen.orientation.lock` n'existe pas sur iPhone ; installation PWA à la main via Safari > Partager > Sur l'écran d'accueil)

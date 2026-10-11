@@ -24,7 +24,7 @@ export function useAuth() {
 }
 
 // Connexion facultative : on regarde les films sans compte ; le compte sert aux favoris (« Ma liste »).
-// Méthode : adresse e-mail + code à 6 chiffres reçu par e-mail (pas de mot de passe, pas de lien :
+// Méthode : adresse e-mail + code (chiffres) reçu par e-mail (pas de mot de passe, pas de lien :
 // un lien s'ouvrirait dans le navigateur et non dans la PWA installée).
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -124,7 +124,7 @@ function LoginModal({ onClose }: { onClose: () => void }) {
     setError('')
     const token = code.replace(/\s/g, '')
     if (token.length < 6) {
-      setError(tr('Le code contient 6 chiffres.', 'The code has 6 digits.'))
+      setError(tr('Saisissez le code reçu par e-mail.', 'Enter the code you received by email.'))
       return
     }
     setBusy(true)
@@ -206,14 +206,14 @@ function LoginModal({ onClose }: { onClose: () => void }) {
         ) : (
           <form onSubmit={verifyCode}>
             <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', lineHeight: 1.6, margin: '0 0 16px' }}>
-              {tr('Un code à 6 chiffres a été envoyé à', 'A 6-digit code was sent to')} <strong style={{ color: 'var(--color-text-primary)' }}>{email}</strong>.{' '}
+              {tr('Un code a été envoyé à', 'A code was sent to')} <strong style={{ color: 'var(--color-text-primary)' }}>{email}</strong>.{' '}
               {tr('Pensez à regarder vos courriers indésirables.', 'Remember to check your spam folder.')}
             </p>
             <input
               type="text"
               inputMode="numeric"
               autoComplete="one-time-code"
-              placeholder="123456"
+              placeholder="••••••••"
               maxLength={8}
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/[^0-9]/g, ''))}

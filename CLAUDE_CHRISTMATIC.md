@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 10 octobre 2026 — Sprint 5 en cours (connexion facultative + favoris + interface FR/EN en ligne ; reste connexion Google, e-mails pro Resend, test iPhone ; Stripe reporté), catalogue à 105 films (104 en ligne)
+> Dernière mise à jour : 24 octobre 2026 — Sprint 5 (connexion facultative e-mail + Google, favoris, interface FR/EN, e-mails Resend, page de confidentialité : en ligne ; reste test iPhone ; Stripe reporté) ; 8 nouveaux films ajoutés le 24/10/2026, catalogue à 113 films (112 en ligne) ; partages Facebook des 8 films en attente (voir section 15ter)
 
 ---
 
@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (105 films)
+### Table films ✅ créée et peuplée (113 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,9 +230,9 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (105 films — 104 en ligne + 1 dépublié) ✅
+## 9. Films en base (113 films — 112 en ligne + 1 dépublié) ✅
 
-### 🇫🇷 Films en Français (50 films — 49 en ligne + 1 dépublié)
+### 🇫🇷 Films en Français (58 films — 57 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
 |---|---|---|---|---|
 | 1 | Elle refuse de coucher avec son Patron | Cameroun | — | sUVfzeEaI2Q |
@@ -285,6 +285,16 @@ CREATE TABLE favoris (
 | 48 | La Victoire du Premier-né (Jésus Côte d'Ivoire) | Côte d'Ivoire | — | 2QxrJe-fzEY |
 | 49 | Le Pacte du Mal (Ciné-Leçon) | Côte d'Ivoire | — | ja5kYJcHlKI |
 | 50 | Marié par Prophétie — Épisode 14 (7SELAH) | Cameroun | 2026 | sDle9yzvHrg |
+| 51 | La Cruche Brisée (Jésus Côte d'Ivoire) | Côte d'Ivoire | 2026 | c2rjkuiJVsQ |
+| 52 | Marié par Prophétie — Épisode 16 (7SELAH) | Cameroun | 2026 | dAb_KXAFF5g |
+| 53 | La Dette de l'Enfer (Atorishé Media Group) | Bénin | 2026 | xHSZ1MxaREY |
+| 54 | Autel contre Autel (Jésus Côte d'Ivoire) | Côte d'Ivoire | 2026 | MylFAfwDy5A |
+| 55 | Le Choix de Dieu (Atorishé Media Group) | Burkina Faso | 2026 | 2aqDhNZMAc4 |
+| 56 | Marié par Prophétie — Épisode 15 (7SELAH) | Cameroun | 2026 | 1eivQ2iKYuQ |
+| 57 | Derrière la Chaire ? (Jésus Côte d'Ivoire) | Côte d'Ivoire | 2026 | iqXSqTwPUqg |
+| 58 | Le Faible (Atorishé Media Group) | Bénin | 2026 | 7jNcvQjXby4 |
+
+✅ **Films #51-58 en ligne (24/10/2026)** : 8 films ajoutés par recensement de la playlist (113 vidéos au 24/10/2026 ; les nouveaux étaient en tête, positions 1 à 8), SQL `docs/insert_films_2026-10-24.sql` exécuté dans Supabase (« Success. No rows returned »), 8 pages vérifiées (HTTP 200, og:image, canonique, description, sitemap = 112 films). Pays : *Le Choix de Dieu* = Burkina Faso (titre YouTube « Burkinabé », choix de Raymond) ; Atorishé Media Group = Bénin pour *La Dette de l'Enfer* et *Le Faible*. Synopsis FR + EN (choix de Raymond le 24/10) ; *La Cruche Brisée* et *Autel contre Autel* sans synopsis (YouTube n'en donne pas) → description automatique bilingue. Chaque INSERT contient `published_at` (date YouTube avec fuseau) et `annee`.
 
 ✅ Films #46-47 en ligne (29/09/2026). Même lot : youtube_id de #11 "Captifs de l'Homme Fort" corrigé → `pTk0kCA687U`.
 
@@ -588,7 +598,7 @@ Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il de
    `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ID&format=json` → champ `author_name` (nom de la chaîne). Chaînes déjà repérées : **7Selah** → Cameroun ("Marié par Prophétie"), **The Winlos** → Nigeria, **Fejosbaba TV** → Nigeria, **G9Studios / Ola Adene** → Nigeria, **Whitestone Studios** → Nigeria, **Biodun Stephen / BIODUNSTEPHEN TV** → Nigeria, **Ese Talks Studio** → Nigeria, **Flaming Sword Movies (FSM)** → USA (diaspora noire, comme le film CHOICES déjà en base). Chaîne inconnue → marquer "à confirmer" et laisser Raymond trancher avant d'exécuter le SQL.
 4. **Générer le SQL** `INSERT INTO films (...)` avec les mêmes règles que d'habitude (voir section 1 "Workflow d'ajout de film") : slug en kebab-case du titre, `thumbnail_url` = `https://img.youtube.com/vi/{id}/hqdefault.jpg`, `langue` déduite du titre (fr/en), `annee` = **vraie année de mise en ligne YouTube** (champ `publishDate` de la page watch du film ; décision de Raymond le 08/10/2026 : on ne met jamais une année inventée — ne pas mettre 2026 par défaut) ; ⚠️ 17 films ont été mis à 2026 provisoirement via `docs/update_annee_2026.sql`, à corriger avec les vraies dates ; `is_published = true`, `is_featured = false`, `description` : voir étape 5bis (NULL seulement si aucune source fiable).
 5. **Écrire le SQL dans un fichier** `docs/insert_films_AAAA-MM-JJ.sql` (outil Write, UTF-8, un seul `INSERT` multi-lignes, une ligne par film) — **ne pas le donner en bloc dans le chat** : le copier-coller depuis le terminal corrompt le texte (caractères manquants, erreur `42601` vécue le 08/10/2026). Raymond ouvre le fichier (VS Code / Bloc-notes), Ctrl+A, Ctrl+C, colle dans le SQL Editor Supabase et clique Run (Claude n'a pas d'accès direct à la base). Réponse attendue : *Success. No rows returned*. Ensuite Claude vérifie lui-même les pages en ligne (HTTP 200, og:image, description, nombre de `/films/` dans le sitemap), puis Raymond passe par le Sharing Debugger si le film doit être partagé (voir section 9).
-5bis. **Descriptions (synopsis ÉCRIT EN FRANÇAIS ET EN ANGLAIS, règle de Raymond du 10/10/2026)** : les lire sur la page YouTube du film (`shortDescription` via `fetch('/watch?v=ID')` dans l'onglet YouTube), reformuler en 1-2 phrases dans la langue du film ; si YouTube n'en a pas, chercher sur le web ; si rien de fiable, laisser `NULL` (ne jamais inventer de synopsis). Mettre la description dans l'`INSERT`. La page film l'utilise comme meta description (sinon texte générique "film chrétien de {pays}, disponible gratuitement sur Christmatic").
+5bis. **Descriptions (synopsis : demander à Raymond à chaque lot s'il doit être FR + EN ou dans la langue du film — le 24/10/2026 il a choisi FR + EN ; la description AUTOMATIQUE des films sans synopsis est bilingue pour les nouveaux films)** : les lire sur la page YouTube du film (`shortDescription` via `fetch('/watch?v=ID')` dans l'onglet YouTube), reformuler en 1-2 phrases dans la langue du film ; si YouTube n'en a pas, chercher sur le web ; si rien de fiable, laisser `NULL` (ne jamais inventer de synopsis). Mettre la description dans l'`INSERT`. La page film l'utilise comme meta description (sinon texte générique "film chrétien de {pays}, disponible gratuitement sur Christmatic").
 6. Une fois confirmé, mettre à jour la section 9 et les compteurs de ce fichier.
 
 ---
@@ -606,7 +616,7 @@ Raymond ajoute ses nouveaux films à cette playlist. À chaque session où il de
 > 🙏 African black cinema at the service of the Gospel
 > ```
 > `{Titre}` = titre du film SANS le studio entre parenthèses, entre guillemets français « ». Jamais « Nouveau sur Christmatic ! » (abandonné). Demander l'accord de Raymond avant chaque clic sur « Post ». (WhatsApp : mêmes phrases FR + EN mais **sans emojis**, voir `ShareButtons.tsx`.)
-> 3. **Les synopsis des nouveaux films s'écrivent en français ET en anglais** (colonne `description`, les deux langues dans le même texte). Les synopsis des films existants ne sont pas modifiés.
+> 3. **Synopsis des nouveaux films** : le 10/10 Raymond a demandé FR + EN, puis a précisé le soir que le bilingue concerne le PARTAGE et la description automatique ; le 24/10/2026 il a de nouveau choisi FR + EN pour les 8 films ajoutés. **Redemander à chaque nouveau lot.** Les synopsis des films existants ne sont pas modifiés.
 
 **Page Facebook** : https://www.facebook.com/christmatictv (Raymond y est connecté et administrateur). Objectif : partager chaque nouveau film sur la page ET dans les groupes Facebook chrétiens dont Raymond est membre, à un rythme choisi par lui (ex. ~5 films par session, pas tout d'un coup).
 
@@ -630,6 +640,7 @@ Procédure par film (établie le 21 septembre 2026) :
 - ✅ Lot 1 (21 films du 21/09) : tous partagés (clôturé le 24/09). ✅ Lot 2 (12 films du 29/09) : tous partagés (clôturé le 30/09). Raymond a décidé le 30/09 d'**oublier les films anciens** : on ne partage que les nouveaux films.
 - ✅ Lot 3 CLÔTURÉ le 08/10/2026 : ✅ Alejo Oloore (`alejo-oloore-the-messenger-of-good-fortune`) partagé le 08/10/2026 ; ✅ Lagos to Gomorrah (`lagos-to-gomorrah`) partagé le 08/10/2026. **File d'attente Facebook entièrement vide au 08/10/2026 : tous les films du catalogue récent sont partagés.**
 - ✅ Lot 4 CLÔTURÉ le 08/10/2026 (6 films partagés, 7 groupes, Page incluse) : ✅ La Victoire du Premier-né (`la-victoire-du-premier-ne`) partagé le 08/10/2026 ; ✅ Le Pacte du Mal (`le-pacte-du-mal`) partagé le 08/10/2026 ; ✅ Marié par Prophétie Ép.14 (`marie-par-prophetie-ep14`) partagé le 08/10/2026 ; ✅ The Last Door (`the-last-door`) partagé le 08/10/2026 ; ✅ Wealth in the Dream 3 (`wealth-in-the-dream-3`) partagé le 08/10/2026 ; ✅ BUSY (`busy-letter-to-the-church`) partagé le 08/10/2026.
+- **Partage Facebook des films #51-58 (24/10/2026) : EN ATTENTE — problème d'image côté Facebook, RIEN n'a été publié.** Dans le composeur `post/create`, la carte du lien d'un film s'affiche SANS image (l'image proxifiée par Facebook est un pixel 1×1) alors que le Sharing Debugger affiche bien l'affiche ; même symptôme pour un film déjà partagé avec succès (`le-pacte-du-mal`), alors que `/soutenir` (image hébergée sur notre domaine) s'affiche avec son image. Cause : Facebook n'arrive pas, pour le moment, à récupérer les miniatures `img.youtube.com` (blocage/limite temporaire côté YouTube). Les balises og:image/width/height de nos pages sont correctes. **Règle de Raymond (24/10/2026) : on ne poste RIEN sans image.** Décision : attendre (option 1) plutôt que modifier le site ; piste de fond si le problème persiste (accord de Raymond requis) : servir la miniature depuis notre domaine (route `christmatic.tv/…` qui renvoie la miniature YouTube) et pointer `og:image` dessus. Les 8 URLs ont déjà été re-scrapées 2 fois dans le Sharing Debugger. Ordre de partage prévu, du plus ancien au plus récent : `le-faible`, `marie-par-prophetie-ep15`, `derriere-la-chaire`, `le-choix-de-dieu`, `autel-contre-autel`, `la-dette-de-l-enfer`, `marie-par-prophetie-ep16`, `la-cruche-brisee`. Astuce : le composeur a une mise en page qui change selon la taille de la fenêtre (coordonnées à relever sur chaque capture) ; la liste des groupes y est dans un ordre différent de celui des notes.
 - Note : « She Loved the Wrong Guy » (EN #32) a été renommé **In Love with a Playboy** (slug `in-love-with-a-playboy`) pour matcher l'affiche.
 - Rythme choisi par Raymond : ~5 films par session
 - **Piège Facebook découvert le 22/09/2026** : l'image d'un lien tout juste scrapé peut ne pas être disponible immédiatement côté Facebook (message Debugger *"images are processed asynchronously"*) — cliquer "Scrape Again" une seconde fois (~5-10s après) jusqu'à ce que l'image apparaisse, puis repartir d'une page `post/create` fraîche (le composer garde en cache le 1er scrape sans image). Et : toujours vérifier que le clic dans le champ de texte a bien pris le focus (taper un mot test avant le message complet) — sinon les caractères tapés (le "/" de l'URL) sont interprétés comme des raccourcis clavier Facebook et peuvent activer "Share to story" par erreur.

@@ -29,6 +29,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!film) return {}
 
   const url = `${SITE_URL}/films/${film.slug}`
+  // Miniature servie depuis notre domaine (copie de celle de YouTube) : l'aperçu Facebook/WhatsApp s'affiche toujours avec son image.
+  const image = film.youtube_id && film.thumbnail_url?.includes('img.youtube.com')
+    ? `${SITE_URL}/thumb/${film.youtube_id}`
+    : film.thumbnail_url
   const description = film.description || (isBilingualFilm(film.created_at)
     ? autoDescription(film.pays)
     : `${film.titre} — film chrétien de ${film.pays}, disponible gratuitement sur Christmatic.`)
@@ -42,8 +46,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       title: film.titre,
       description,
-      images: film.thumbnail_url ? [{
-        url: film.thumbnail_url,
+      images: image ? [{
+        url: image,
         width: 480,
         height: 360,
         alt: film.titre,
@@ -53,7 +57,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: film.titre,
       description,
-      images: film.thumbnail_url ? [film.thumbnail_url] : undefined,
+      images: image ? [image] : undefined,
     },
   }
 }

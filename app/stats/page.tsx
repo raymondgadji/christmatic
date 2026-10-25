@@ -34,6 +34,28 @@ export default async function StatsPage() {
   ).sort((a, b) => b[1] - a[1]).slice(0, 5)
   const titreParSlug: Record<string, string> = Object.fromEntries((films || []).map((f) => [f.slug, f.titre]))
 
+  // Lectures de films sur christmatic.tv (table play_events, voir docs/create_play_events.sql) :
+  // à comparer au compteur de vues de la playlist YouTube.
+  const { data: plays, error: playsError } = await supabase
+    .from('play_events')
+    .select('film_slug, event, created_at')
+    .limit(50000)
+
+  const playRows = (plays || []).filter((p) => p.event === 'play')
+  const play30Rows = (plays || []).filter((p) => p.event === 'play30')
+  const since7d = Date.now() - 7 * 24 * 3600 * 1000
+  const plays7d = playRows.filter((p) => new Date(p.created_at).getTime() >= since7d).length
+  const play30In7d = play30Rows.filter((p) => new Date(p.created_at).getTime() >= since7d).length
+  const firstPlayAt = playRows.length > 0
+    ? playRows.reduce((min, p) => (p.created_at < min ? p.created_at : min), playRows[0].created_at)
+    : null
+  const playsParFilm = Object.entries(
+    play30Rows.reduce((acc: Record<string, number>, p) => {
+      acc[p.film_slug] = (acc[p.film_slug] || 0) + 1
+      return acc
+    }, {})
+  ).sort((a, b) => b[1] - a[1]).slice(0, 5)
+
   const total = films?.length || 0
   const totalFr = films?.filter((f) => f.langue === 'fr').length || 0
   const totalEn = films?.filter((f) => f.langue === 'en').length || 0
@@ -170,6 +192,62 @@ export default async function StatsPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               {sharesParFilm.map(([slug, count]) => (
+                <div key={slug} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  fontSize: '14px',
+                  color: 'var(--color-text-muted)',
+                  padding: '6px 0',
+                  borderBottom: '0.5px solid var(--color-border)',
+                }}>
+                  <span>{titreParSlug[slug] || slug}</span>
+                  <span style={{ color: 'var(--color-text-primary)' }}>{count}</span>
+                </div>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '13px', color: 'var(--color-gold)', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          Lectures sur Christmatic
+        </h2>
+        {playsError ? (
+          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+            Suivi pas encore activé (table play_events absente — voir docs/create_play_events.sql).
+          </p>
+        ) : playRows.length === 0 ? (
+          <p style={{ fontSize: '13px', color: 'var(--color-text-muted)', lineHeight: 1.6 }}>
+            Aucune lecture enregistrée pour l&apos;instant.
+          </p>
+        ) : (
+          <>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px', marginBottom: '16px' }}>
+              {[
+                { label: 'Lectures démarrées', value: playRows.length },
+                { label: 'Lectures de 30 s ou plus', value: play30Rows.length },
+                { label: 'Démarrées (7 jours)', value: plays7d },
+                { label: '30 s ou plus (7 jours)', value: play30In7d },
+              ].map((stat) => (
+                <div key={stat.label} style={{
+                  background: 'var(--color-bg-secondary)',
+                  border: '0.5px solid var(--color-border)',
+                  borderRadius: '8px',
+                  padding: '16px',
+                }}>
+                  <div style={{ fontSize: '28px', fontWeight: 600, color: 'var(--color-gold)' }}>{stat.value}</div>
+                  <div style={{ fontSize: '12px', color: 'var(--color-text-muted)', marginTop: '4px' }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+            <p style={{ fontSize: '12px', color: 'var(--color-text-hint)', lineHeight: 1.6, marginBottom: '12px' }}>
+              Mesuré depuis le {firstPlayAt ? new Date(firstPlayAt).toLocaleDateString('fr-FR') : '—'} : une seule lecture comptée par film et par visite de page.
+              À comparer au compteur de vues de la playlist YouTube.
+              Classement ci-dessous : lectures de 30 s ou plus.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {playsParFilm.map(([slug, count]) => (
                 <div key={slug} style={{
                   display: 'flex',
                   justifyContent: 'space-between',

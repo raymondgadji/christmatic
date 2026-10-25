@@ -112,8 +112,9 @@ export default async function FilmPage({ params }: Props) {
 
       {film.youtube_id && (
         <FilmPlayer
-          src={`https://www.youtube.com/embed/${film.youtube_id}?list=${YOUTUBE_PLAYLIST_ID}&rel=0&modestbranding=1`}
+          src={`https://www.youtube.com/embed/${film.youtube_id}?list=${YOUTUBE_PLAYLIST_ID}&rel=0&modestbranding=1&enablejsapi=1`}
           title={film.titre}
+          filmSlug={film.slug}
         />
       )}
 

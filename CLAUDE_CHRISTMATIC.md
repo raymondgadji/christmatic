@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 24 octobre 2026 — Sprint 5 (connexion facultative e-mail + Google, favoris, interface FR/EN, e-mails Resend, page de confidentialité : en ligne ; reste test iPhone ; Stripe reporté) ; 8 nouveaux films ajoutés le 24/10/2026, catalogue à 113 films (112 en ligne) ; partages Facebook des 8 films en attente (voir section 15ter)
+> Dernière mise à jour : 25 octobre 2026 — Sprint 5 (connexion facultative e-mail + Google, favoris, interface FR/EN, e-mails Resend, page de confidentialité : en ligne ; reste test iPhone ; Stripe reporté) ; 8 nouveaux films le 24/10/2026 puis 2 le 25/10/2026 (Spirituals 5, Un Passé qui nous hante 1), catalogue à 115 films (114 en ligne) ; partages Facebook des 10 films terminés (voir section 15ter) ; carrousel d'accueil mis à jour le 25/10
 
 ---
 
@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (113 films)
+### Table films ✅ créée et peuplée (115 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,7 +230,7 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (113 films — 112 en ligne + 1 dépublié) ✅
+## 9. Films en base (115 films — 114 en ligne + 1 dépublié) ✅
 
 ### 🇫🇷 Films en Français (58 films — 57 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
@@ -293,6 +293,9 @@ CREATE TABLE favoris (
 | 56 | Marié par Prophétie — Épisode 15 (7SELAH) | Cameroun | 2026 | 1eivQ2iKYuQ |
 | 57 | Derrière la Chaire ? (Jésus Côte d'Ivoire) | Côte d'Ivoire | 2026 | iqXSqTwPUqg |
 | 58 | Le Faible (Atorishé Media Group) | Bénin | 2026 | 7jNcvQjXby4 |
+| 59 | Un Passé qui nous hante 1 (Jésus Côte d'Ivoire) | Côte d'Ivoire | 2026 | W7UlHhH874M |
+
+✅ **Film FR #59 en ligne (25/10/2026)** : « Un Passé qui nous hante tant 1 (compilé 1) » de la chaîne Jésus Côte d'Ivoire (2 h 17) ; titre sans « tant » ni « compilé » (choix de présentation), slug `un-passe-qui-nous-hante-1`. Synopsis FR + EN (choix de Raymond) tiré de la seule phrase YouTube (« Faut-il avouer son passé calamiteux à son conjoint ? »). Voir le SQL `docs/insert_films_2026-10-25.sql`.
 
 ✅ **Films #51-58 en ligne (24/10/2026)** : 8 films ajoutés par recensement de la playlist (113 vidéos au 24/10/2026 ; les nouveaux étaient en tête, positions 1 à 8), SQL `docs/insert_films_2026-10-24.sql` exécuté dans Supabase (« Success. No rows returned »), 8 pages vérifiées (HTTP 200, og:image, canonique, description, sitemap = 112 films). Pays : *Le Choix de Dieu* = Burkina Faso (titre YouTube « Burkinabé », choix de Raymond) ; Atorishé Media Group = Bénin pour *La Dette de l'Enfer* et *Le Faible*. Synopsis FR + EN (choix de Raymond le 24/10) ; *La Cruche Brisée* et *Autel contre Autel* sans synopsis (YouTube n'en donne pas) → description automatique bilingue. Chaque INSERT contient `published_at` (date YouTube avec fuseau) et `annee`.
 
@@ -380,6 +383,9 @@ CREATE TABLE favoris (
 | 53 | The Last Door (Fejosbaba TV) | Nigeria | 2026 | UZFMIF2Fa-o |
 | 54 | Wealth in the Dream 3 (GACEM Films) | Nigeria | 2026 | 49SNelgOT9k |
 | 55 | BUSY — Letter to the Church (God Said Media) | Nigeria | — | lnry1Ipw5Xk |
+| 56 | Spirituals 5 (The Winlos) | Nigeria | 2026 | _MwBbFvegk0 |
+
+✅ **Film EN #56 en ligne (25/10/2026)** : « Spirituals 5 » (The Winlos, dernier épisode de la série, 1 h 56), titre sans studio comme Spirituals 1 à 4, slug `spirituals-5`, `langue` = en. Synopsis FR + EN issu de la seule phrase YouTube (« concluding episode of this series »). Deux pages vérifiées en ligne le 25/10 (HTTP 200, canonique, og:image `/thumb/…`), sitemap = 114 films.
 
 ✅ Films FR #48-50 + EN #53-55 en ligne (08/10/2026, SQL exécuté par Raymond, vérifiés HTTP 200 + og:image OK + descriptions affichées). Recensement playlist : 105 vidéos annoncées, 100 lisibles (5 masquées/indisponibles), 6 nouveaux films. Pays de BUSY (God Said Media) confirmé Nigeria par Raymond. #48 sans description (aucune sur YouTube ni sur le web). SQL conservé dans `docs/insert_films_2026-10-08.sql`. Sharing Debugger Facebook à faire si partage.
 
@@ -504,7 +510,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] 6 nouveaux films (catalogue 105) + vraies dates YouTube (`published_at`, années corrigées) ✅
 - [x] 8 films partagés sur Facebook (gabarit + 7 groupes), file d'attente vide ✅
 - [x] Boutons de partage WhatsApp / Facebook / LinkedIn / Copier le lien + suivi des clics (`/stats`) ✅
-- [x] Logo à croix, grande image de partage (LinkedIn validé), carrousel d'accueil à 7 films ✅
+- [x] Logo à croix, grande image de partage (LinkedIn validé), carrousel d'accueil à 7 films ✅ (le carrousel = les 7 films `is_featured` les PLUS ANCIENS par `created_at` : pour ajouter un film, il faut en retirer un ; **Nora ne doit jamais être retirée** — décision de Raymond, gros succès ; mise à jour du 25/10/2026 : retiré Marié ép.14 + La Victoire du Premier-né, ajouté Spirituals 5 puis Un Passé qui nous hante 1 ; ordre = `created_at` décalé d'une seconde dans le SQL)
 - [x] Google Search Console : propriété vérifiée, sitemap soumis, canoniques par page, redirection `christmatic.tv` en 308, VideoObject `uploadDate` corrigé et validé (rapport Vidéos 39 valides / 0 invalide) ✅
 - [x] PWA installable (manifeste, icônes, service worker réseau d'abord, page hors connexion) — installée et testée sur Samsung A10 ✅
 - [x] Lecteur de film plein écran mobile (paysage automatique, sortie en un exit, bouton pleine largeur) ✅
@@ -641,7 +647,8 @@ Procédure par film (établie le 21 septembre 2026) :
 - ✅ Lot 3 CLÔTURÉ le 08/10/2026 : ✅ Alejo Oloore (`alejo-oloore-the-messenger-of-good-fortune`) partagé le 08/10/2026 ; ✅ Lagos to Gomorrah (`lagos-to-gomorrah`) partagé le 08/10/2026. **File d'attente Facebook entièrement vide au 08/10/2026 : tous les films du catalogue récent sont partagés.**
 - ✅ Lot 4 CLÔTURÉ le 08/10/2026 (6 films partagés, 7 groupes, Page incluse) : ✅ La Victoire du Premier-né (`la-victoire-du-premier-ne`) partagé le 08/10/2026 ; ✅ Le Pacte du Mal (`le-pacte-du-mal`) partagé le 08/10/2026 ; ✅ Marié par Prophétie Ép.14 (`marie-par-prophetie-ep14`) partagé le 08/10/2026 ; ✅ The Last Door (`the-last-door`) partagé le 08/10/2026 ; ✅ Wealth in the Dream 3 (`wealth-in-the-dream-3`) partagé le 08/10/2026 ; ✅ BUSY (`busy-letter-to-the-church`) partagé le 08/10/2026.
 - **MINIATURE SERVIE DEPUIS NOTRE DOMAINE (24/10/2026, essai demandé par Raymond, fonctionne)** : nouvelle route `app/thumb/[id]/route.ts` (`https://www.christmatic.tv/thumb/{youtube_id}`) qui renvoie la miniature `hqdefault` de YouTube (480×360, seuls les ids YouTube de 11 caractères sont acceptés, sinon 404 ; cache `public, s-maxage=604800`). `app/films/[slug]/page.tsx` : `og:image` et `twitter:image` pointent dessus quand `thumbnail_url` est une miniature YouTube (sinon `thumbnail_url` inchangée) ; le JSON-LD `thumbnailUrl` reste la miniature YouTube. **Résultat vérifié : dans le composeur Facebook, l'image de « Le Faible » s'affiche (480×250) alors qu'elle était vide (1×1) avec l'adresse YouTube.** Rien d'autre ne change (12 URLs testées en 200, sitemap 112 films, canoniques inchangés). Retour arrière possible : `git revert c0f662c`. Conséquence pour les partages : Facebook garde en cache l'ancien `og:image` d'une URL déjà scrapée → refaire « Fetch new information » + « Scrape Again » avant de partager un film.
-- **Partage Facebook des films #51-58 (24/10/2026) : problème d'image côté Facebook, RIEN n'a été publié — SOLUTION CI-DESSUS.** Dans le composeur `post/create`, la carte du lien d'un film s'affiche SANS image (l'image proxifiée par Facebook est un pixel 1×1) alors que le Sharing Debugger affiche bien l'affiche ; même symptôme pour un film déjà partagé avec succès (`le-pacte-du-mal`), alors que `/soutenir` (image hébergée sur notre domaine) s'affiche avec son image. Cause : Facebook n'arrive pas, pour le moment, à récupérer les miniatures `img.youtube.com` (blocage/limite temporaire côté YouTube). Les balises og:image/width/height de nos pages sont correctes. **Règle de Raymond (24/10/2026) : on ne poste RIEN sans image.** Décision : attendre (option 1) plutôt que modifier le site ; piste de fond si le problème persiste (accord de Raymond requis) : servir la miniature depuis notre domaine (route `christmatic.tv/…` qui renvoie la miniature YouTube) et pointer `og:image` dessus. Les 8 URLs ont déjà été re-scrapées 2 fois dans le Sharing Debugger. Ordre de partage prévu, du plus ancien au plus récent : `le-faible`, `marie-par-prophetie-ep15`, `derriere-la-chaire`, `le-choix-de-dieu`, `autel-contre-autel`, `la-dette-de-l-enfer`, `marie-par-prophetie-ep16`, `la-cruche-brisee`. Astuce : le composeur a une mise en page qui change selon la taille de la fenêtre (coordonnées à relever sur chaque capture) ; la liste des groupes y est dans un ordre différent de celui des notes.
+- ✅ **Lot 5 CLÔTURÉ le 24/10/2026 (8 films partagés, Page + 7 groupes chacun, un « Post » approuvé par Raymond à chaque film)** : `le-faible`, `marie-par-prophetie-ep15`, `derriere-la-chaire`, `le-choix-de-dieu`, `autel-contre-autel`, `la-dette-de-l-enfer`, `marie-par-prophetie-ep16`, `la-cruche-brisee` — tous avec l'image (carte 480×250 grâce à la route `/thumb/`). Facebook a confirmé chaque envoi (« Your posts have been submitted. Posting to some groups may require admin approval before publishing »). **File d'attente Facebook vide au 24/10/2026.** ✅ **Lot 6 CLÔTURÉ le 25/10/2026 (2 films, Page + 7 groupes, accord de Raymond avant chaque « Post », image 480×250)** : `spirituals-5` puis `un-passe-qui-nous-hante-1`. **Piège du jour : l'ordre des groupes dans « Share to groups » change d'un jour à l'autre** (le 25/10, « LES AMIS DE JESUS CHRIST » en premier) : toujours relever les positions sur une capture avant de cliquer. Séquence stable par film : Debugger (2× « Scrape Again ») → `post/create` neuf → texte bilingue → vérifier l'image → « Share to groups » (cocher 1 groupe, descendre la liste, cocher les 6 autres, « Done ») → accord de Raymond → « Post ».
+- (Historique) **Partage Facebook des films #51-58 (24/10/2026) : problème d'image côté Facebook, rien n'avait été publié à ce moment — résolu par la solution ci-dessus.** Dans le composeur `post/create`, la carte du lien d'un film s'affiche SANS image (l'image proxifiée par Facebook est un pixel 1×1) alors que le Sharing Debugger affiche bien l'affiche ; même symptôme pour un film déjà partagé avec succès (`le-pacte-du-mal`), alors que `/soutenir` (image hébergée sur notre domaine) s'affiche avec son image. Cause : Facebook n'arrive pas, pour le moment, à récupérer les miniatures `img.youtube.com` (blocage/limite temporaire côté YouTube). Les balises og:image/width/height de nos pages sont correctes. **Règle de Raymond (24/10/2026) : on ne poste RIEN sans image.** Décision : attendre (option 1) plutôt que modifier le site ; piste de fond si le problème persiste (accord de Raymond requis) : servir la miniature depuis notre domaine (route `christmatic.tv/…` qui renvoie la miniature YouTube) et pointer `og:image` dessus. Les 8 URLs ont déjà été re-scrapées 2 fois dans le Sharing Debugger. Ordre de partage prévu, du plus ancien au plus récent : `le-faible`, `marie-par-prophetie-ep15`, `derriere-la-chaire`, `le-choix-de-dieu`, `autel-contre-autel`, `la-dette-de-l-enfer`, `marie-par-prophetie-ep16`, `la-cruche-brisee`. Astuce : le composeur a une mise en page qui change selon la taille de la fenêtre (coordonnées à relever sur chaque capture) ; la liste des groupes y est dans un ordre différent de celui des notes.
 - Note : « She Loved the Wrong Guy » (EN #32) a été renommé **In Love with a Playboy** (slug `in-love-with-a-playboy`) pour matcher l'affiche.
 - Rythme choisi par Raymond : ~5 films par session
 - **Piège Facebook découvert le 22/09/2026** : l'image d'un lien tout juste scrapé peut ne pas être disponible immédiatement côté Facebook (message Debugger *"images are processed asynchronously"*) — cliquer "Scrape Again" une seconde fois (~5-10s après) jusqu'à ce que l'image apparaisse, puis repartir d'une page `post/create` fraîche (le composer garde en cache le 1er scrape sans image). Et : toujours vérifier que le clic dans le champ de texte a bien pris le focus (taper un mot test avant le message complet) — sinon les caractères tapés (le "/" de l'URL) sont interprétés comme des raccourcis clavier Facebook et peuvent activer "Share to story" par erreur.

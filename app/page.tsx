@@ -76,6 +76,8 @@ export default async function Home() {
     .select('titre, slug, pays, annee, duree_min, langue, description, youtube_id, thumbnail_url')
     .eq('is_featured', true)
     .eq('is_published', true)
+    // featured_rank (facultatif, 1 = premier) puis ordre habituel : les plus anciens d'abord
+    .order('featured_rank', { ascending: true, nullsFirst: false })
     .order('created_at', { ascending: true })
     .limit(7)
 

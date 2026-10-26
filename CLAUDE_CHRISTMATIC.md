@@ -515,6 +515,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=[ta clé anon — ne jamais committer]
 - [x] PWA installable (manifeste, icônes, service worker réseau d'abord, page hors connexion) — installée et testée sur Samsung A10 ✅
 - [x] Lecteur de film plein écran mobile (paysage automatique, sortie en un exit, bouton pleine largeur) ✅
 - [x] Bilingue FR+EN pour les NOUVEAUX films (partage + synopsis) ; films existants inchangés ✅
+- [x] **Recherche de films (26/10/2026, demande de Raymond : « il n'y a pas de search option »)** : page `/recherche` (`app/recherche/page.tsx`, client) + lien « Recherche / Search » dans le menu (`components/Nav.tsx`). Filtre en direct sur titre, pays et thèmes, sans tenir compte des accents ni des majuscules (« marie prophetie » trouve « Marié par Prophétie »), tous les mots doivent correspondre ; `/recherche?q=nora` pré-remplit le champ ; page non référencée par Google (`noindex`, absente du sitemap) ; testée sur ordinateur et à largeur de téléphone (menu sur 2 lignes OK). Ne touche ni au lecteur ni au carrousel.
 - [x] Ajouts en anglais pour le public américain : `/english` (description + intro), hreflang, `llms.txt` ✅
 
 ### Sprint 5 ← EN COURS (ouvert le 10/10/2026)

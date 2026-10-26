@@ -55,6 +55,13 @@ export default function Nav() {
         <Link href="/english" style={{ fontSize: '13px', color: 'var(--color-text-muted)' }}>
           🇬🇧 English
         </Link>
+        <Link href="/recherche" style={{ fontSize: '13px', color: 'var(--color-text-muted)', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" />
+          </svg>
+          <T fr="Recherche" en="Search" />
+        </Link>
         <NavAccount />
         <Link href="/soutenir" style={{
           fontSize: '13px',

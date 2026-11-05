@@ -1,6 +1,6 @@
 # CLAUDE_CHRISTMATIC.md — Christmatic
 > Bible du projet. À fournir au CTO (Claude) à chaque nouvelle session de travail.
-> Dernière mise à jour : 26 octobre 2026 (+2 films EN #57-58, recherche `/recherche`) — Sprint 5 (connexion facultative e-mail + Google, favoris, interface FR/EN, e-mails Resend, page de confidentialité : en ligne ; reste test iPhone ; Stripe reporté) ; 8 nouveaux films le 24/10/2026 puis 2 le 25/10/2026 (Spirituals 5, Un Passé qui nous hante 1), catalogue à 115 films (114 en ligne) ; partages Facebook des 10 films terminés (voir section 15ter) ; carrousel d'accueil mis à jour le 25/10
+> Dernière mise à jour : 05 novembre 2026 (+22 films, catalogue à 139 ; partages Facebook du lot 8 à faire un à un, nouveaux groupes) — Sprint 5 (connexion facultative e-mail + Google, favoris, interface FR/EN, e-mails Resend, page de confidentialité : en ligne ; reste test iPhone ; Stripe reporté) ; 8 nouveaux films le 24/10/2026 puis 2 le 25/10/2026 (Spirituals 5, Un Passé qui nous hante 1), catalogue à 115 films (114 en ligne) ; partages Facebook des 10 films terminés (voir section 15ter) ; carrousel d'accueil mis à jour le 25/10
 
 ---
 
@@ -190,7 +190,7 @@ PayPal_Logo_Icon_2014.svg ← icône P seule (pour petits espaces)
 
 ## 8. Base de Données
 
-### Table films ✅ créée et peuplée (117 films)
+### Table films ✅ créée et peuplée (139 films)
 ```sql
 CREATE TABLE films (
   id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -230,7 +230,7 @@ CREATE TABLE favoris (
 
 ---
 
-## 9. Films en base (117 films — 116 en ligne + 1 dépublié) ✅
+## 9. Films en base (139 films — 138 en ligne + 1 dépublié) ✅
 
 ### 🇫🇷 Films en Français (58 films — 57 en ligne + 1 dépublié)
 | # | Titre | Pays | Année | YouTube ID |
@@ -388,6 +388,8 @@ CREATE TABLE favoris (
 | 58 | The Price of One Mistake (The Only Laurel / The Winlos) | Nigeria | 2026 | CRR16zDLSfI |
 
 ✅ **Films EN #57-58 en ligne (26/10/2026)** : playlist passée de 114 à 116 vidéos ; SQL `docs/insert_films_2026-10-26.sql` exécuté (« Success »), pages vérifiées (HTTP 200, canonique, og:image `/thumb/…`), sitemap = 116 films. *The Years I Gave — Part 1* : synopsis FR + EN tiré du texte YouTube (choix de Raymond le 26/10) ; *The Price of One Mistake* : aucune description sur YouTube → description automatique bilingue. Pays = Nigeria (chaînes déjà connues). Pas de changement du carrousel.
+
+✅ **22 films ajoutés le 05/11/2026** (playlist passée de 116 à 145 vidéos ; SQL `docs/insert_films_2026-11-05.sql`, généré par `docs/gen_insert_2026-11-05.py`, exécuté dans Supabase : « Success », 22/22 en base, pages + miniatures `/thumb/` en 200, sitemap = 138 films). **Choix de Raymond** : seulement les 22 films récents (octobre-novembre 2026) ; les 7 plus anciens de la playlist ne sont PAS ajoutés (After Amen, Fearless, The Game, Four Days Late, The God Who Speaks (documentaire), Hope Against Hope, The Corridor) ; synopsis FR + EN tiré des seuls textes YouTube (NULL quand YouTube n'en donne pas : Lost and Bound, Rebuild, Un Passé qui nous hante 2, Labels, Wishlist) ; pays de *Jeunes de Lumière* (chaîne Les chretiens4.0) = Côte d'Ivoire (choix de Raymond) ; *NUEL — Beyond the Silence* ajouté bien que la vidéo soit **non répertoriée** sur YouTube (Raymond l'a mise dans sa playlist). FR : *Un Passé qui nous hante 2* (#60), *Jeunes de Lumière* (#61), *Marié par Prophétie — Épisode 17* (#62, Cameroun). EN (#59-77, Nigeria) : Church Brothers Are Fine But…, NUEL, Lost and Bound, The Years I Gave — Part 2, Rebuild — New Wine Season 2, The Walking Stick 2, For This Cause, When God Whispers, The Waiting Season, The Wasted Evangelist, Labels, Man of the House, Desperate Bride, Apostasy, Wishlist, Holy and Broke, The Price of His Words, Slaughter's Clinic, Marry Your Kind. Slugs = titres en minuscules avec tirets (ex. `nuel-beyond-the-silence`, `marie-par-prophetie-ep17`, `slaughters-clinic`).
 
 ✅ **Film EN #56 en ligne (25/10/2026)** : « Spirituals 5 » (The Winlos, dernier épisode de la série, 1 h 56), titre sans studio comme Spirituals 1 à 4, slug `spirituals-5`, `langue` = en. Synopsis FR + EN issu de la seule phrase YouTube (« concluding episode of this series »). Deux pages vérifiées en ligne le 25/10 (HTTP 200, canonique, og:image `/thumb/…`), sitemap = 114 films.
 
